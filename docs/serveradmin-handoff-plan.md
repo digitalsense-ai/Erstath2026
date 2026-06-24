@@ -1,68 +1,142 @@
-# ServerAdmin Handoff Plan v2.0
+# ServerAdmin Handoff Plan v3.0
 
-## Formål
+## Purpose
 
-Dette dokument er skrevet til ServerAdmin eller en teknisk udvikler, der skal overtage opsætning, implementering og senere deployment af ErstatningsHjælp.
+This document is the primary handoff guide for ServerAdmin or any developer who will implement ErstatningsHjælp MVP 0.1.
 
-Projektet skal kunne bygges uden at ServerAdmin har været med i hele idé- og designfasen.
+It summarizes:
 
-Derfor samler dette dokument:
-
-- projektstatus
-- vigtigste dokumenter
-- implementeringsrækkefølge
+- current project status
+- implementation order
+- key documents
 - GitHub Issues
-- sikkerhedsregler
-- tekniske beslutninger
-- første MVP-milepæl
+- PR plans
+- security rules
+- MVP boundaries
+- next technical steps
+
+The goal is that implementation can begin without requiring the developer to read the full chat history.
 
 ---
 
-# 1. Kort projektbeskrivelse
-
-ErstatningsHjælp er en AI-understøttet platform til indledende screening og prioritering af potentielle patientskade- og erstatningssager.
-
-Første version skal ikke være et fuldt juridisk sagsbehandlingssystem.
-
-Første version skal bevise denne kernefunktion:
+# 1. Current status
 
 ```text
-Bruger skriver kort hvad der skete
-↓
-AI analyserer sagen
-↓
-Systemet udtrækker fakta
-↓
-Systemet beregner scores
-↓
-Systemet stiller næste relevante spørgsmål
-↓
-Lead vises i internt CRM
+Project: ErstatningsHjælp
+Current milestone: MVP 0.1 - AI Screening & CRM
+Current phase: Implementation preparation complete
+Implementation status: Not started
+ServerAdmin status: Awaiting implementation start
+```
+
+The planning layer is complete enough for implementation.
+
+The next real technical step is:
+
+```text
+PR-001 Laravel Foundation
 ```
 
 ---
 
-# 2. Projektstatus
+# 2. Project asset overview
 
-Designfasen er afsluttet.
-
-Projektet har nu:
-
-- 17 hoveddokumenter
-- 6 prompt-filer
-- 6 epics
-- GitHub Issues #1-#15
-- Sprint 0, Sprint 1 og Sprint 2 specificeret
-
-Laravel-kode er endnu ikke implementeret.
-
-ServerAdmin skal derfor starte med foundation og derefter følge issue-rækkefølgen.
+```text
+Documents: 21
+Prompts: 6
+Epics: 8
+GitHub Issues: #1-#30 planned/open, plus #16 closed as duplicate
+PR Plans: PR-001 to PR-009
+Release documents: 2
+Handoff plan: 1
+Governance document: 1
+Implementation: 0%
+```
 
 ---
 
-# 3. Vigtigste dokumenter
+# 3. Short project description
 
-## Core documentation
+ErstatningsHjælp is an AI-assisted lead screening and internal CRM system.
+
+The first version is not a full legal case platform.
+
+MVP 0.1 must prove this flow:
+
+```text
+User writes a short description
+↓
+AI screens the lead
+↓
+System extracts structured facts
+↓
+System calculates scores
+↓
+System asks the next relevant question
+↓
+Lead is saved
+↓
+Internal user reviews the lead in CRM
+```
+
+---
+
+# 4. MVP 0.1 scope
+
+## Must include
+
+```text
+Laravel foundation
+Core database migrations
+Core Eloquent models
+Prompt Repository
+AI screening service
+AI JSON validation
+Deterministic scoring service
+Screening start endpoint
+Continue screening endpoint
+Internal authentication
+Lead list API
+Lead detail API
+CRM lead board
+CRM lead detail page
+Lead status updates
+Testing foundation
+Security/compliance foundation
+```
+
+## Must not include
+
+```text
+Advanced identity integrations
+Authorization signing flows
+Active file upload implementation
+Advanced document analysis
+Automated final decision
+Automated external submission
+Production deployment
+```
+
+These are later-release items.
+
+---
+
+# 5. Key documents
+
+## Start here
+
+```text
+README.md
+docs/serveradmin-handoff-plan.md
+github/MVP-0.1-Release-Plan.md
+github/MVP-0.1-Milestone.md
+docs/18-architecture-governance.md
+docs/19-architecture-review-final.md
+docs/20-data-dictionary-v2.md
+docs/21-consistency-review.md
+```
+
+## Core architecture
 
 ```text
 docs/01-database-blueprint.md
@@ -71,20 +145,22 @@ docs/03-scoring-engine.md
 docs/04-conversation-engine.md
 docs/05-crm-workflow.md
 docs/06-domain-model.md
-docs/07-mvp-roadmap.md
 docs/08-api-specification.md
-docs/09-security-gdpr.md
-docs/10-testing-strategy.md
-docs/11-laravel-build-queue.md
-docs/12-data-dictionary.md
-docs/13-ai-cost-operations-model.md
-docs/14-business-metrics-kpi-framework.md
-docs/15-case-intelligence-roadmap.md
-docs/16-project-review.md
-docs/17-user-journey.md
+docs/20-data-dictionary-v2.md
 ```
 
-## Prompt Pack
+## Quality and security
+
+```text
+docs/09-security-gdpr.md
+docs/10-testing-strategy.md
+docs/18-architecture-governance.md
+docs/21-consistency-review.md
+github/Epic-07-Testing-QA-Safety-Net.md
+github/Epic-08-Security-Compliance-Hardening.md
+```
+
+## Prompt pack
 
 ```text
 prompts/01-screening-system-prompt.md
@@ -95,7 +171,9 @@ prompts/05-summary-prompt.md
 prompts/06-case-category-prompt.md
 ```
 
-## Epics
+---
+
+# 6. Epics
 
 ```text
 github/Epic-01-Laravel-Foundation.md
@@ -104,33 +182,15 @@ github/Epic-03-CRM.md
 github/Epic-04-Testing.md
 github/Epic-05-Security-GDPR.md
 github/Epic-06-Documents.md
+github/Epic-07-Testing-QA-Safety-Net.md
+github/Epic-08-Security-Compliance-Hardening.md
 ```
 
 ---
 
-# 4. Arbejdsprincip
+# 7. Implementation order
 
-Alt teknisk arbejde skal ske via GitHub Issues.
-
-Hver opgave skal have:
-
-- tydeligt mål
-- konkret opgaveliste
-- acceptance criteria
-- relevant dokument-reference
-- commit eller pull request når opgaven er færdig
-
-Arbejd ikke direkte ud fra løse chatbeskeder.
-
-GitHub Issues er den officielle arbejdsordre.
-
----
-
-# 5. MVP 0.1 - Implementeringsrækkefølge
-
-## Phase 1 - Laravel Foundation
-
-Start her.
+## Sprint 0 - Foundation
 
 ```text
 #1 Laravel Foundation
@@ -138,37 +198,18 @@ Start her.
 #3 Core Eloquent Models
 ```
 
-Målet er at få Laravel til at køre lokalt og have databasefundamentet klar.
-
----
-
-## Phase 2 - AI Service Layer
-
-Fortsæt her efter foundation.
+## Sprint 1 - AI Screening
 
 ```text
 #4 Prompt Repository
 #5 AiScreeningService
 #6 AI JSON Validator
 #7 LeadScoringService
-```
-
-Målet er at gøre AI-laget implementerbart og testbart.
-
----
-
-## Phase 3 - Public Screening API
-
-```text
 #8 POST /api/v1/screening/start
 #9 POST /api/v1/screening/{lead}/message
 ```
 
-Målet er at kunne starte og fortsætte en AI-screening.
-
----
-
-## Phase 4 - Internal CRM API and UI
+## Sprint 2 - CRM
 
 ```text
 #10 GET /api/v1/leads/{lead}
@@ -179,164 +220,99 @@ Målet er at kunne starte og fortsætte en AI-screening.
 #15 Lead Status Updates
 ```
 
-Målet er at en intern bruger kan se, forstå og behandle leads.
-
----
-
-# 6. GitHub Issues overview
-
-## Sprint 0 - Foundation
-
-### Issue #1 - Laravel Foundation
-
-Mål:
-
-- Installere Laravel 12 i repository root
-- Sikre at projektet starter lokalt
-- Sikre at `.env.example` findes
-- Sikre at `.env` ikke committes
-
-Forventede kommandoer:
-
-```bash
-composer create-project laravel/laravel .
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan serve
-```
-
-Acceptance criteria:
-
-```bash
-php artisan serve
-```
-
-starter applikationen uden fejl.
-
----
-
-### Issue #2 - Core Database Migrations
-
-Opret tabeller:
+## Sprint 3 - Testing and QA
 
 ```text
-leads
-lead_conversations
-lead_scores
-lead_entities
-lead_assessments
-lead_missing_information
-lead_documents
+#17 Create screening test fixtures
+#18 Add safe dummy data seeders
+#19 Add scoring unit tests
+#20 Add AI JSON validation tests
+#21 Add screening endpoint feature tests
+#22 Add CRM access and authentication tests
+#23 Add basic CI test workflow
 ```
 
-Reference:
+## Sprint 4 - Security and Compliance
 
 ```text
-docs/01-database-blueprint.md
-docs/12-data-dictionary.md
+#24 Create audit log foundation
+#25 Define role and permission model
+#26 Create consent tracking foundation
+#27 Create data retention policy
+#28 Create security review checklist
+#29 Define sensitive data handling rules
+#30 Create operational security checklist
 ```
 
-Acceptance criteria:
-
-```bash
-php artisan migrate
-```
-
-kører uden fejl.
+Issue #16 was closed as a duplicate and should not be used for planning.
 
 ---
 
-### Issue #3 - Core Eloquent Models
+# 8. PR plans
 
-Opret modeller:
+Detailed PR plans currently exist for the first implementation sequence:
 
 ```text
-Lead
-ConversationMessage
-LeadScore
-LeadEntity
-LeadAssessment
-MissingInformation
-Document
+github/PR-001-Laravel-Foundation.md
+github/PR-002-Core-Database-Migrations.md
+github/PR-003-Core-Eloquent-Models.md
+github/PR-004-Prompt-Repository.md
+github/PR-005-AiScreeningService.md
+github/PR-006-AI-JSON-Validator.md
+github/PR-007-LeadScoringService.md
+github/PR-008-Screening-Start-Endpoint.md
+github/PR-009-Continue-Screening-Endpoint.md
 ```
 
-Reference:
+Recommended build order:
 
 ```text
-docs/06-domain-model.md
+PR-001 → PR-002 → PR-003 → PR-004 → PR-005 → PR-006 → PR-007 → PR-008 → PR-009
 ```
 
-Acceptance criteria:
-
-- relationer er defineret
-- fillable/casts er defineret
-- modeller matcher domænemodellen
+After PR-009, continue with CRM issues #10-#15.
 
 ---
 
-# 7. Sprint 1 - AI Screening
+# 9. MVP-active status flow
 
-## Issue #4 - Prompt Repository
+Use this as the active MVP 0.1 flow:
 
-Opret service:
-
-```php
-App\Services\Prompts\PromptRepository
+```text
+NEW
+↓
+SCREENING
+↓
+AWAITING_INFO
+↓
+QUALIFIED
+↓
+REVIEW
+↓
+CLOSED
 ```
 
-Ansvar:
+Side branch:
 
-- læse prompt-filer fra `/prompts`
-- returnere prompt content som string
-- håndtere manglende prompt sikkert
+```text
+REJECTED
+```
+
+Future-reserved statuses must not be activated before their flows exist.
 
 ---
 
-## Issue #5 - AiScreeningService
+# 10. Scoring model
 
-Opret service:
+MVP 0.1 uses three core scores:
 
-```php
-App\Services\AI\AiScreeningService
+```text
+case_strength
+information_quality
+commercial_value
 ```
 
-Ansvar:
-
-- kalde AI provider
-- bruge PromptRepository
-- returnere decoded JSON array
-- håndtere provider-fejl sikkert
-
----
-
-## Issue #6 - AI JSON Validator
-
-Opret service:
-
-```php
-App\Services\AI\AiResponseValidator
-```
-
-Ansvar:
-
-- validere AI JSON
-- validere required fields
-- validere score ranges
-- validere allowed values
-- sikre safe fallback ved fejl
-
----
-
-## Issue #7 - LeadScoringService
-
-Opret service:
-
-```php
-App\Services\Scoring\LeadScoringService
-```
-
-Scoreformel:
+Official overall score formula:
 
 ```text
 overall_score =
@@ -347,399 +323,115 @@ overall_score =
 (commercial_value * 0.30)
 ```
 
-Vigtigt:
-
-AI kan foreslå vurdering, men officiel score bør være deterministisk og testbar.
+The deterministic LeadScoringService should be the official scoring source.
 
 ---
 
-## Issue #8 - Screening Start Endpoint
-
-Endpoint:
-
-```http
-POST /api/v1/screening/start
-```
-
-Ansvar:
-
-- oprette lead
-- gemme første brugerbesked
-- kalde AI pipeline
-- gemme entities, scores, mangler og assessment
-- returnere next_question
-
----
-
-## Issue #9 - Continue Screening Endpoint
-
-Endpoint:
-
-```http
-POST /api/v1/screening/{lead}/message
-```
-
-Ansvar:
-
-- gemme ny brugerbesked
-- bygge relevant kontekst
-- kalde AI pipeline
-- opdatere lead data
-- returnere næste spørgsmål eller handling
-
----
-
-# 8. Sprint 2 - CRM
-
-## Issue #10 - Get Lead
-
-Endpoint:
-
-```http
-GET /api/v1/leads/{lead}
-```
-
-Bruges af lead detail page.
-
----
-
-## Issue #11 - List Leads
-
-Endpoint:
-
-```http
-GET /api/v1/leads
-```
-
-Bruges af CRM lead board.
-
-Skal understøtte filtrering og pagination.
-
----
-
-## Issue #12 - Internal Authentication
-
-Public endpoints:
-
-```http
-POST /api/v1/screening/start
-POST /api/v1/screening/{lead}/message
-```
-
-Protected endpoints/routes:
-
-```http
-GET /api/v1/leads
-GET /api/v1/leads/{lead}
-PATCH /api/v1/leads/{lead}/status
-GET /crm/*
-```
-
----
-
-## Issue #13 - CRM Lead Board
-
-Route:
-
-```http
-GET /crm/leads
-```
-
-Viser:
-
-- status
-- category
-- scores
-- summary
-- recommended action
-
----
-
-## Issue #14 - Lead Detail Page
-
-Route:
-
-```http
-GET /crm/leads/{lead}
-```
-
-Viser:
-
-- kontaktinfo
-- samtalehistorik
-- scores
-- entities
-- missing information
-- AI summary
-- recommended action
-
----
-
-## Issue #15 - Lead Status Updates
-
-Endpoint:
-
-```http
-PATCH /api/v1/leads/{lead}/status
-```
-
-Statusser:
+# 11. Case categories
 
 ```text
-NEW
-SCREENING
-AWAITING_INFO
-QUALIFIED
-REJECTED
-MITID_PENDING
-POA_PENDING
-DOCUMENTS_PENDING
-REVIEW
-ACTIVE_CASE
-CLOSED
+A = strong lead
+B = promising lead with missing information
+C = uncertain lead
+D = weak, irrelevant or outdated lead
+```
+
+`unknown` may be used only as a validation fallback, not as the intended final business category.
+
+---
+
+# 12. Recommended action values
+
+Canonical MVP 0.1 values:
+
+```text
+collect_more_information
+manual_review
+qualified
+reject
+```
+
+Optional internal fallback:
+
+```text
+unknown
+```
+
+Future-oriented values should not drive MVP 0.1 flow until the related features exist.
+
+---
+
+# 13. Security rules
+
+From the beginning:
+
+```text
+Do not commit secrets
+Do not commit real personal data
+Do not commit real case material
+Use dummy fixtures only
+Protect all internal CRM routes
+Keep public endpoints minimal
+Validate AI output before storing official assessment data
+Avoid unnecessary raw content in logs
+Do not expose raw AI/debug payloads publicly
 ```
 
 ---
 
-# 9. Første tekniske demo
+# 14. What ServerAdmin should do first
 
-Når Issues #1-#9 er færdige, skal systemet kunne:
+Start with:
 
 ```text
-Bruger skriver:
-"Min mor fik ikke diagnosticeret kræft i tide og døde senere."
-↓
-Laravel modtager request
-↓
-Lead oprettes
-↓
-AI analyserer teksten
-↓
-Entities udtrækkes
-↓
-Scores beregnes
-↓
-Next question returneres
+github/PR-001-Laravel-Foundation.md
 ```
 
-Når Issues #10-#15 er færdige, skal systemet også kunne:
+Expected result:
 
 ```text
-Intern bruger logger ind
-↓
-Ser leads i CRM
-↓
-Åbner lead detail page
-↓
-Ser AI summary, scores og samtale
-↓
-Ændrer status
+Laravel installed in repository root
+Application runs locally
+.env.example exists
+.env is not committed
+Basic README instructions still valid
+```
+
+Do not start CRM, AI integration, authentication, or deployment before the foundation works.
+
+---
+
+# 15. Definition of ready for PR-001
+
+```text
+Repository accessible
+README current
+PR-001 plan exists
+MVP scope understood
+No production deployment expected
+No real data required
+No secrets required in repository
+```
+
+Status:
+
+```text
+Ready for PR-001 = yes
 ```
 
 ---
 
-# 10. Teknologistak
+# 16. Final handoff note
 
-Forventet stack:
+The project is ready for implementation, but not yet implemented.
 
-```text
-Laravel 12
-PHP 8.3+
-MySQL
-Laravel Breeze eller tilsvarende auth
-Livewire eller Blade til CRM MVP
-OpenAI API
-Nginx senere
-Hetzner VPS senere
-```
+The correct next step is code, not more product scope.
 
----
-
-# 11. Environment variables
-
-Følgende skal defineres i `.env.example`:
-
-```env
-APP_NAME=ErstatningsHjaelp
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=erstatningshjaelp
-DB_USERNAME=root
-DB_PASSWORD=
-
-OPENAI_API_KEY=
-OPENAI_DEFAULT_MODEL=
-OPENAI_STRONG_MODEL=
-OPENAI_MAX_INPUT_TOKENS=
-OPENAI_MAX_OUTPUT_TOKENS=
-AI_LOG_INPUTS=true
-AI_LOG_OUTPUTS=true
-AI_MONTHLY_BUDGET_USD=
-```
-
-`.env` må aldrig committes.
-
----
-
-# 12. Vigtige sikkerhedsregler
-
-Der må aldrig committes:
-
-- rigtige CPR-numre
-- rigtige patientjournaler
-- rigtige helbredsoplysninger
-- rigtige fuldmagter
-- API-nøgler
-- `.env`
-- private dokumenter
-- database dumps med persondata
-
-Udvikling og tests skal bruge dummy-data.
-
----
-
-# 13. MVP scope
-
-## Skal bygges først
+Final instruction:
 
 ```text
-Laravel foundation
-Database
-AI screening
-Scores
-Next question
-Lead storage
-Basic CRM
-Lead status update
+Follow the issues.
+Follow the PR plans.
+Keep MVP 0.1 small.
+Do not expand scope before PR-001 to PR-009 are complete.
 ```
-
-## Må ikke bygges i MVP 0.1
-
-```text
-MitID
-Fuldmagt
-Dokumentupload
-Journalanalyse
-Klagegenerator
-Similar Case Engine
-Win Probability Engine
-Automatisk juridisk vurdering
-Automatisk indsendelse
-```
-
-Disse funktioner kommer senere.
-
----
-
-# 14. Definition of MVP 0.1 Done
-
-MVP 0.1 er klar når:
-
-- [ ] Laravel kører lokalt
-- [ ] Database migrations virker
-- [ ] Core models findes
-- [ ] PromptRepository virker
-- [ ] AiScreeningService virker med mock eller rigtig API
-- [ ] AI JSON valideres
-- [ ] LeadScoringService virker
-- [ ] Screening start endpoint virker
-- [ ] Continue screening endpoint virker
-- [ ] Intern auth virker
-- [ ] CRM lead board virker
-- [ ] Lead detail page virker
-- [ ] Status update virker
-- [ ] Ingen følsomme testdata findes i repoet
-- [ ] Basic tests findes for kerneflow
-
----
-
-# 15. Deployment senere
-
-Deployment er ikke del af første lokale MVP.
-
-Når MVP fungerer lokalt, skal ServerAdmin senere forberede:
-
-- VPS
-- PHP version
-- Composer
-- MySQL
-- Nginx
-- SSL
-- queue worker
-- scheduler
-- backup
-- secure file storage
-- monitoring
-- log rotation
-- restore-test
-
----
-
-# 16. Anbefalet arbejdsordre til ServerAdmin
-
-Start altid her:
-
-```text
-#1
-#2
-#3
-```
-
-Fortsæt derefter:
-
-```text
-#4
-#5
-#6
-#7
-```
-
-Derefter:
-
-```text
-#8
-#9
-```
-
-Til sidst for første MVP:
-
-```text
-#12
-#10
-#11
-#13
-#14
-#15
-```
-
-Bemærk: #12 kan implementeres før #10-#11 hvis CRM skal beskyttes tidligt.
-
----
-
-# 17. Samlet handoff-konklusion
-
-Projektet er klar til teknisk opstart.
-
-ServerAdmin skal ikke starte med deployment, MitID, dokumentupload eller avanceret AI.
-
-ServerAdmin skal bygge MVP-kernen:
-
-```text
-Laravel
-↓
-Database
-↓
-AI Screening
-↓
-API
-↓
-CRM
-```
-
-Når denne kerne virker, kan næste fase planlægges.
