@@ -11,7 +11,7 @@ Målet er ikke, at AI skal afgøre en sag juridisk. Målet er at bruge AI til at
 - prioritere de bedste sager
 - forberede sagsbehandlerens arbejde
 
-Systemet skal fungere som en lead engine, hvor svage eller irrelevante sager filtreres tidligt fra, mens lovende sager senere kan sendes videre til MitID, fuldmagt, dokumentupload og manuel vurdering.
+Systemet skal fungere som en lead engine, hvor svage eller irrelevante sager filtreres tidligt fra, mens lovende sager senere kan sendes videre til næste kvalificeringstrin og manuel vurdering.
 
 ---
 
@@ -22,16 +22,17 @@ Current phase: Implementation preparation complete
 Current milestone: MVP 0.1 - AI Screening & CRM
 Current priority: PR-001 Laravel Foundation
 Implementation status: Not started
+ServerAdmin status: Awaiting implementation start
 ```
 
 ## Project assets
 
 ```text
-Documents: 18
+Documents: 21
 Prompts: 6
-Epics: 6
-GitHub Issues: 15
-PR Plans: 9
+Epics: 8
+GitHub Issues: 30 planned/open + 1 closed duplicate
+PR Plans: 9 active implementation plans
 Release documents: 2
 Handoff plan: 1
 Governance document: 1
@@ -77,16 +78,16 @@ Internal user reviews lead in CRM
 
 ---
 
-## Kerneidé
+# Kerneidé
 
 Traditionelt flow:
 
 ```text
 Landing page
 ↓
-Lang formular
+Long form
 ↓
-Manuel vurdering
+Manual review
 ```
 
 ErstatningsHjælp-flow:
@@ -96,80 +97,61 @@ Landing page
 ↓
 Bruger fortæller kort hvad der skete
 ↓
-AI stiller 3-5 intelligente spørgsmål
+AI stiller få intelligente spørgsmål
 ↓
 System beregner 3 scores
 ↓
 Kun lovende sager går videre
 ↓
-MitID senere
-↓
-Fuldmagt senere
-↓
-Dokumentupload senere
-↓
-Sagsbehandler
+Sagsbehandler vurderer lead i CRM
 ```
 
 ---
 
-## De 3 hovedscores
+# De 3 hovedscores
 
-### 1. Case Strength Score
+## 1. Case Strength Score
 
 Måler hvor stærk sagen umiddelbart ser ud.
 
-Eksempler:
-
-- Er sagen inden for frister?
-- Er der en tydelig skade?
-- Er der mulig sammenhæng mellem behandling og skade?
-- Er der varigt mén, dødsfald eller økonomisk tab?
-- Findes der dokumentation?
-
-### 2. Information Quality Score
+## 2. Information Quality Score
 
 Måler hvor meget brugbar information systemet har.
 
-Eksempler:
-
-- Dato kendt
-- Hospital/behandlingssted kendt
-- Skadetype kendt
-- Konsekvenser beskrevet
-- Dokumenter findes
-
-### 3. Commercial Value Score
+## 3. Commercial Value Score
 
 Måler om sagen er økonomisk interessant for virksomheden.
 
-Eksempler:
+## Overall Score
 
-- Forventet erstatning
-- Varigt mén
-- Tabt arbejdsfortjeneste
-- Dødsfald/forsørgertab
-- No cure no pay-egnethed
+```text
+overall_score =
+(case_strength * 0.50)
++
+(information_quality * 0.20)
++
+(commercial_value * 0.30)
+```
 
 ---
 
-## Sagskategorier
+# Sagskategorier
 
 | Kategori | Beskrivelse | Handling |
 |---|---|---|
-| A-sag | Meget lovende sag | Gå videre til næste kvalificeringstrin |
-| B-sag | Lovende, men mangler info | AI stiller flere spørgsmål eller beder om dokumenter senere |
-| C-sag | Usikker sag | Manuel vurdering eller flere oplysninger |
-| D-sag | Svag/irrelevant/forældet | Afvis venligt eller giv generel information |
+| A | Stærk sag | Gå videre til næste kvalificeringstrin |
+| B | Lovende, men mangler info | Indhent flere oplysninger |
+| C | Usikker sag | Manuel vurdering eller flere oplysninger |
+| D | Svag/irrelevant/forældet | Afvis venligt eller giv generel information |
 
 ---
 
-## Foreslået teknologistak
+# Foreslået teknologistak
 
 - Laravel 12
 - Livewire 3 eller Blade til første CRM
 - MySQL
-- OpenAI API
+- OpenAI API via isoleret service-lag
 - Laravel Breeze eller tilsvarende auth
 - Hetzner VPS eller tilsvarende VPS senere
 
@@ -199,6 +181,9 @@ erstatningshjaelp/
 │   ├── 16-project-review.md
 │   ├── 17-user-journey.md
 │   ├── 18-architecture-governance.md
+│   ├── 19-architecture-review-final.md
+│   ├── 20-data-dictionary-v2.md
+│   ├── 21-consistency-review.md
 │   ├── serveradmin-handoff-plan.md
 │   └── sprint-00.md
 │
@@ -217,6 +202,8 @@ erstatningshjaelp/
 │   ├── Epic-04-Testing.md
 │   ├── Epic-05-Security-GDPR.md
 │   ├── Epic-06-Documents.md
+│   ├── Epic-07-Testing-QA-Safety-Net.md
+│   ├── Epic-08-Security-Compliance-Hardening.md
 │   ├── MVP-0.1-Release-Plan.md
 │   ├── MVP-0.1-Milestone.md
 │   ├── PR-001-Laravel-Foundation.md
@@ -260,22 +247,24 @@ Laravel-projektet placeres som udgangspunkt direkte i repo-roden, medmindre ande
 - CRM lead board
 - CRM lead detail page
 - Lead status updates
+- Testing and QA foundation
+- Security and compliance foundation
 
 ## Version 0.1.0 skal ikke indeholde
 
-- MitID
-- Fuldmagt
-- Dokumentupload som aktiv funktion
-- Journalanalyse
-- Klagegenerator
-- Automatisk juridisk afgørelse
-- Automatisk erstatningsberegning
-- Automatisk myndighedsindsendelse
-- Produktion deployment
+- Advanced identity integrations
+- Authorization signing flows
+- Active file upload implementation
+- Advanced document analysis
+- Complaint generator
+- Automated final decision
+- Automated compensation calculation
+- Automated external submission
+- Production deployment
 
 ---
 
-# Status flow
+# MVP-active status flow
 
 ```text
 NEW
@@ -286,15 +275,7 @@ AWAITING_INFO
 ↓
 QUALIFIED
 ↓
-MITID_PENDING later
-↓
-POA_PENDING later
-↓
-DOCUMENTS_PENDING later
-↓
 REVIEW
-↓
-ACTIVE_CASE
 ↓
 CLOSED
 ```
@@ -305,20 +286,23 @@ Sidegren:
 REJECTED
 ```
 
+Future-reserved statuses are documented in the data dictionary and must not be activated before the related flow exists.
+
 ---
 
 # Security and compliance
 
-Dette projekt kan senere komme til at håndtere følsomme personoplysninger og helbredsoplysninger.
+Dette projekt kan senere komme til at håndtere følsomme oplysninger.
 
 Derfor gælder følgende fra start:
 
 - Ingen rigtige CPR-numre i kode, tests eller seed-data
-- Ingen rigtige patientjournaler i repoet
+- Ingen rigtigt sagsmateriale i repoet
 - Ingen API-nøgler i GitHub
 - Real local environment files må aldrig committes
 - Brug kun dummy-data i udvikling
 - Dokumenter og uploads skal senere opbevares sikkert udenfor public webroot
+- Public endpoints må ikke eksponere raw AI/debug payloads
 
 ---
 
@@ -332,6 +316,9 @@ docs/serveradmin-handoff-plan.md
 github/MVP-0.1-Release-Plan.md
 github/MVP-0.1-Milestone.md
 docs/18-architecture-governance.md
+docs/19-architecture-review-final.md
+docs/20-data-dictionary-v2.md
+docs/21-consistency-review.md
 ```
 
 Hvis du skal implementere:
@@ -350,6 +337,9 @@ docs/04-conversation-engine.md
 docs/05-crm-workflow.md
 docs/06-domain-model.md
 docs/08-api-specification.md
+docs/19-architecture-review-final.md
+docs/20-data-dictionary-v2.md
+docs/21-consistency-review.md
 ```
 
 ---
