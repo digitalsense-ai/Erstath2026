@@ -1,403 +1,523 @@
-# Dokument 5 - CRM & Workflow Engine v1.0
+# Dokument 5 - CRM & Workflow Engine v2.0
+
+Status: Updated for Enterprise Architecture Baseline
+Domain: Case / CRM / Decision
+Related: DEC-005 Routing Recommendation, DEC-006 Human Review, DEC-007 Information Quality, DEC-008 Acceptance Policy Decision, DEC-009 Identity Gate, DEC-010 Consent Gate, DEC-011 Document Readiness, DEC-013 CRM Assignment, PAT-009 Human Review Bridge
 
 ## Formål
 
-Dette dokument beskriver hvordan et lead bevæger sig gennem virksomheden fra første besked til afsluttet sag.
+CRM & Workflow Engine er bindeleddet mellem brugerens digitale første samtale, beslutningsmotoren og de mennesker, der skal arbejde med leads.
 
-CRM & Workflow Engine er bindeleddet mellem AI-systemet og de mennesker, der skal arbejde med sagerne.
+CRM skal ikke kun vise scores.
 
-Systemet skal sikre:
+CRM skal vise et struktureret beslutningsgrundlag:
+
+- original user description
+- empathy reflection
+- confirmed facts
+- inferred facts
+- unresolved facts
+- missing information
+- confidence levels
+- scores
+- routing recommendation
+- review reasons
+- identity gate outcome
+- consent gate outcome
+- document readiness state
+- suggested next action
+- user-facing message shown
+
+CRM skal sikre:
 
 - ingen leads bliver glemt
-- de bedste sager prioriteres først
-- sagsbehandlerne arbejder effektivt
-- AI overtager rutinearbejde
-- alle sager har tydelig status
+- usikre eller følsomme leads kan reviewes af mennesker
+- sagsbehandlere kan se hvorfor systemet anbefaler næste skridt
+- interne brugere kan skelne mellem confirmed og inferred facts
+- alle væsentlige beslutninger kan spores
 
 ---
 
-## Overordnet workflow
+## Overordnet MVP 0.1 Workflow
+
+MVP 0.1 workflow er nu:
 
 ```text
-Lead
+Lead created
 ↓
-AI Screening
+Digital first conversation
 ↓
-Kvalificering
+Empathy reflection
 ↓
-MitID
+Guided screening
 ↓
-Fuldmagt
+Information quality decision
 ↓
-Dokumenter
+Routing recommendation
 ↓
-Sagsvurdering
+Human review when required
 ↓
-Aktiv sag
+CRM assignment
 ↓
-Patienterstatningen
-↓
-Afgørelse
-↓
-Afsluttet
+Internal follow-up
 ```
+
+Avancerede flows som MitID, fuldmagt, dokumentupload, aktiv sagsbehandling og ekstern indsendelse er ikke MVP 0.1 aktive flows.
+
+De må gerne være future-reserved, men de må ikke drive den første implementering.
 
 ---
 
-# Lead Pipeline
+# Lead Pipeline v2.0
 
 ## NEW
 
 Lead er netop oprettet.
 
-Eksempel:
-
-```text
-Min mor fik ikke diagnosticeret kræft i tide.
-```
-
 Handling:
 
 ```text
-AI Screening starter
+Start digital first conversation
+```
+
+CRM gemmer:
+
+- entry point
+- timestamp
+- initial status
+
+Relateret beslutning:
+
+```text
+DEC-001 Start Conversation
 ```
 
 ---
 
 ## SCREENING
 
-AI gennemfører interview.
+Brugeren er i digital første samtale eller guided screening.
 
 Systemet gemmer:
 
-- samtale
-- entities
-- scores
-- mangelliste
-- AI-resumé
+- conversation state
+- original user description
+- extracted facts
+- inferred facts
+- confirmed facts
+- missing information
+- asked questions
+- skipped questions
+- confidence levels
 
-Status:
+Relaterede beslutninger:
 
 ```text
-SCREENING
+DEC-002 Empathy Reflection
+DEC-003 Confirm Understanding
+DEC-004 Smart Skip Decision
 ```
 
 ---
 
 ## AWAITING_INFO
 
-AI mangler vigtige oplysninger for at kunne kvalificere sagen.
+Systemet mangler oplysninger, der er nødvendige for næste beslutning.
 
-Eksempler:
+Denne status betyder ikke afvisning.
 
-- hændelsesdato mangler
-- hospital mangler
-- konsekvens mangler
-- dokumentation ukendt
-
-Handling:
+Den betyder:
 
 ```text
-AI stiller næste vigtigste spørgsmål
+More information is needed before routing can continue.
+```
+
+CRM skal vise:
+
+- missing information
+- why it is needed
+- next recommended question
+- whether the missing information is critical or optional
+
+Relateret beslutning:
+
+```text
+DEC-007 Information Quality
+```
+
+---
+
+## REVIEW
+
+Lead kræver menneskelig vurdering før næste skridt.
+
+Review kan skyldes:
+
+- low confidence
+- sensitive context
+- serious indicators
+- contradictory information
+- unclear timing
+- unclear relation or authorization
+- previous decision mentioned
+- policy-required review
+
+CRM skal vise:
+
+- review reason
+- confirmed facts
+- inferred facts
+- unresolved facts
+- confidence levels
+- user-facing message shown
+- suggested reviewer action
+
+Relaterede beslutninger:
+
+```text
+DEC-006 Human Review
+PAT-009 Human Review Bridge
 ```
 
 ---
 
 ## QUALIFIED
 
-Sagen opfylder minimumskrav.
+Lead har nok information og routing signaler til at fortsætte til næste interne eller senere processuelle trin.
 
-Eksempel:
+QUALIFIED betyder ikke automatisk MitID, dokumentupload eller aktiv sag.
+
+Det betyder:
 
 ```text
-Case Strength: 82
-Information Quality: 74
-Commercial Value: 71
+The lead is ready for the next appropriate route.
 ```
 
-Handling:
+Næste route kan være:
+
+- internal follow-up
+- human review
+- document readiness later
+- identity gate later
+- consent gate later
+
+Relaterede beslutninger:
 
 ```text
-Send til MitID eller dokumentindhentning
-```
-
----
-
-## REJECTED
-
-Automatisk eller manuel afvisning.
-
-Typiske årsager:
-
-```text
-Forældet
-Ingen konkret skade
-Ingen synlig årsagssammenhæng
-For lav commercial value
-```
-
-Lead gemmes stadig til statistik og læring.
-
----
-
-# Onboarding Pipeline
-
-## MITID_PENDING
-
-Bruger skal identificeres.
-
-Mål:
-
-```text
-Bekræft identitet
+DEC-005 Routing Recommendation
+DEC-008 Acceptance Policy Decision
+DEC-013 CRM Assignment
 ```
 
 ---
 
-## POA_PENDING
+## REJECTED / GUIDE ELSEWHERE
 
-Fuldmagt mangler.
+MVP kan have intern status `REJECTED`, men bruger-facing sprog må ikke være hårdt eller endeligt.
 
-Mål:
+Anbefalet intern betegnelse i nye flows:
 
 ```text
-Digital underskrift
+GUIDE_ELSEWHERE
+```
+
+CRM skal vise:
+
+- guide-away reason
+- policy reference
+- confidence level
+- missing information if relevant
+- whether user may add information
+- user-facing message shown
+
+Relaterede dokumenter:
+
+```text
+DEC-012 Guide Elsewhere
+PAT-008 Respectful Guide-Away
+DOC-023 Tone of Voice Guide
 ```
 
 ---
 
-## DOCUMENTS_PENDING
+## CLOSED
 
-Dokumenter mangler.
+Lead er lukket administrativt.
 
-Systemet viser:
+CRM skal gemme:
 
-```text
-Mangler:
-- Journal
-- Afgørelse
-- Kvitteringer
-- Lønsedler
-```
+- final internal status
+- reason
+- timestamp
+- responsible user or automated process
+- audit trail
 
 ---
 
-# AI Document Engine
+# Future Reserved Pipeline
 
-Når dokumenter uploades, skal AI senere kunne lave:
-
-```text
-Dokumentoversigt
-Mangelliste
-Tidslinje
-Sagsresumé
-```
-
-Efter dokumentanalyse flyttes sagen til:
+Følgende statuses er future-reserved og må ikke aktiveres i MVP 0.1 uden særskilt arkitektur og backlog:
 
 ```text
-REVIEW
-```
-
----
-
-# REVIEW Queue
-
-Nu kommer første menneskelige vurdering.
-
-Sagsbehandler ser:
-
-```text
-Lead Score: 84
-Case Strength: 88
-Information Quality: 77
-Commercial Value: 69
-```
-
-Samt:
-
-```text
-AI-resumé
-AI-tidslinje
-Mangelliste
-Dokumentstatus
-Anbefalet handling
-```
-
----
-
-## Beslutninger i REVIEW
-
-### Godkend
-
-```text
-ACTIVE_CASE
-```
-
-### Flere oplysninger
-
-```text
-REQUEST_MORE_INFO
-```
-
-### Afvis
-
-```text
-REJECTED
-```
-
----
-
-# ACTIVE_CASE
-
-Nu er det en reel kundesag.
-
-Nye felter:
-
-| Felt | Beskrivelse |
-|---|---|
-| ansvarlig rådgiver | Sagsansvarlig medarbejder |
-| oprettelsesdato | Dato for aktiv sag |
-| forventet værdi | Estimeret erstatningsværdi |
-| provision | Forventet indtjening |
-| prioritet | Intern prioritet |
-
----
-
-# Case Board
-
-CRM bør bygges som et Kanban-board.
-
-Kolonner:
-
-```text
-NEW
-SCREENING
-AWAITING_INFO
-QUALIFIED
 MITID_PENDING
 POA_PENDING
 DOCUMENTS_PENDING
-REVIEW
 ACTIVE_CASE
 SUBMITTED
 DECISION
-CLOSED
+```
+
+Disse skal senere styres af:
+
+```text
+DEC-009 Identity Gate
+DEC-010 Consent Gate
+DEC-011 Document Readiness
+future Identity Architecture
+future Document Architecture
+future Case Architecture
+```
+
+---
+
+# CRM Assignment
+
+CRM Assignment styres af:
+
+```text
+DEC-013 CRM Assignment
+```
+
+Hver lead skal have:
+
+- current status
+- routing recommendation
+- routing reason
+- next action
+- review flag
+- review reason
+- assigned queue
+- priority
+- missing information
+
+Mulige queues i MVP 0.1:
+
+```text
+New Leads
+Screening In Progress
+Awaiting Information
+Human Review
+Qualified Leads
+Guide Elsewhere / Closed Review
+```
+
+---
+
+# CRM Lead Detail View
+
+Lead detail bør vise følgende sektioner:
+
+## 1. User Story
+
+- original user description
+- empathy reflection
+- confirmation status
+
+## 2. Facts
+
+- confirmed facts
+- inferred facts
+- corrected facts
+- unresolved facts
+- source of each fact
+- confidence level
+
+## 3. Screening
+
+- asked questions
+- skipped questions
+- postponed questions
+- answers
+- missing information
+
+## 4. Scores
+
+- case_strength
+- information_quality
+- commercial_value
+- lead_score
+- score version
+
+Scores skal vises som interne signaler, ikke som endelige beslutninger.
+
+## 5. Decisions
+
+- information quality outcome
+- routing recommendation
+- acceptance policy outcome
+- human review decision
+- identity gate outcome if evaluated
+- consent gate outcome if evaluated
+- document readiness state if evaluated
+- CRM assignment decision
+
+## 6. Audit
+
+- decision ids invoked
+- timestamps
+- user-facing messages shown
+- AI output validation result
+- reviewer actions
+
+---
+
+# Priority Engine
+
+Priority Score kan stadig eksistere som intern sorteringsmekanisme.
+
+Men prioritet skal ikke kun være Lead Score.
+
+Ny model:
+
+```text
+Priority Score =
+lead_score signal
++ urgency signal
++ review need signal
++ severity signal
++ missing information urgency
+```
+
+Priority Score skal være et internt arbejdsredskab.
+
+Det må ikke bruges alene til guide-away, kvalificering eller endelig beslutning.
+
+---
+
+# SLA Engine
+
+CRM bør måle svartider på kritiske queues.
+
+Eksempel:
+
+| Queue | Maks tid |
+|---|---:|
+| New Leads | 1 time |
+| Human Review | 24-48 timer |
+| Awaiting Information | afhænger af brugerrespons |
+| Qualified Leads | 24 timer |
+
+Hvis frist overskrides:
+
+```text
+System creates internal reminder
 ```
 
 ---
 
 # Dashboard
 
-Forsiden for medarbejdere skal vise:
+Dashboard bør vise:
 
 ```text
-Leads i dag
-Nye A-sager
-Nye B-sager
-Konverteringsrate
-MitID rate
-Dokumentrate
-Aktive sager
-Sager til review
+New leads today
+Screenings started
+Screenings completed
+Leads awaiting information
+Leads requiring human review
+Qualified leads
+Guide-away outcomes
+Average questions per screening
+Repeated question rate
+CRM handover completeness
 ```
+
+MVP dashboard bør ikke primært styres af MitID-rate, da identity gate kun skal vises når relevant.
 
 ---
 
-# Prioritetsmotor
+# Human Review Queue
 
-Alle sager får en intern prioritet.
+Human Review Queue skal give medarbejderen tydeligt beslutningsgrundlag.
 
-Formel:
+Minimumsdata:
+
+- review reason
+- risk or uncertainty reason
+- confirmed facts
+- inferred facts
+- missing information
+- scores
+- routing recommendation
+- suggested next action
+- conversation summary
+- user-facing message shown
+
+Medarbejder kan vælge:
 
 ```text
-Priority Score =
-Lead Score
-+
-Commercial Value Bonus
-+
-Urgency Bonus
+continue
+collect_more_information
+guide_elsewhere_respectfully
+mark_qualified
+close
 ```
 
-Eksempel:
-
-| Sag | Score |
-|---|---:|
-| Kræft + dødsfald | 97 |
-| Operationsfejl | 83 |
-| Medicinsk skade | 68 |
-
-CRM viser automatisk de vigtigste sager øverst.
+Disse actions skal senere formaliseres i Policy Pack og backlog.
 
 ---
 
-# SLA Engine
+# AI Document Engine
 
-Systemet måler svartider.
+AI Document Engine er future scope.
 
-Eksempel:
+MVP 0.1 må gerne registrere document readiness state, men aktiv dokumentupload og dokumentanalyse er ikke MVP 0.1.
 
-| Status | Maks tid |
-|---|---:|
-| NEW | 1 time |
-| QUALIFIED | 24 timer |
-| REVIEW | 48 timer |
-| ACTIVE_CASE | 5 dage |
-
-Hvis frist overskrides:
+Se:
 
 ```text
-Systemet opretter intern påmindelse
+DEC-011 Document Readiness
 ```
 
 ---
 
 # Økonomimotor
 
-På hver sag vises:
+Commercial Value og økonomiske estimater kan bruges internt til prioritering.
 
-```text
-Forventet erstatning
-Forventet provision
-Forventet profit
-```
+I MVP 0.1 bør økonomimotoren være simpel og ikke overstyre review, confidence eller policy.
 
-Eksempel:
-
-```text
-Forventet erstatning: 450.000 kr.
-Provision: 20%
-Forventet omsætning: 90.000 kr.
-```
+Fremtidige økonomiske beregninger kræver særskilt policy og governance.
 
 ---
 
-# Fremtidig Version 2
+# Audit Requirements
 
-Når systemet har historiske sager, kan der tilføjes:
+CRM skal kunne auditere:
 
-## Win Probability Engine
-
-```text
-73 lignende sager
-58 fik medhold
-Win rate: 79%
-```
-
-## Case Similarity Engine
-
-AI finder lignende tidligere sager og viser dem til rådgiveren.
+- status changes
+- routing decisions
+- human review decisions
+- user-facing messages
+- AI validation results
+- score versions
+- assigned queues
+- reviewer actions
 
 ---
 
 # Resultat
 
-Når CRM & Workflow Engine er implementeret, har systemet en komplet intern proces fra første lead til aktiv sag.
+Når CRM & Workflow Engine v2.0 er implementeret, har systemet en intern arbejdsflade, hvor AI og beslutningsmotor ikke står alene.
+
+Sagsbehandlere får et struktureret, forklarligt og auditérbart grundlag for at arbejde videre med leads.
 
 Dette dokument er grundlaget for:
 
-- CRM dashboard
-- statuslogik
-- prioriteringsmotor
-- sagsbehandlerens arbejdsgang
-- fremtidig rapportering
+- CRM lead board
+- CRM lead detail page
+- lead status logic
+- human review queue
+- decision handover
+- internal prioritization
+- future case workflow
