@@ -1,17 +1,70 @@
-# Dokument 3 - Scoring Rules Engine v1.0
+# Dokument 3 - Scoring Engine v2.0
+
+Status: Updated for Enterprise Architecture Baseline
+Domain: Decision / AI
+Related: DEC-000 Decision Catalog, DEC-005 Routing Recommendation, DEC-007 Information Quality, DEC-008 Acceptance Policy Decision, DEC-009 Identity Gate, DEC-011 Document Readiness, PAT-003 Confirm Before Classify, PAT-009 Human Review Bridge
 
 ## Formål
 
-AI må ikke selv opfinde point.
+Scoring Engine beregner interne scores, der kan bruges som input til screening, prioritering og routing.
 
-Alle point skal komme fra en central regelmotor.
+Scoring Engine er ikke den endelige beslutningsmotor.
 
-Fordele:
+Scores skal bruges sammen med:
 
-- forklarbar AI
-- kan justeres uden kodeændringer
-- kan optimeres efter erfaring
-- kan A/B-testes
+- confirmed facts
+- inferred facts
+- confidence levels
+- information quality
+- policy rules
+- human review triggers
+- routing decisions
+- CRM handover requirements
+
+Den officielle beslutningsmodel ligger nu i Decision Pack:
+
+```text
+decisions/DEC-000-decision-catalog.md
+decisions/DEC-005-routing-recommendation.md
+decisions/DEC-007-information-quality.md
+decisions/DEC-008-acceptance-policy.md
+```
+
+---
+
+## Grundprincipper
+
+### AI må ikke selv opfinde point
+
+Alle pointsatser og vægte skal komme fra en dokumenteret regelmodel.
+
+### Score er input, ikke afgørelse
+
+Scores må ikke alene føre til automatisk afvisning, MitID-flow eller dokumentkrav.
+
+Scores skal fortolkes gennem Decision Pack og relevante policies.
+
+### Confidence er obligatorisk
+
+En score skal altid vurderes sammen med confidence og datakilde.
+
+Eksempel:
+
+```text
+AI-inferred fact < user-confirmed fact < document-supported fact < human-reviewed fact
+```
+
+### Brugeren ser ikke raw scores
+
+Raw scores er interne og må ikke vises direkte i den første brugeroplevelse.
+
+User-facing beskeder skal følge:
+
+```text
+PAT-001 Speak Human, Store Structured
+PAT-005 Explain Why
+PAT-008 Respectful Guide-Away
+```
 
 ---
 
@@ -19,7 +72,9 @@ Fordele:
 
 Maks score = 100.
 
-Case Strength måler hvor stærk sagen umiddelbart ser ud fagligt og juridisk.
+Case Strength måler hvor stærk sagen umiddelbart ser ud baseret på de oplysninger, der findes på det aktuelle tidspunkt.
+
+Case Strength er kun en foreløbig intern vurdering.
 
 ---
 
@@ -27,15 +82,13 @@ Case Strength måler hvor stærk sagen umiddelbart ser ud fagligt og juridisk.
 
 | Regel | Point |
 |---|---:|
-| Indenfor 3 år fra erkendelse | +15 |
-| Indenfor 10 år fra hændelse | +10 |
-| Forældet | -100 |
+| Muligvis indenfor relevant frist | +15 |
+| Fristforhold uklart | +5 |
+| Muligvis udenfor relevant frist | -20 |
 
-Hvis sagen vurderes forældet:
+Vigtigt:
 
-```text
-Automatisk D-sag
-```
+Fristforhold må ikke alene føre til automatisk endelig afvisning uden policy og/eller human review, hvis der er usikkerhed.
 
 ---
 
@@ -45,12 +98,12 @@ Automatisk D-sag
 |---|---:|
 | Diagnoseforsinkelse | +25 |
 | Fejldiagnose | +20 |
-| Operationsfejl | +20 |
+| Operationsrelateret skade | +20 |
 | Medicinsk skade | +15 |
 | Udstyrsskade | +20 |
 | Infektion | +10 |
 | Fødselsskade | +25 |
-| Andet | +5 |
+| Andet / uklart | +5 |
 
 ---
 
@@ -58,12 +111,16 @@ Automatisk D-sag
 
 | Konsekvens | Point |
 |---|---:|
-| Dødsfald | +25 |
-| 100% mén | +25 |
-| Varigt mén | +20 |
-| Tab af erhvervsevne | +20 |
+| Meget alvorligt forløb | +25 |
+| Varige følger | +20 |
+| Tab af erhvervsevne nævnt | +20 |
 | Midlertidig skade | +10 |
-| Ingen dokumenteret skade | 0 |
+| Konsekvens uklar | +5 |
+| Ingen kendt skade | 0 |
+
+Bemærk:
+
+Bruger-facing sprog må ikke bruge rå kategorier fra denne tabel. Se Tone of Voice Guide.
 
 ---
 
@@ -71,10 +128,11 @@ Automatisk D-sag
 
 | Dokumentation | Point |
 |---|---:|
-| Journal findes | +10 |
-| Tidligere afgørelse | +15 |
-| Lægeudtalelse | +10 |
-| Hospital erkender fejl | +25 |
+| Journal eller anden relevant dokumentation findes | +10 |
+| Tidligere afgørelse nævnt | +15 |
+| Faglig udtalelse nævnt | +10 |
+| Behandlingssted har erkendt forhold | +25 |
+| Dokumentation ukendt | +5 |
 | Ingen dokumentation | 0 |
 
 ---
@@ -83,21 +141,23 @@ Automatisk D-sag
 
 | Vurdering | Point |
 |---|---:|
-| Meget tydelig | +15 |
-| Sandsynlig | +10 |
-| Uklar | +5 |
-| Ingen synlig | 0 |
+| Meget tydelig beskrivelse | +15 |
+| Sandsynlig sammenhæng | +10 |
+| Uklar sammenhæng | +5 |
+| Ingen synlig sammenhæng | 0 |
 
 ---
 
 ## Case Strength kategorier
 
-| Score | Kategori |
+| Score | Intern kategori |
 |---:|---|
-| 85-100 | A |
-| 70-84 | B |
-| 40-69 | C |
-| 0-39 | D |
+| 85-100 | Very strong signal |
+| 70-84 | Strong signal |
+| 40-69 | Uncertain / review signal |
+| 0-39 | Weak signal |
+
+Disse kategorier er interne og må ikke vises direkte til brugeren.
 
 ---
 
@@ -105,7 +165,13 @@ Automatisk D-sag
 
 Maks score = 100.
 
-Information Quality måler hvor meget brugbar information systemet har.
+Information Quality måler hvor meget brugbar information systemet har for at vælge næste skridt.
+
+Den officielle beslutning om informationskvalitet er beskrevet i:
+
+```text
+decisions/DEC-007-information-quality.md
+```
 
 ---
 
@@ -113,9 +179,9 @@ Information Quality måler hvor meget brugbar information systemet har.
 
 | Felt | Point |
 |---|---:|
-| Hændelsesdato | 15 |
-| Diagnose | 15 |
-| Hospital | 15 |
+| Hændelsestidspunkt eller periode | 15 |
+| Behandlingstype eller forløb | 15 |
+| Behandlingssted | 15 |
 | Konsekvens | 15 |
 | Dokumentstatus | 10 |
 
@@ -125,22 +191,22 @@ Information Quality måler hvor meget brugbar information systemet har.
 
 | Felt | Point |
 |---|---:|
-| Diagnosedato | 10 |
-| Behandlingstype | 5 |
+| Diagnosedato eller erkendelsestidspunkt | 10 |
 | Tidligere klage | 5 |
 | Tidligere afgørelse | 5 |
-| Lægens navn | 5 |
+| Relation til berørt person | 5 |
+| Kontakt- eller opfølgningsoplysninger | 5 |
 
 ---
 
 ## Information Quality kategorier
 
-| Score | Status |
+| Score | Intern status |
 |---:|---|
-| 80-100 | Komplet |
-| 60-79 | God |
-| 40-59 | Mangelfuld |
-| 0-39 | Utilstrækkelig |
+| 80-100 | Sufficient for many next steps |
+| 60-79 | Usable but may need targeted follow-up |
+| 40-59 | Missing important information |
+| 0-39 | Insufficient for routing without more input or review |
 
 ---
 
@@ -148,31 +214,33 @@ Information Quality måler hvor meget brugbar information systemet har.
 
 Maks score = 100.
 
-Commercial Value måler om sagen er økonomisk interessant for virksomheden.
+Commercial Value er en intern forretningsprioriteringsscore.
+
+Den må ikke stå alene som accept- eller afvisningsgrundlag.
 
 ---
 
-## Estimeret erstatning
+## Estimeret økonomisk signal
 
-| Beløb | Point |
+| Signal | Point |
 |---|---:|
-| Over 1.000.000 kr. | +40 |
-| 500.000 - 1.000.000 kr. | +30 |
-| 250.000 - 500.000 kr. | +20 |
-| 100.000 - 250.000 kr. | +10 |
-| Under 100.000 kr. | +5 |
+| Meget højt økonomisk potentiale | +40 |
+| Højt potentiale | +30 |
+| Middel potentiale | +20 |
+| Lavere potentiale | +10 |
+| Ukendt potentiale | +5 |
 
 ---
 
-## Skadetype bonus
+## Konsekvensbonus
 
 | Faktor | Point |
 |---|---:|
-| Dødsfald | +20 |
-| Forsørgertab | +20 |
-| Varigt mén | +15 |
-| Tabt erhvervsevne | +15 |
-| Tabt arbejdsfortjeneste | +10 |
+| Meget alvorligt forløb | +20 |
+| Forsørgertab nævnt | +20 |
+| Varige følger | +15 |
+| Tabt erhvervsevne nævnt | +15 |
+| Tabt arbejdsfortjeneste nævnt | +10 |
 
 ---
 
@@ -180,19 +248,19 @@ Commercial Value måler om sagen er økonomisk interessant for virksomheden.
 
 | Faktor | Point |
 |---|---:|
-| Tidligere medhold | +20 |
-| Tidligere delvist medhold | +10 |
+| Tidligere positiv afgørelse nævnt | +20 |
+| Tidligere delvist positiv afgørelse nævnt | +10 |
 
 ---
 
 ## Commercial Value kategorier
 
-| Score | Status |
+| Score | Intern status |
 |---:|---|
-| 80-100 | Meget attraktiv |
-| 60-79 | Attraktiv |
-| 40-59 | Middel |
-| 0-39 | Lav |
+| 80-100 | Very high commercial signal |
+| 60-79 | High commercial signal |
+| 40-59 | Medium commercial signal |
+| 0-39 | Low commercial signal |
 
 ---
 
@@ -219,100 +287,120 @@ Lead Score =
 (CommercialValue x 0.30)
 ```
 
----
+Lead Score er et internt prioriteringssignal.
 
-# Endelig beslutningsmotor
+Lead Score må ikke alene føre til:
 
-## Auto-afvis
-
-Hvis:
-
-```text
-Forældet
-ELLER
-Case Strength < 40
-```
-
-Handling:
-
-```text
-REJECTED
-```
+- automatisk endelig afvisning
+- automatisk MitID-flow
+- automatisk dokumentkrav
+- endelig accept
 
 ---
 
-## AI fortsætter dialog
+# Fra Score til Decision
 
-Hvis:
+Den tidligere model, hvor score direkte kunne føre til `REJECTED`, `DOCUMENTS_PENDING` eller `MITID_PENDING`, er superseded.
+
+Ny model:
 
 ```text
-Case Strength > 40
-OG
-Information Quality < 60
+Scores
+↓
+Confidence
+↓
+Information Quality Decision
+↓
+Acceptance Policy Decision
+↓
+Routing Recommendation
+↓
+Human Review when needed
+↓
+CRM Assignment
 ```
 
-Handling:
+Relevante beslutningskort:
 
 ```text
-AWAITING_INFO
-```
-
----
-
-## Dokumentindhentning
-
-Hvis:
-
-```text
-Case Strength > 70
-OG
-Information Quality > 60
-OG
-Commercial Value > 40
-```
-
-Handling:
-
-```text
-DOCUMENTS_PENDING
+DEC-005 Routing Recommendation
+DEC-006 Human Review
+DEC-007 Information Quality
+DEC-008 Acceptance Policy Decision
+DEC-009 Identity Gate
+DEC-011 Document Readiness
+DEC-013 CRM Assignment
 ```
 
 ---
 
-## MitID flow
+# Recommended Actions
 
-Hvis:
+Canonical internal recommendation values must be reconciled with Decision Pack.
+
+Current decision-oriented outcomes:
 
 ```text
-Case Strength > 80
-OG
-Information Quality > 70
-OG
-Commercial Value > 50
+continue
+collect_more_information
+human_review_required
+prepare_documents_later
+identity_step_when_relevant
+consent_step_when_relevant
+guide_elsewhere_respectfully
+crm_assignment
 ```
 
-Handling:
+Legacy values such as `qualified`, `reject`, `MITID_PENDING` and `DOCUMENTS_PENDING` must not be used as direct user-facing outcomes.
+
+They may remain as internal transitional states only if mapped clearly to the new decision model.
+
+---
+
+# Human Review Triggers
+
+Scores should trigger human review when:
+
+- Case Strength is high but confidence is low
+- severity indicators are serious or sensitive
+- important facts conflict
+- deadline or timing is unclear
+- prior decision is mentioned
+- user relation or authorization is unclear
+- policy requires review
+
+See:
 
 ```text
-MITID_PENDING
+decisions/DEC-006-human-review.md
+patterns/PAT-009-human-review-bridge.md
 ```
 
 ---
 
-# Version 2
+# Audit Requirements
 
-Når systemet har 500-1000 historiske sager, kan der tilføjes:
+Each score calculation should store:
+
+- score version
+- input facts
+- source of facts
+- confidence level
+- score components
+- final internal score
+- decision IDs that used the score
+- user-facing message shown, if any
+
+---
+
+# Version 2 Future Work
+
+Når systemet har tilstrækkeligt historisk materiale, kan der tilføjes:
 
 ```text
-Historical Win Score
+Historical Outcome Signal
 ```
 
-Eksempel:
+Denne må kun bruges som internt prioriteringsinput og skal have særskilt governance, audit og bias-review.
 
-```text
-73 lignende sager
-58 fik medhold
-Win rate: 79%
-```
-
-Denne score kan senere bruges til at forbedre prioriteringsmotoren.
+Før historiske modeller aktiveres, skal der oprettes et særskilt ADR og AI policy.
