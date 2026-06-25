@@ -1,1336 +1,559 @@
-# 27 - Sprint Backlog Masterplan
+# 27 - Sprint Backlog Masterplan v2.0
+
+Status: Updated for Enterprise Architecture Baseline
+Domain: Backlog / Sprints / Governance
+Related: README.md, docs/serveradmin-handoff-plan.md, reviews/REV-001-repository-consistency-review.md, DOC-003 Architecture Index, ADR-000 Enterprise Architecture Principles, DEC-000 Decision Catalog
 
 ## Purpose
 
-This document defines the long-term sprint-based backlog for ErstatningsHjælp.
+This document defines the sprint and backlog strategy for ErstatningsHjaelp after the Enterprise Architecture Baseline.
 
-The goal is to prepare a high-volume project backlog without creating too many GitHub issues too early.
+The previous version focused mainly on MVP 0.1 implementation issues and future candidate sprints.
 
-This document does not change MVP 0.1 scope.
-
-MVP 0.1 remains the active implementation target:
+This version introduces a required consolidation phase before implementation:
 
 ```text
-Sprint 0-4
-Issues #1-#30
-PR-001 to PR-015
+Architecture Baseline
+↓
+Repository Consistency Updates
+↓
+Policy Pack
+↓
+Traceable Implementation Backlog
+↓
+MVP 0.1 Implementation
 ```
 
-All later sprints are prepared as backlog candidates and should be activated only when the previous phase is sufficiently implemented and reviewed.
+The goal is to ensure that ServerAdmin and future developers implement from a consistent and traceable repository.
 
 ---
 
-# 1. Backlog strategy
-
-The project should be managed as:
+## Current Status
 
 ```text
-MVP Phase
+Current phase: Repository Consistency and Architecture Freeze preparation
+Implementation status: Not started
+Ready for PR-001: Not yet
+Ready for repository consistency work: yes
+```
+
+MVP 0.1 remains the active implementation target, but the old PR plan must not be used alone.
+
+Implementation must reference the new architecture baseline.
+
+---
+
+## Backlog Strategy
+
+The project should now be managed as:
+
+```text
+Product Constitution
 ↓
-Sprint
+Architecture Pack
+↓
+Pattern / Decision / Policy
 ↓
 Epic
-↓
-Module
 ↓
 Issue
 ↓
 PR
+↓
+Test
+↓
+Release
 ```
 
-This creates a clear order while still allowing a large amount of future work to be prepared.
-
-The goal is not to hit a fixed number of issues.
-
-The goal is to have enough structured backlog that ServerAdmin and future developers can continue without guessing the product direction.
+Every implementation issue should reference relevant architecture artifacts where possible.
 
 ---
 
-# 2. Current confirmed backlog
+## Architecture Baseline References
 
-## MVP 0.1
+Implementation backlog must reference these packs:
+
+### Foundation
 
 ```text
-Sprint 0 - Foundation
-Sprint 1 - AI Screening
-Sprint 2 - CRM
-Sprint 3 - Testing and QA
-Sprint 4 - Security and Compliance
+docs/foundation/DOC-000-product-constitution.md
+docs/foundation/DOC-001-architecture-overview.md
+docs/foundation/DOC-002-repository-constitution.md
+docs/foundation/DOC-003-architecture-index.md
+adr/ADR-000-enterprise-architecture-principles.md
 ```
 
-Existing issue range:
+### Experience
 
 ```text
-#1-#30
+docs/experience/DOC-020-experience-architecture.md
+docs/experience/DOC-021-digital-first-conversation-flow.md
+docs/experience/DOC-022-conversation-patterns.md
+docs/experience/DOC-023-tone-of-voice-guide.md
+patterns/PAT-001 through PAT-009
 ```
 
-Closed duplicates:
+### Decision
 
 ```text
-#16
-#31
-```
-
-Existing PR plans:
-
-```text
-PR-001 to PR-015
-```
-
-Status:
-
-```text
-Ready for implementation
-```
-
----
-
-# 3. Proposed post-MVP sprint ladder
-
-```text
-Sprint 5  - Assignment and Internal Notes
-Sprint 6  - Readiness and Authorization Tracking
-Sprint 7  - Document Readiness
-Sprint 8  - Advanced CRM and Reporting
-Sprint 9  - Case Lifecycle Foundation
-Sprint 10 - Identity Readiness
-Sprint 11 - Case Intelligence Preparation
-Sprint 12 - Audit Expansion and Governance Controls
-Sprint 13 - Notifications and Operational Alerts
-Sprint 14 - Admin and Operations Console
-Sprint 15 - MVP 1.0 Stabilization and Launch Readiness
-```
-
-This creates a future backlog of roughly 60-80 candidate issues without forcing an exact number.
-
----
-
-# 4. Activation rules
-
-Future sprints should be activated gradually.
-
-## Do not activate Sprint 5 before
-
-```text
-PR-001 to PR-015 are implemented or mostly implemented
-CRM lead board works
-Lead detail page works
-Status updates work
-Authentication works
-Basic tests exist
-```
-
-## Do not activate Sprint 6 before
-
-```text
-Sprint 5 workflow is reviewed
-Assignment and notes are stable
-Internal users can manage ownership and notes
-```
-
-## Do not activate heavier integration sprints before
-
-```text
-Security foundation is reviewed
-Operational requirements are understood
-Clear product need is confirmed
+decisions/DEC-000-decision-catalog.md
+decisions/DEC-001-start-conversation.md
+decisions/DEC-002-empathy-reflection.md
+decisions/DEC-003-confirm-understanding.md
+decisions/DEC-004-smart-skip-decision.md
+decisions/DEC-005-routing-recommendation.md
+decisions/DEC-006-human-review.md
+decisions/DEC-007-information-quality.md
+decisions/DEC-008-acceptance-policy.md
+decisions/DEC-009-identity-gate.md
+decisions/DEC-010-consent-gate.md
+decisions/DEC-011-document-readiness.md
+decisions/DEC-012-guide-elsewhere.md
+decisions/DEC-013-crm-assignment.md
 ```
 
 ---
 
-# 5. Sprint 5 - Assignment and Internal Notes
+## Phase AF-001 - Repository Consistency
 
-## MVP phase
+### Goal
+
+Update the old MVP documents so they do not conflict with the new architecture baseline.
+
+### Status
+
+In progress.
+
+### Completed updates
 
 ```text
-MVP 0.2
+README.md
+docs/serveradmin-handoff-plan.md
+docs/03-scoring-engine.md
+docs/04-conversation-engine.md
+docs/05-crm-workflow.md
+docs/12-data-dictionary.md
+docs/31-acceptance-and-routing-architecture.md
 ```
 
-## Module focus
+### Remaining consistency tasks
 
 ```text
-Assignment Module
-Internal Notes Module
-Audit-ready internal workflow
+review docs/02-ai-engine.md
+review docs/08-api-specification.md
+review docs/09-security-gdpr.md
+review docs/10-testing-strategy.md
+review docs/18-architecture-governance.md
+review github/Epic-*.md
+review github/PR-*.md
 ```
 
-## Goal
-
-Allow internal users to assign leads and add internal notes.
-
-## Candidate issues
-
-### S5-01 - Create lead assignment model
-
-Priority: High
-
-Depends on:
+### Definition of Done
 
 ```text
-PR-012 Internal Authentication
-PR-013 CRM Lead Board
-PR-014 Lead Detail Page
-```
-
-Description:
-
-Create the data structure for lead assignment.
-
-Potential implementation:
-
-```text
-lead_assignments table
-or assigned_user_id on leads for simpler start
-```
-
----
-
-### S5-02 - Assign lead to internal user
-
-Priority: High
-
-Description:
-
-Allow an authenticated internal user to assign a lead to a caseworker.
-
-Acceptance direction:
-
-```text
-admin can assign
-caseworker permissions defined
-viewer cannot assign
+Architecture Index is current
+README points to new baseline
+ServerAdmin handoff points to new baseline
+critical old docs are updated
+legacy docs are classified as current, under review, superseded or archived
+implementation warning is removed only when backlog is updated
 ```
 
 ---
 
-### S5-03 - Show assigned user on lead board
+## Phase AF-002 - Policy Pack
 
-Priority: High
+### Goal
 
-Description:
+Create formal policy documents that implementation can reference.
 
-Display assigned user in the CRM lead board.
-
----
-
-### S5-04 - Filter leads by assigned user
-
-Priority: Medium
-
-Description:
-
-Add filter support for assigned user.
-
----
-
-### S5-05 - Add internal notes model
-
-Priority: High
-
-Description:
-
-Create internal notes for leads.
-
-Rules:
+### Planned policy documents
 
 ```text
-notes are internal only
-notes are not public
-notes should avoid unnecessary sensitive content
+POL-001 Acceptance Policy
+POL-002 Routing Policy
+POL-003 Confidence Policy
+POL-004 Identity and Consent Policy
+POL-005 Human Review Policy
+POL-006 Document Collection Policy
+POL-007 Communication Policy
+POL-008 AI Usage Policy
+```
+
+### Definition of Done
+
+```text
+policies exist in /policies
+policies reference DEC and PAT documents
+routing and acceptance rules are explicit
+human review triggers are documented
+identity, consent and document rules are separated
 ```
 
 ---
 
-### S5-06 - Add notes section to lead detail page
+## Phase AF-003 - Traceable MVP Backlog
 
-Priority: High
+### Goal
 
-Description:
+Rebuild MVP 0.1 implementation work into traceable epics and issues.
 
-Show internal notes on the lead detail page.
-
----
-
-### S5-07 - Add note creation form
-
-Priority: Medium
-
-Description:
-
-Allow authenticated internal users to add notes.
-
----
-
-### S5-08 - Make assignment and notes audit-ready
-
-Priority: Medium
-
-Description:
-
-Prepare audit events for assignment and notes.
-
-Candidate events:
+The old GitHub PR plans may be reused, but they must be updated to reference:
 
 ```text
-lead.assigned
-lead.reassigned
-lead_note.created
-lead_note.updated
+DOC IDs
+ADR IDs
+PAT IDs
+DEC IDs
+POL IDs
+Data Dictionary v2
+```
+
+### Target backlog structure
+
+```text
+/backlog
+  /epics
+  /issues
+/sprints
+```
+
+The old `/github` planning folder should be migrated gradually.
+
+### Required epic areas
+
+```text
+Epic A - Laravel Foundation
+Epic B - Data Model and Migrations
+Epic C - Digital First Conversation
+Epic D - AI Screening Service
+Epic E - Decision and Routing Engine
+Epic F - CRM Lead Board and Detail
+Epic G - Human Review Queue
+Epic H - Security, Audit and Testing
 ```
 
 ---
 
-# 6. Sprint 6 - Readiness and Authorization Tracking
+## Updated MVP 0.1 Sprint Plan
 
-## MVP phase
+### Sprint 0 - Laravel and Repository Foundation
+
+Goal:
 
 ```text
-MVP 0.2
+Install Laravel foundation and establish repository development baseline.
 ```
 
-## Module focus
+Must reference:
 
 ```text
-Readiness Module
-Authorization Module
-Consent/authorization readiness
+DOC-002 Repository Constitution
+ADR-000 Enterprise Architecture Principles
 ```
 
-## Goal
-
-Track whether a lead is ready for deeper internal handling.
-
-## Candidate issues
-
-### S6-01 - Define readiness status model
-
-Priority: High
-
-Candidate statuses:
+Candidate work:
 
 ```text
-not_started
-needs_information
-ready_for_review
-ready_for_next_step
-blocked
+Laravel installation
+.env.example
+basic project structure
+basic CI
+coding standards
+safe dummy data rules
 ```
 
 ---
 
-### S6-02 - Add readiness status to lead detail
+### Sprint 1 - Data Model Foundation
 
-Priority: High
-
-Description:
-
-Show readiness status clearly in CRM.
-
----
-
-### S6-03 - Add readiness blockers
-
-Priority: Medium
-
-Description:
-
-Allow system or internal users to show why a lead is not ready.
-
----
-
-### S6-04 - Define authorization status model
-
-Priority: High
-
-Candidate statuses:
+Goal:
 
 ```text
-not_started
-requested
-given
-withdrawn
-expired
-not_required
+Implement core data structures needed for digital conversation, scoring, decisions and CRM handover.
+```
+
+Must reference:
+
+```text
+docs/12-data-dictionary.md
+DEC-000 Decision Catalog
+DEC-013 CRM Assignment
+```
+
+Candidate work:
+
+```text
+leads
+lead_conversations
+lead_facts or compatible lead_entities
+lead_missing_information
+lead_scores
+lead_decisions
+lead_reviews
+lead_handover_snapshots
+ai_runs
+audit_logs
 ```
 
 ---
 
-### S6-05 - Create authorization tracking records
+### Sprint 2 - Digital First Conversation
 
-Priority: High
-
-Description:
-
-Create database structure for authorization/acceptance tracking.
-
----
-
-### S6-06 - Show authorization status in CRM
-
-Priority: Medium
-
-Description:
-
-Display status on lead detail.
-
----
-
-### S6-07 - Add authorization status filters
-
-Priority: Low/Medium
-
-Description:
-
-Allow CRM board filtering by authorization status.
-
----
-
-### S6-08 - Document withdrawal handling
-
-Priority: Medium
-
-Description:
-
-Document how future withdrawal should be represented.
-
----
-
-# 7. Sprint 7 - Document Readiness
-
-## MVP phase
+Goal:
 
 ```text
-MVP 0.2
+Implement first conversation flow with free text, empathy reflection, confirmation and guided screening.
 ```
 
-## Module focus
+Must reference:
 
 ```text
-Document Readiness Module
-Material checklist
-Safe metadata model
+DOC-020 Experience Architecture
+DOC-021 Digital First Conversation Flow
+DOC-022 Conversation Patterns
+DOC-023 Tone of Voice Guide
+PAT-001 through PAT-007
+DEC-001 through DEC-004
 ```
 
-## Goal
-
-Track which supporting material may be needed without implementing full file processing too early.
-
-## Candidate issues
-
-### S7-01 - Define document requirement types
-
-Priority: High
-
-Description:
-
-Create a controlled list of material/document requirement types.
-
----
-
-### S7-02 - Create document checklist model
-
-Priority: High
-
-Description:
-
-Create data model for required, requested or received material.
-
----
-
-### S7-03 - Show document checklist on lead detail
-
-Priority: High
-
-Description:
-
-Display missing or requested material in CRM.
-
----
-
-### S7-04 - Add document readiness status
-
-Priority: Medium
-
-Candidate statuses:
+Candidate work:
 
 ```text
-not_needed
-needed
-requested
-received
-reviewed
-missing
+screening start endpoint
+conversation state
+free text input
+AI interpretation
+empathy reflection
+confirmation/correction state
+Smart Skip question selection
+message persistence
 ```
 
 ---
 
-### S7-05 - Add checklist management UI
+### Sprint 3 - Scoring and Decision Engine
 
-Priority: Medium
-
-Description:
-
-Allow internal users to mark material as needed, requested or received.
-
----
-
-### S7-06 - Define safe storage architecture
-
-Priority: High
-
-Description:
-
-Document future secure storage rules before active upload is built.
-
----
-
-### S7-07 - Prepare file metadata model
-
-Priority: Medium
-
-Description:
-
-Prepare metadata-only records without requiring upload flow.
-
----
-
-### S7-08 - Add document readiness tests
-
-Priority: Medium
-
-Description:
-
-Test checklist status changes and access rules.
-
----
-
-# 8. Sprint 8 - Advanced CRM and Reporting
-
-## MVP phase
+Goal:
 
 ```text
-MVP 0.2 / MVP 0.3
+Implement internal scores as decision inputs and create routing recommendations.
 ```
 
-## Module focus
+Must reference:
 
 ```text
-Advanced CRM Module
-Reporting Module
-Business metrics
+docs/03-scoring-engine.md
+DEC-005 Routing Recommendation
+DEC-006 Human Review
+DEC-007 Information Quality
+DEC-008 Acceptance Policy Decision
 ```
 
-## Goal
-
-Improve CRM usability and operational insight.
-
-## Candidate issues
-
-### S8-01 - Add advanced lead filters
-
-Priority: High
-
-Filters:
+Candidate work:
 
 ```text
-status
-category
-score range
-assigned user
-created date
-readiness status
-recommended action
+LeadScoringService
+confidence handling
+information quality decision
+routing decision records
+human review triggers
+lead_decisions persistence
 ```
 
 ---
 
-### S8-02 - Add CRM dashboard counters
+### Sprint 4 - CRM Lead Board and Handover
 
-Priority: High
-
-Counters:
+Goal:
 
 ```text
-new leads
-qualified leads
-rejected leads
-manual review leads
-awaiting information
+Build internal CRM views based on structured handover, not only raw scores.
+```
+
+Must reference:
+
+```text
+docs/05-crm-workflow.md
+docs/12-data-dictionary.md
+DEC-013 CRM Assignment
+PAT-009 Human Review Bridge
+```
+
+Candidate work:
+
+```text
+internal authentication
+lead list API
+lead detail API
+CRM lead board
+CRM lead detail page
+review reason display
+confirmed/inferred facts display
+missing information display
+routing recommendation display
 ```
 
 ---
 
-### S8-03 - Add score distribution overview
+### Sprint 5 - Security, Audit and Testing Foundation
 
-Priority: Medium
-
-Description:
-
-Show score bands and category distribution.
-
----
-
-### S8-04 - Add priority queues
-
-Priority: Medium
-
-Candidate queues:
+Goal:
 
 ```text
-strong leads
-needs information
-manual review
-assigned to me
+Ensure the MVP has safe data handling, auditability and core test coverage.
+```
+
+Must reference:
+
+```text
+ADR-000 Enterprise Architecture Principles
+docs/09-security-gdpr.md
+docs/10-testing-strategy.md
+docs/12-data-dictionary.md
+```
+
+Candidate work:
+
+```text
+AI output validation tests
+conversation flow tests
+decision engine tests
+CRM access tests
+audit log foundation
+safe dummy fixtures
+no real data checks
 ```
 
 ---
 
-### S8-05 - Add lead age indicator
+## Future Sprint Ladder
 
-Priority: Medium
+Future sprint candidates remain useful, but should be revalidated after MVP 0.1.
 
-Description:
-
-Show how long a lead has been in current status.
-
----
-
-### S8-06 - Add basic operational report page
-
-Priority: Medium
-
-Description:
-
-Show lead volume and conversion indicators.
-
----
-
-### S8-07 - Add export-safe reporting plan
-
-Priority: Low/Medium
-
-Description:
-
-Plan safe export rules without implementing broad exports too early.
-
----
-
-### S8-08 - Add reporting tests
-
-Priority: Medium
-
-Description:
-
-Test dashboard counts and filters.
-
----
-
-# 9. Sprint 9 - Case Lifecycle Foundation
-
-## MVP phase
+### MVP 0.2 candidates
 
 ```text
-MVP 0.3
+Assignment and internal notes
+Readiness and authorization tracking
+Document readiness
+Advanced CRM and reporting
 ```
 
-## Module focus
+### MVP 0.3 candidates
 
 ```text
-Case Lifecycle Module
-Lead-to-case transition
-Case status history
+Case lifecycle foundation
+Identity readiness
+Case intelligence preparation
+Expanded audit and governance controls
+Notifications and operational alerts
+Admin and operations console
 ```
 
-## Goal
-
-Separate qualified leads from deeper internal case handling.
-
-## Candidate issues
-
-### S9-01 - Define case lifecycle statuses
-
-Priority: High
-
-Candidate statuses:
+### MVP 1.0 candidates
 
 ```text
-qualified_lead
-ready_for_review
-accepted_for_casework
-not_accepted
-closed
-```
-
----
-
-### S9-02 - Create case record model
-
-Priority: High
-
-Description:
-
-Create data model for internal case records.
-
----
-
-### S9-03 - Convert qualified lead to case
-
-Priority: High
-
-Description:
-
-Allow internal user to create a case record from qualified lead.
-
----
-
-### S9-04 - Add case overview page
-
-Priority: Medium
-
-Description:
-
-Show created case with status and linked lead.
-
----
-
-### S9-05 - Add case status history
-
-Priority: High
-
-Description:
-
-Track case status changes.
-
----
-
-### S9-06 - Define case transition rules
-
-Priority: Medium
-
-Description:
-
-Prevent invalid status transitions.
-
----
-
-### S9-07 - Add case lifecycle tests
-
-Priority: Medium
-
-Description:
-
-Test case creation and transitions.
-
----
-
-# 10. Sprint 10 - Identity Readiness
-
-## MVP phase
-
-```text
-MVP 0.3 / MVP 0.4
-```
-
-## Module focus
-
-```text
-Identity Readiness Module
-Verification status
-Integration boundary
-```
-
-## Goal
-
-Prepare the platform for stronger identity handling later without building a production identity integration too early.
-
-## Candidate issues
-
-### S10-01 - Define identity readiness model
-
-Priority: High
-
-Candidate statuses:
-
-```text
-not_started
-pending
-verified
-failed
-not_required
-```
-
----
-
-### S10-02 - Add verification status field
-
-Priority: Medium
-
-Description:
-
-Add verification status to the relevant lead or case model.
-
----
-
-### S10-03 - Show verification status in CRM
-
-Priority: Medium
-
-Description:
-
-Display readiness without activating external integration.
-
----
-
-### S10-04 - Create identity provider interface draft
-
-Priority: Medium
-
-Description:
-
-Prepare service interface for future provider abstraction.
-
----
-
-### S10-05 - Document identity integration boundary
-
-Priority: High
-
-Description:
-
-Document what is and is not implemented.
-
----
-
-### S10-06 - Add identity readiness tests
-
-Priority: Low/Medium
-
-Description:
-
-Test status display and access rules.
-
----
-
-# 11. Sprint 11 - Case Intelligence Preparation
-
-## MVP phase
-
-```text
-MVP 0.4 / MVP 1.0 preparation
-```
-
-## Module focus
-
-```text
-Case Intelligence Module
-Outcome tracking
-Score calibration
-Quality feedback
-```
-
-## Goal
-
-Prepare for later decision-support and learning without automating final decisions.
-
-## Candidate issues
-
-### S11-01 - Define outcome tracking fields
-
-Priority: High
-
-Description:
-
-Prepare fields for later case outcome and lead quality analysis.
-
----
-
-### S11-02 - Create quality feedback model
-
-Priority: Medium
-
-Description:
-
-Allow internal users to provide feedback on AI screening quality.
-
----
-
-### S11-03 - Prepare score calibration process
-
-Priority: Medium
-
-Description:
-
-Define how scoring could be improved based on outcomes.
-
----
-
-### S11-04 - Prepare similar-case data model
-
-Priority: Low/Medium
-
-Description:
-
-Plan future similar-case support without implementing recommendations yet.
-
----
-
-### S11-05 - Add internal feedback UI
-
-Priority: Medium
-
-Description:
-
-Add lightweight feedback controls to lead/case detail.
-
----
-
-### S11-06 - Add intelligence safety rules
-
-Priority: High
-
-Description:
-
-Document that intelligence features are decision-support only.
-
----
-
-# 12. Sprint 12 - Audit Expansion and Governance Controls
-
-## MVP phase
-
-```text
-MVP 1.0 preparation
-```
-
-## Module focus
-
-```text
-Audit Module
-Governance controls
-Review traceability
-```
-
-## Goal
-
-Expand auditability and governance around internal actions.
-
-## Candidate issues
-
-### S12-01 - Implement audit event service
-
-Priority: High
-
-Description:
-
-Create a reusable audit logging service.
-
----
-
-### S12-02 - Audit lead status changes
-
-Priority: High
-
-Description:
-
-Log lead workflow changes.
-
----
-
-### S12-03 - Audit assignments and notes
-
-Priority: Medium
-
-Description:
-
-Log assignment and internal note events.
-
----
-
-### S12-04 - Add audit view for admins
-
-Priority: Medium
-
-Description:
-
-Provide internal admin view of key audit events.
-
----
-
-### S12-05 - Add governance checklist to PR template later
-
-Priority: Medium
-
-Description:
-
-Ensure future PRs follow architecture and security rules.
-
----
-
-### S12-06 - Add audit tests
-
-Priority: Medium
-
-Description:
-
-Test event creation and safe metadata handling.
-
----
-
-# 13. Sprint 13 - Notifications and Operational Alerts
-
-## MVP phase
-
-```text
-MVP 1.0 preparation
-```
-
-## Module focus
-
-```text
-Notification Module
-Internal alerts
-Operational awareness
-```
-
-## Goal
-
-Notify internal users about important workflow events.
-
-## Candidate issues
-
-### S13-01 - Define notification types
-
-Priority: Medium
-
-Candidate notifications:
-
-```text
-new qualified lead
-lead assigned
-lead ready for review
-status changed
-missing information updated
-```
-
----
-
-### S13-02 - Create in-app notification model
-
-Priority: Medium
-
-Description:
-
-Create notification storage for internal users.
-
----
-
-### S13-03 - Show notifications in CRM header
-
-Priority: Low/Medium
-
-Description:
-
-Display internal notifications.
-
----
-
-### S13-04 - Notify user when assigned lead changes
-
-Priority: Medium
-
-Description:
-
-Generate notification on assignment.
-
----
-
-### S13-05 - Add notification read/unread state
-
-Priority: Low/Medium
-
-Description:
-
-Allow internal users to mark notifications read.
-
----
-
-### S13-06 - Add notification tests
-
-Priority: Medium
-
-Description:
-
-Test notification creation and access.
-
----
-
-# 14. Sprint 14 - Admin and Operations Console
-
-## MVP phase
-
-```text
-MVP 1.0 preparation
-```
-
-## Module focus
-
-```text
-Operations Module
-Admin tools
-System health
-```
-
-## Goal
-
-Prepare operational visibility for admins.
-
-## Candidate issues
-
-### S14-01 - Create admin dashboard shell
-
-Priority: Medium
-
-Description:
-
-Create a basic admin-only area.
-
----
-
-### S14-02 - Add system health checklist page
-
-Priority: Medium
-
-Description:
-
-Show operational checklist items.
-
----
-
-### S14-03 - Add environment readiness checklist
-
-Priority: Medium
-
-Description:
-
-Help verify staging/production readiness.
-
----
-
-### S14-04 - Add queue and job monitoring plan
-
-Priority: Low/Medium
-
-Description:
-
-Prepare for queue operations if used.
-
----
-
-### S14-05 - Add backup and restore checklist view
-
-Priority: Medium
-
-Description:
-
-Expose operational checklist for backups and restore testing.
-
----
-
-### S14-06 - Add admin access tests
-
-Priority: Medium
-
-Description:
-
-Ensure only admins can access operations pages.
-
----
-
-# 15. Sprint 15 - MVP 1.0 Stabilization and Launch Readiness
-
-## MVP phase
-
-```text
-MVP 1.0
-```
-
-## Module focus
-
-```text
-Stabilization
-Quality
-Security
+Full stabilization
 Launch readiness
-```
-
-## Goal
-
-Prepare the platform for a stable MVP 1.0 release.
-
-## Candidate issues
-
-### S15-01 - Run full functional QA pass
-
-Priority: High
-
-Description:
-
-Test the full public and internal flow.
-
----
-
-### S15-02 - Run security checklist review
-
-Priority: High
-
-Description:
-
-Review against security and compliance documentation.
-
----
-
-### S15-03 - Run data retention review
-
-Priority: High
-
-Description:
-
-Ensure storage rules are understood and documented.
-
----
-
-### S15-04 - Review all public text and disclaimers
-
-Priority: High
-
-Description:
-
-Ensure public communication is safe and clear.
-
----
-
-### S15-05 - Review performance and slow queries
-
-Priority: Medium
-
-Description:
-
-Check key pages and APIs for obvious performance problems.
-
----
-
-### S15-06 - Create launch checklist
-
-Priority: High
-
-Description:
-
-Prepare operational launch checklist.
-
----
-
-### S15-07 - Create post-launch monitoring checklist
-
-Priority: Medium
-
-Description:
-
-Define what to watch after launch.
-
----
-
-### S15-08 - Final MVP 1.0 release review
-
-Priority: High
-
-Description:
-
-Review scope, risks and readiness before launch.
-
----
-
-# 16. Approximate future backlog size
-
-Candidate issue count by sprint:
-
-```text
-Sprint 5:  8 issues
-Sprint 6:  8 issues
-Sprint 7:  8 issues
-Sprint 8:  8 issues
-Sprint 9:  7 issues
-Sprint 10: 6 issues
-Sprint 11: 6 issues
-Sprint 12: 6 issues
-Sprint 13: 6 issues
-Sprint 14: 6 issues
-Sprint 15: 8 issues
-```
-
-Approximate future candidate issues:
-
-```text
-77
-```
-
-Combined with MVP 0.1 issues:
-
-```text
-30 + 77 = 107 candidate/planned issues
-```
-
-This does not mean all should be created in GitHub now.
-
-It means the project direction is ready at a high level.
-
----
-
-# 17. Recommended GitHub issue creation strategy
-
-## Create now only if desired
-
-```text
-Sprint 5 issues
-```
-
-Reason:
-
-```text
-Sprint 5 is the next realistic post-MVP sprint.
-```
-
-## Keep as document backlog for now
-
-```text
-Sprint 6-15
-```
-
-Reason:
-
-```text
-They depend on lessons from MVP 0.1 and Sprint 5.
+Policy versioning
+Advanced analytics
+Document architecture
+Trust architecture expansion
 ```
 
 ---
 
-# 18. Final recommendation
+## Activation Rules
 
-Following sprints is the best model.
-
-It gives a large backlog without creating chaos.
-
-The recommended approach is:
+Do not activate implementation from old PR plans until:
 
 ```text
-Keep Sprint 0-4 as active MVP 0.1 backlog.
-Prepare Sprint 5 as the next candidate GitHub issue set.
-Keep Sprint 6-15 in this masterplan until needed.
+Repository consistency phase is complete
+Policy Pack exists or MVP policies are explicitly accepted as temporary
+Data Dictionary v2 is accepted as implementation source
+Updated epics and issues exist under /backlog
+ServerAdmin handoff says Ready for implementation = yes
 ```
 
-Final rule:
+Do not activate identity, consent, document upload or active case lifecycle before their decision gates and policies are implemented.
+
+---
+
+## Issue Standard
+
+Every implementation issue should include:
 
 ```text
-Plan many sprints.
-Create GitHub issues gradually.
-Build one sprint at a time.
+Purpose
+Related architecture
+Related decisions
+Related patterns
+Related policies
+Data impact
+Acceptance criteria
+Test requirements
+Out of scope
+```
+
+---
+
+## PR Standard
+
+Every PR should state:
+
+```text
+What changed
+Why it changed
+Related issue
+Related architecture or policy
+Tests performed
+Security/data considerations
+```
+
+---
+
+## Definition of Ready for Implementation
+
+Current status:
+
+```text
+Ready for repository consistency work = yes
+Ready for implementation = not yet
+```
+
+Ready for implementation requires:
+
+```text
+critical old docs updated
+Policy Pack created
+updated backlog/epics created
+updated backlog/issues created
+Sprint 0-5 defined with architecture references
+ServerAdmin handoff updated to Ready for implementation = yes
+```
+
+---
+
+## Governance Rule
+
+The backlog must not become disconnected from the architecture.
+
+If an issue cannot reference an architecture document, decision card, pattern or policy, it should be reviewed before implementation.
+
+---
+
+## Product Conclusion
+
+The project has enough product architecture to move toward implementation, but the repository must first be made internally consistent.
+
+The next correct step is not more feature ideation.
+
+The next correct step is:
+
+```text
+finish consistency updates
+create Policy Pack
+create traceable implementation backlog
+then begin MVP 0.1 implementation
 ```
