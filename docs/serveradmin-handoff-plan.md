@@ -1,89 +1,178 @@
-# ServerAdmin Handoff Plan v3.0
+# ServerAdmin Handoff Plan v4.0
 
 ## Purpose
 
-This document is the primary handoff guide for ServerAdmin or any developer who will implement ErstatningsHjælp MVP 0.1.
+This document is the primary handoff guide for ServerAdmin or any developer who will implement ErstatningsHjaelp.
 
-It summarizes:
+It has been updated after the creation of the Enterprise Architecture Baseline.
 
-- current project status
-- implementation order
-- key documents
-- GitHub Issues
-- PR plans
-- security rules
-- MVP boundaries
-- next technical steps
-
-The goal is that implementation can begin without requiring the developer to read the full chat history.
+The goal is that implementation can begin from the current GitHub architecture, not from outdated chat history or older MVP-only documents.
 
 ---
 
-# 1. Current status
+## 1. Current Status
 
 ```text
-Project: ErstatningsHjælp
-Current milestone: MVP 0.1 - AI Screening & CRM
-Current phase: Implementation preparation complete
+Project: ErstatningsHjaelp
+Current phase: Enterprise Architecture Baseline / Repository Consistency Review
 Implementation status: Not started
-ServerAdmin status: Awaiting implementation start
+ServerAdmin status: Awaiting updated implementation backlog
+Ready for PR-001: Not yet - repository consistency updates must be completed first
 ```
 
-The planning layer is complete enough for implementation.
+The repository has moved from an early MVP planning structure into a domain-based architecture structure.
 
-The next real technical step is:
+Implementation should not begin from the old PR plan alone.
+
+---
+
+## 2. Start Here
+
+Start with the architecture index:
 
 ```text
-PR-001 Laravel Foundation
+docs/foundation/DOC-003-architecture-index.md
+```
+
+Then read:
+
+```text
+README.md
+reviews/REV-001-repository-consistency-review.md
+docs/foundation/DOC-000-product-constitution.md
+docs/foundation/DOC-001-architecture-overview.md
+docs/foundation/DOC-002-repository-constitution.md
+adr/ADR-000-enterprise-architecture-principles.md
 ```
 
 ---
 
-# 2. Project asset overview
+## 3. Important Warning
+
+The repository still contains older flat documents under `docs/01-...` to `docs/32-...`.
+
+These documents may contain useful implementation detail, but some of them are now partially superseded by the new architecture baseline.
+
+Do not treat old documents as final implementation truth until they have been updated according to:
 
 ```text
-Documents: 21
-Prompts: 6
-Epics: 8
-GitHub Issues: #1-#30 planned/open, plus #16 closed as duplicate
-PR Plans: PR-001 to PR-009
-Release documents: 2
-Handoff plan: 1
-Governance document: 1
-Implementation: 0%
+reviews/REV-001-repository-consistency-review.md
 ```
 
 ---
 
-# 3. Short project description
+## 4. Architecture Baseline
 
-ErstatningsHjælp is an AI-assisted lead screening and internal CRM system.
-
-The first version is not a full legal case platform.
-
-MVP 0.1 must prove this flow:
+### Foundation Pack
 
 ```text
-User writes a short description
-↓
-AI screens the lead
-↓
-System extracts structured facts
-↓
-System calculates scores
-↓
-System asks the next relevant question
-↓
-Lead is saved
-↓
-Internal user reviews the lead in CRM
+docs/foundation/DOC-000-product-constitution.md
+docs/foundation/DOC-001-architecture-overview.md
+docs/foundation/DOC-002-repository-constitution.md
+docs/foundation/DOC-003-architecture-index.md
+adr/ADR-000-enterprise-architecture-principles.md
+```
+
+### Experience Pack
+
+```text
+docs/experience/DOC-020-experience-architecture.md
+docs/experience/DOC-021-digital-first-conversation-flow.md
+docs/experience/DOC-022-conversation-patterns.md
+docs/experience/DOC-023-tone-of-voice-guide.md
+```
+
+### Pattern Library
+
+```text
+patterns/PAT-001-speak-human-store-structured.md
+patterns/PAT-002-understanding-before-questioning.md
+patterns/PAT-003-confirm-before-classify.md
+patterns/PAT-004-never-ask-twice.md
+patterns/PAT-005-explain-why.md
+patterns/PAT-006-smart-skip.md
+patterns/PAT-007-one-thought-per-screen.md
+patterns/PAT-008-respectful-guide-away.md
+patterns/PAT-009-human-review-bridge.md
+```
+
+### Decision Pack
+
+```text
+decisions/DEC-000-decision-catalog.md
+decisions/DEC-001-start-conversation.md
+decisions/DEC-002-empathy-reflection.md
+decisions/DEC-003-confirm-understanding.md
+decisions/DEC-004-smart-skip-decision.md
+decisions/DEC-005-routing-recommendation.md
+decisions/DEC-006-human-review.md
+decisions/DEC-007-information-quality.md
+decisions/DEC-008-acceptance-policy.md
+decisions/DEC-009-identity-gate.md
+decisions/DEC-010-consent-gate.md
+decisions/DEC-011-document-readiness.md
+decisions/DEC-012-guide-elsewhere.md
+decisions/DEC-013-crm-assignment.md
 ```
 
 ---
 
-# 4. MVP 0.1 scope
+## 5. Current Product Flow
 
-## Must include
+The current target product flow is:
+
+```text
+Landing page
+↓
+Digital first conversation
+↓
+Empathy reflection
+↓
+Confirm or correct understanding
+↓
+Guided screening with Smart Skip
+↓
+Information quality decision
+↓
+Routing recommendation
+↓
+Human review when required
+↓
+Identity / consent / documents only when relevant
+↓
+CRM assignment and handover
+```
+
+---
+
+## 6. AI Responsibility Model
+
+AI may:
+
+- summarize user descriptions
+- extract facts
+- infer possible meaning
+- detect missing information
+- suggest next questions
+- support internal scores
+- recommend routing
+- prepare CRM handover summaries
+
+AI must not:
+
+- promise outcomes
+- make final legal decisions
+- expose raw scores or internal labels to users
+- override policy-required human review
+- replace human review in sensitive or uncertain situations
+
+---
+
+## 7. MVP 0.1 Scope Still Applies
+
+MVP 0.1 remains focused on proving the core screening and CRM workflow.
+
+MVP 0.1 should include:
 
 ```text
 Laravel foundation
@@ -92,20 +181,19 @@ Core Eloquent models
 Prompt Repository
 AI screening service
 AI JSON validation
-Deterministic scoring service
+Scoring support
 Screening start endpoint
 Continue screening endpoint
 Internal authentication
 Lead list API
 Lead detail API
 CRM lead board
-CRM lead detail page
 Lead status updates
 Testing foundation
 Security/compliance foundation
 ```
 
-## Must not include
+MVP 0.1 should not include:
 
 ```text
 Advanced identity integrations
@@ -117,140 +205,11 @@ Automated external submission
 Production deployment
 ```
 
-These are later-release items.
-
 ---
 
-# 5. Key documents
+## 8. Existing PR Plans
 
-## Start here
-
-```text
-README.md
-docs/serveradmin-handoff-plan.md
-github/MVP-0.1-Release-Plan.md
-github/MVP-0.1-Milestone.md
-docs/18-architecture-governance.md
-docs/19-architecture-review-final.md
-docs/20-data-dictionary-v2.md
-docs/21-consistency-review.md
-```
-
-## Core architecture
-
-```text
-docs/01-database-blueprint.md
-docs/02-ai-engine.md
-docs/03-scoring-engine.md
-docs/04-conversation-engine.md
-docs/05-crm-workflow.md
-docs/06-domain-model.md
-docs/08-api-specification.md
-docs/20-data-dictionary-v2.md
-```
-
-## Quality and security
-
-```text
-docs/09-security-gdpr.md
-docs/10-testing-strategy.md
-docs/18-architecture-governance.md
-docs/21-consistency-review.md
-github/Epic-07-Testing-QA-Safety-Net.md
-github/Epic-08-Security-Compliance-Hardening.md
-```
-
-## Prompt pack
-
-```text
-prompts/01-screening-system-prompt.md
-prompts/02-entity-extraction-prompt.md
-prompts/03-score-engine-prompt.md
-prompts/04-next-question-prompt.md
-prompts/05-summary-prompt.md
-prompts/06-case-category-prompt.md
-```
-
----
-
-# 6. Epics
-
-```text
-github/Epic-01-Laravel-Foundation.md
-github/Epic-02-AI-Screening.md
-github/Epic-03-CRM.md
-github/Epic-04-Testing.md
-github/Epic-05-Security-GDPR.md
-github/Epic-06-Documents.md
-github/Epic-07-Testing-QA-Safety-Net.md
-github/Epic-08-Security-Compliance-Hardening.md
-```
-
----
-
-# 7. Implementation order
-
-## Sprint 0 - Foundation
-
-```text
-#1 Laravel Foundation
-#2 Core Database Migrations
-#3 Core Eloquent Models
-```
-
-## Sprint 1 - AI Screening
-
-```text
-#4 Prompt Repository
-#5 AiScreeningService
-#6 AI JSON Validator
-#7 LeadScoringService
-#8 POST /api/v1/screening/start
-#9 POST /api/v1/screening/{lead}/message
-```
-
-## Sprint 2 - CRM
-
-```text
-#10 GET /api/v1/leads/{lead}
-#11 GET /api/v1/leads
-#12 Internal Authentication
-#13 CRM Lead Board
-#14 Lead Detail Page
-#15 Lead Status Updates
-```
-
-## Sprint 3 - Testing and QA
-
-```text
-#17 Create screening test fixtures
-#18 Add safe dummy data seeders
-#19 Add scoring unit tests
-#20 Add AI JSON validation tests
-#21 Add screening endpoint feature tests
-#22 Add CRM access and authentication tests
-#23 Add basic CI test workflow
-```
-
-## Sprint 4 - Security and Compliance
-
-```text
-#24 Create audit log foundation
-#25 Define role and permission model
-#26 Create consent tracking foundation
-#27 Create data retention policy
-#28 Create security review checklist
-#29 Define sensitive data handling rules
-#30 Create operational security checklist
-```
-
-Issue #16 was closed as a duplicate and should not be used for planning.
-
----
-
-# 8. PR plans
-
-Detailed PR plans currently exist for the first implementation sequence:
+The old PR plans still exist under:
 
 ```text
 github/PR-001-Laravel-Foundation.md
@@ -264,47 +223,79 @@ github/PR-008-Screening-Start-Endpoint.md
 github/PR-009-Continue-Screening-Endpoint.md
 ```
 
-Recommended build order:
+These should be treated as early implementation plans, not final current sprint instructions.
 
-```text
-PR-001 → PR-002 → PR-003 → PR-004 → PR-005 → PR-006 → PR-007 → PR-008 → PR-009
-```
+Before ServerAdmin starts PR-001, the implementation backlog should be updated to reference:
 
-After PR-009, continue with CRM issues #10-#15.
+- DOC IDs
+- DEC IDs
+- PAT IDs
+- future POL IDs
+- updated data dictionary
+- updated CRM workflow
 
 ---
 
-# 9. MVP-active status flow
+## 9. Files That Must Be Updated Before Implementation
 
-Use this as the active MVP 0.1 flow:
+The following files are high priority for consistency updates:
+
+```text
+docs/27-sprint-backlog-masterplan.md
+docs/03-scoring-engine.md
+docs/04-conversation-engine.md
+docs/05-crm-workflow.md
+docs/12-data-dictionary.md
+docs/31-acceptance-and-routing-architecture.md
+```
+
+Optional but recommended:
+
+```text
+docs/02-ai-engine.md
+docs/08-api-specification.md
+docs/09-security-gdpr.md
+docs/10-testing-strategy.md
+docs/18-architecture-governance.md
+```
+
+---
+
+## 10. Lead Status Model
+
+The old MVP statuses may still be used as a starting point:
 
 ```text
 NEW
-↓
 SCREENING
-↓
 AWAITING_INFO
-↓
 QUALIFIED
-↓
 REVIEW
-↓
+REJECTED
 CLOSED
 ```
 
-Side branch:
+However, CRM implementation must now also support decision handover fields such as:
 
-```text
-REJECTED
-```
+- routing recommendation
+- routing reason
+- information quality state
+- human review reason
+- identity gate outcome
+- consent gate outcome
+- document readiness state
+- confirmed facts
+- inferred facts
+- unresolved facts
+- user-facing message shown
 
-Future-reserved statuses must not be activated before their flows exist.
+These fields must be reconciled in the data dictionary before implementation.
 
 ---
 
-# 10. Scoring model
+## 11. Scoring and Routing Status
 
-MVP 0.1 uses three core scores:
+The three-score model remains relevant:
 
 ```text
 case_strength
@@ -312,56 +303,37 @@ information_quality
 commercial_value
 ```
 
-Official overall score formula:
+But scoring must now be treated as one input into the Decision Pack, not as the sole routing authority.
+
+Routing should follow:
 
 ```text
-overall_score =
-(case_strength * 0.50)
-+
-(information_quality * 0.20)
-+
-(commercial_value * 0.30)
+Information
+↓
+Confidence
+↓
+Policy
+↓
+Decision
+↓
+Explanation
+↓
+Action
+↓
+Audit
 ```
 
-The deterministic LeadScoringService should be the official scoring source.
+See:
+
+```text
+decisions/DEC-005-routing-recommendation.md
+decisions/DEC-007-information-quality.md
+decisions/DEC-008-acceptance-policy.md
+```
 
 ---
 
-# 11. Case categories
-
-```text
-A = strong lead
-B = promising lead with missing information
-C = uncertain lead
-D = weak, irrelevant or outdated lead
-```
-
-`unknown` may be used only as a validation fallback, not as the intended final business category.
-
----
-
-# 12. Recommended action values
-
-Canonical MVP 0.1 values:
-
-```text
-collect_more_information
-manual_review
-qualified
-reject
-```
-
-Optional internal fallback:
-
-```text
-unknown
-```
-
-Future-oriented values should not drive MVP 0.1 flow until the related features exist.
-
----
-
-# 13. Security rules
+## 12. Security Rules
 
 From the beginning:
 
@@ -377,61 +349,71 @@ Avoid unnecessary raw content in logs
 Do not expose raw AI/debug payloads publicly
 ```
 
----
-
-# 14. What ServerAdmin should do first
-
-Start with:
+Sensitive process steps must also follow:
 
 ```text
-github/PR-001-Laravel-Foundation.md
-```
-
-Expected result:
-
-```text
-Laravel installed in repository root
-Application runs locally
-.env.example exists
-.env is not committed
-Basic README instructions still valid
-```
-
-Do not start CRM, AI integration, authentication, or deployment before the foundation works.
-
----
-
-# 15. Definition of ready for PR-001
-
-```text
-Repository accessible
-README current
-PR-001 plan exists
-MVP scope understood
-No production deployment expected
-No real data required
-No secrets required in repository
-```
-
-Status:
-
-```text
-Ready for PR-001 = yes
+PAT-005 Explain Why
+DEC-009 Identity Gate
+DEC-010 Consent Gate
 ```
 
 ---
 
-# 16. Final handoff note
+## 13. What ServerAdmin Should Do First
 
-The project is ready for implementation, but not yet implemented.
+Do not start by blindly following the old PR plan.
 
-The correct next step is code, not more product scope.
+First complete the repository consistency updates listed in section 9.
+
+After that, create an updated implementation backlog that maps:
+
+```text
+Architecture -> Decision -> Policy -> Epic -> Issue -> Code -> Test
+```
+
+Only then start Laravel foundation implementation.
+
+---
+
+## 14. Definition of Ready for Implementation
+
+```text
+README updated = yes
+Architecture Index exists = yes
+Foundation Pack exists = yes
+Experience Pack exists = yes
+Pattern Library exists = yes
+Decision Pack exists = yes
+Repository Consistency Review exists = yes
+Critical old docs updated = in progress
+Policy Pack exists = no
+Updated implementation backlog exists = no
+```
+
+Current status:
+
+```text
+Ready for implementation = not yet
+Ready for repository consistency work = yes
+```
+
+---
+
+## 15. Final Handoff Note
+
+The project is not blocked by missing ideas.
+
+The project is now in consolidation mode.
+
+The next correct step is to reconcile the old MVP planning documents with the new enterprise architecture baseline, then produce an updated implementation backlog.
 
 Final instruction:
 
 ```text
-Follow the issues.
-Follow the PR plans.
-Keep MVP 0.1 small.
-Do not expand scope before PR-001 to PR-009 are complete.
+Do not expand scope.
+Do not implement from outdated documents.
+Follow the Architecture Index.
+Update the critical old documents.
+Create an implementation backlog with traceability.
+Then begin implementation.
 ```
