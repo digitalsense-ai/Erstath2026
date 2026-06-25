@@ -1,117 +1,150 @@
-# Dokument 12 - Data Dictionary v1.0
+# Dokument 12 - Data Dictionary v2.0
 
-## Formål
+Status: Updated for Enterprise Architecture Baseline
+Domain: Platform / Data / Decision / CRM
+Related: DOC-001 Architecture Overview, DOC-002 Repository Constitution, DEC-000 Decision Catalog, DEC-005 Routing Recommendation, DEC-007 Information Quality, DEC-013 CRM Assignment, PAT-001 Speak Human Store Structured, PAT-003 Confirm Before Classify
 
-Dette dokument beskriver de vigtigste databasefelter i ErstatningsHjælp.
+## Formaal
 
-Data Dictionary bruges som bro mellem:
+Dette dokument beskriver de vigtigste databasefelter i ErstatningsHjaelp.
+
+Data Dictionary er broen mellem:
 
 ```text
-Database Blueprint
+Architecture
 ↓
-Laravel migrations
+Decision Pack
+↓
+Database migrations
 ↓
 Eloquent models
 ↓
 API responses
 ↓
 CRM UI
+↓
+Audit
 ```
 
-Målet er, at udviklere ikke skal gætte hvad felterne betyder.
+Dette dokument er opdateret efter Enterprise Architecture Baseline.
+
+Det betyder, at data ikke kun skal understøtte scoring, men også:
+
+- digital first conversation
+- empathy reflection
+- confirmed vs inferred facts
+- confidence levels
+- Smart Skip
+- decision logging
+- routing recommendation
+- human review
+- CRM handover
+- identity, consent and document readiness gates
 
 ---
 
-# Generelle principper
+## Generelle principper
 
-## Navngivning
+### Naming
 
-- Brug engelske tabel- og feltnavne i databasen.
+- Brug engelske tabel- og feltnavne.
 - Brug snake_case.
 - Brug entydige navne.
 - Brug `uuid` til eksterne referencer.
 - Brug interne `id`-felter til database relationer.
 
----
+### Fact reliability
 
-## Timestamps
-
-De fleste tabeller bør have:
+Systemet skal kunne skelne mellem:
 
 ```text
-created_at
-updated_at
+ai_inferred
+user_confirmed
+user_corrected
+document_supported
+human_reviewed
 ```
 
-Nogle tabeller bør også have:
+Et AI-inferred fact maa ikke behandles som lige saa sikkert som et confirmed eller human-reviewed fact.
 
-```text
-deleted_at
-```
+### User-facing vs internal data
 
-hvis soft delete er relevant.
+Brugeren maa ikke se raw scores, raw labels, routingkoder eller interne beslutningsnavne i foerste samtaleflow.
+
+CRM og audit maa gerne se interne data.
 
 ---
 
 # Table: leads
 
-## Formål
+## Formaal
 
-Hver person starter som et lead.
-
-Lead er hovedobjektet i screeningfasen.
+Hovedobjektet for en potentiel sag eller henvendelse.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Intern primær nøgle |
-| uuid | uuid | yes | Ekstern reference, bruges i API og frontend |
-| first_name | varchar | no | Brugerens fornavn |
-| last_name | varchar | no | Brugerens efternavn |
-| email | varchar | no | Brugerens email |
-| phone | varchar | no | Brugerens telefonnummer |
+| id | bigint | yes | Intern primaer noegle |
+| uuid | uuid | yes | Ekstern reference til API/frontend |
+| first_name | varchar | no | Brugerens fornavn, hvis oplyst |
+| last_name | varchar | no | Brugerens efternavn, hvis oplyst |
+| email | varchar | no | Email, hvis oplyst |
+| phone | varchar | no | Telefon, hvis oplyst |
 | status | varchar | yes | Aktuel lead-status |
-| source | varchar | no | Hvor leadet kom fra, fx website eller campaign |
-| case_category | varchar | no | A, B, C eller D |
+| source | varchar | no | Lead source, fx website eller campaign |
 | priority_score | integer | no | Intern prioritet 0-100 |
+| current_routing_outcome | varchar | no | Seneste routing outcome |
+| current_review_required | boolean | yes | Om human review er kraevet |
+| current_review_reason | varchar | no | Primær review reason |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 | deleted_at | timestamp | no | Soft delete |
 
-## Status values
+## MVP status values
 
 ```text
 NEW
 SCREENING
 AWAITING_INFO
 QUALIFIED
-REJECTED
-MITID_PENDING
-POA_PENDING
-DOCUMENTS_PENDING
 REVIEW
-ACTIVE_CASE
+GUIDE_ELSEWHERE
+REJECTED
 CLOSED
 ```
 
-## Notes
+`REJECTED` maa kun bruges som intern legacy/administrativ status. User-facing flow skal bruge respectful guide-away language.
 
-Kontaktfelter er frivillige i MVP, fordi brugeren først skal kunne starte screening uden lang formular.
+## Future reserved statuses
+
+```text
+MITID_PENDING
+POA_PENDING
+DOCUMENTS_PENDING
+ACTIVE_CASE
+SUBMITTED
+DECISION
+```
+
+Disse maa ikke drive MVP 0.1 uden separat arkitektur og backlog.
 
 ---
 
 # Table: lead_conversations
 
-## Formål
+## Formaal
 
-Gemmer samtalen mellem bruger og AI.
+Gemmer samtalen mellem bruger og system.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
 | role | varchar | yes | user, assistant eller system |
-| message | text | yes | Selve beskeden |
-| metadata | json | no | Ekstra data, fx prompt version eller token info |
+| message | text | yes | Beskedindhold |
+| step_id | varchar | no | Conversation step, fx empathy_reflection |
+| decision_id | varchar | no | Beslutning der producerede beskeden, fx DEC-002 |
+| user_facing | boolean | yes | Om beskeden blev vist til bruger |
+| metadata | json | no | Prompt version, model info, token info, etc. |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 
 ## Role values
@@ -120,229 +153,383 @@ Gemmer samtalen mellem bruger og AI.
 user
 assistant
 system
+internal
 ```
-
-## Notes
-
-Denne tabel er vigtig for at kunne rekonstruere screeningforløbet.
 
 ---
 
-# Table: lead_scores
+# Table: lead_facts
 
-## Formål
+## Formaal
 
-Gemmer de tre hovedscores og samlet score.
+Ny anbefalet struktur for fakta. Denne tabel kan erstatte eller supplere den gamle `lead_entities`.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
-| case_strength | integer | yes | Sagens styrke 0-100 |
-| information_quality | integer | yes | Informationskvalitet 0-100 |
-| commercial_value | integer | yes | Kommerciel værdi 0-100 |
-| overall_score | integer | yes | Vægtet samlet score 0-100 |
-| confidence | decimal | yes | AI/system confidence 0.00-1.00 |
-| explanation | json | no | Forklaring pr. score |
+| fact_key | varchar | yes | Feltets noegle, fx relation, event_date |
+| fact_value | text/json | no | Faktisk værdi |
+| fact_type | varchar | no | Kategori, fx person, timing, consequence |
+| source_type | varchar | yes | ai_inferred, user_confirmed, etc. |
+| source_ref | varchar | no | Reference til message, document eller reviewer |
+| confidence | decimal | no | 0.00-1.00 |
+| confirmation_state | varchar | yes | inferred, confirmed, corrected, unresolved |
+| is_routing_relevant | boolean | yes | Om fact bruges i routing |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 
-## Score ranges
+## confirmation_state values
 
 ```text
-0-39 = lav
-40-69 = middel/usikker
-70-84 = stærk
-85-100 = meget stærk
+inferred
+confirmation_pending
+confirmed
+corrected
+unresolved
+rejected_by_user
+document_supported
+human_reviewed
 ```
 
-## Notes
+## Common fact_key values
 
-Der bør som udgangspunkt kun være én aktuel score pr. lead.
-
-Senere kan man tilføje score history.
+```text
+affected_person
+relation_to_affected_person
+treatment_context
+injury_type
+consequence
+event_date
+event_period
+discovery_date
+hospital_or_clinic
+diagnosis
+previous_claim
+previous_decision
+documents_available
+document_types_mentioned
+severity_indicator
+commercial_value_signal
+```
 
 ---
 
 # Table: lead_entities
 
-## Formål
+## Status
 
-Gemmer strukturerede fakta udtrukket af AI.
+Legacy-compatible table.
+
+Denne tabel kan fortsat bruges i MVP, men ny arkitektur boer gradvist flytte vigtig beslutningsdata til `lead_facts`.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
 | entity_type | varchar | yes | Type, fx diagnosis eller hospital |
 | entity_value | text | no | Værdien |
 | confidence | decimal | no | AI confidence 0.00-1.00 |
 | source_message_id | bigint | no | Reference til samtalebesked |
+| confirmation_state | varchar | no | Anbefalet nyt felt |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 
-## Common entity_type values
+---
+
+# Table: lead_questions
+
+## Formaal
+
+Gemmer sporgsmaal, Smart Skip-beslutninger og screeningsflow.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til leads.id |
+| question_key | varchar | yes | Sporgsmaals-ID |
+| question_text | text | no | User-facing sporgsmaal |
+| action | varchar | yes | ask_now, skip, postpone, confirm, review |
+| reason | text | no | Intern grund |
+| answer | text/json | no | Svar, hvis stillet |
+| answered_at | timestamp | no | Besvaret tidspunkt |
+| confidence | decimal | no | Confidence for kendt svar |
+| decision_id | varchar | no | Typisk DEC-004 |
+| created_at | timestamp | yes | Oprettet tidspunkt |
+
+## action values
 
 ```text
-diagnosis
-injury_type
-hospital
-doctor
-event_year
-event_date
-diagnosis_year
-diagnosis_date
-death
-permanent_injury
-economic_loss
-documents_available
-previous_claim
-previous_decision
-patient_relation
+ask_now
+confirm_naturally
+skip_already_known
+skip_not_relevant
+postpone_until_later
+human_review
 ```
-
-## Notes
-
-Key-value modellen gør det let at udvide entities uden migration hver gang.
 
 ---
 
 # Table: lead_missing_information
 
-## Formål
+## Formaal
 
-Gemmer oplysninger som AI mener mangler.
+Gemmer oplysninger, som mangler for at kunne vaelge naeste beslutning.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
 | field_name | varchar | yes | Manglende felt |
 | priority | integer | yes | Prioritet 1-10 |
-| resolved | boolean | yes | Om manglen er løst |
-| resolved_at | timestamp | no | Hvornår manglen blev løst |
+| criticality | varchar | yes | critical, important, optional |
+| reason_needed | text | no | Hvorfor feltet er relevant |
+| related_decision_id | varchar | no | DEC-ID der mangler data |
+| resolved | boolean | yes | Om manglen er lost |
+| resolved_at | timestamp | no | Hvornar manglen blev lost |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 
-## Priority values
+---
+
+# Table: lead_scores
+
+## Formaal
+
+Gemmer interne scores.
+
+Scores er beslutningsinput, ikke endelige afgorelser.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til leads.id |
+| case_strength | integer | yes | 0-100 |
+| information_quality | integer | yes | 0-100 |
+| commercial_value | integer | yes | 0-100 |
+| overall_score | integer | yes | Vægtet score 0-100 |
+| confidence | decimal | yes | Overordnet confidence 0.00-1.00 |
+| score_version | varchar | yes | Version af scoring model |
+| explanation | json | no | Forklaring pr. score |
+| created_at | timestamp | yes | Oprettet tidspunkt |
+| updated_at | timestamp | yes | Senest opdateret |
+
+---
+
+# Table: lead_decisions
+
+## Formaal
+
+Gemmer beslutninger og anbefalinger fra Decision Pack.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til leads.id |
+| decision_id | varchar | yes | Fx DEC-005 |
+| decision_version | varchar | no | Version af decision logic |
+| outcome | varchar | yes | Beslutningsoutcome |
+| reason | text/json | no | Forklaring internt |
+| confidence | decimal | no | Decision confidence |
+| input_snapshot | json | no | Relevant state ved beslutningstidspunkt |
+| policy_refs | json | no | Relaterede policies |
+| pattern_refs | json | no | Relaterede patterns |
+| user_facing_message | text | no | Besked vist til bruger |
+| created_at | timestamp | yes | Oprettet tidspunkt |
+
+## Common decision_id values
 
 ```text
-10 = kritisk
-7-9 = høj prioritet
-4-6 = middel prioritet
-1-3 = lav prioritet
+DEC-001
+DEC-002
+DEC-003
+DEC-004
+DEC-005
+DEC-006
+DEC-007
+DEC-008
+DEC-009
+DEC-010
+DEC-011
+DEC-012
+DEC-013
 ```
 
-## Examples
+---
+
+# Table: lead_reviews
+
+## Formaal
+
+Gemmer human review krav og review-resultater.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til leads.id |
+| review_required | boolean | yes | Om review er kraevet |
+| review_reason | varchar | no | Primær grund |
+| review_notes | text | no | Interne noter |
+| assigned_to | bigint | no | Intern bruger |
+| status | varchar | yes | pending, in_progress, completed |
+| outcome | varchar | no | Reviewer outcome |
+| completed_at | timestamp | no | Afsluttet tidspunkt |
+| created_at | timestamp | yes | Oprettet tidspunkt |
+| updated_at | timestamp | yes | Senest opdateret |
+
+## review_reason values
 
 ```text
-event_date
-hospital
-diagnosis_date
-documents_available
-previous_decision
+low_confidence
+sensitive_context
+serious_indicators
+contradictory_information
+unclear_timing
+unclear_relation
+previous_decision_mentioned
+policy_required_review
+missing_critical_information
 ```
 
 ---
 
 # Table: lead_assessments
 
-## Formål
+## Formaal
 
-Gemmer AI's interne vurdering og resumé.
+Gemmer AI's interne resumé og assessment.
+
+Denne tabel maa ikke bruges som eneste beslutningsgrundlag.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
-| summary | longtext | yes | Kort internt resumé |
-| recommendation | varchar | no | Anbefalet handling |
+| summary | longtext | yes | Internt resumé |
+| recommendation | varchar | no | Legacy/anbefalet handling |
 | key_facts | json | no | Centrale fakta |
 | risk_notes | json | no | Risikonoter |
 | confidence | decimal | no | AI confidence |
-| generated_at | timestamp | yes | Hvornår vurderingen blev genereret |
+| generated_at | timestamp | yes | Genereret tidspunkt |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 
-## recommendation values
+## Updated recommendation values
 
 ```text
-reject
+continue
 collect_more_information
-request_documents
-manual_review
-mitid_flow
+human_review_required
+prepare_documents_later
+identity_step_when_relevant
+consent_step_when_relevant
+guide_elsewhere_respectfully
+crm_assignment
 unknown
 ```
+
+Legacy values such as `reject`, `request_documents` and `mitid_flow` must be mapped through Decision Pack before use.
+
+---
+
+# Table: lead_handover_snapshots
+
+## Formaal
+
+Gemmer samlet CRM-handover fra Conversation Engine og Decision Pack.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til leads.id |
+| original_description | longtext | no | Brugerens oprindelige beskrivelse |
+| empathy_reflection | text | no | Refleksion vist til bruger |
+| confirmation_status | varchar | no | Status for brugerbekræftelse |
+| confirmed_facts | json | no | Confirmed facts |
+| inferred_facts | json | no | Inferred facts |
+| unresolved_facts | json | no | Unresolved facts |
+| missing_information | json | no | Manglende info |
+| scores | json | no | Aktuelle scores |
+| decisions | json | no | Seneste beslutninger |
+| routing_recommendation | varchar | no | Seneste routing |
+| review_reason | varchar | no | Review reason hvis relevant |
+| suggested_next_action | varchar | no | Foreslået næste handling |
+| user_facing_message | text | no | Seneste besked vist til bruger |
+| created_at | timestamp | yes | Oprettet tidspunkt |
 
 ---
 
 # Table: lead_documents
 
-## Formål
+## Formaal
 
-Gemmer metadata om dokumenter uploadet af bruger.
+Gemmer metadata om dokumenter.
 
-Filen selv gemmes i sikker storage, ikke i databasen.
+MVP 0.1 kan registrere document readiness, men aktiv upload og analyse er future scope medmindre særskilt besluttet.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | yes | Reference til leads.id |
-| file_name | varchar | yes | Originalt filnavn |
-| file_path | varchar | yes | Intern storage path |
+| file_name | varchar | no | Originalt filnavn |
+| file_path | varchar | no | Intern storage path |
 | mime_type | varchar | no | Filtype |
-| file_size | integer | no | Filstørrelse i bytes |
-| document_type | varchar | yes | Dokumenttype |
-| uploaded_by | bigint | no | Bruger der uploadede filen |
-| uploaded_at | timestamp | yes | Uploadtidspunkt |
+| file_size | integer | no | Filstorrelse |
+| document_type | varchar | no | Dokumenttype |
+| readiness_state | varchar | no | mentioned, available, needed_later, not_needed_now |
+| uploaded_by | bigint | no | Bruger der uploadede fil |
+| uploaded_at | timestamp | no | Uploadtidspunkt |
 | created_at | timestamp | yes | Oprettet tidspunkt |
 | updated_at | timestamp | yes | Senest opdateret |
 
-## document_type values
+---
 
-```text
-journal
-afgoerelse
-loenseddel
-kvittering
-fuldmagt
-andet
-```
+# Table: consents
 
-## Notes
+## Formaal
 
-Filer må aldrig gemmes i public folder.
+Gemmer samtykke og authorization-state.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| id | bigint | yes | Primaer noegle |
+| lead_id | bigint | yes | Reference til lead |
+| consent_type | varchar | yes | Type samtykke |
+| consent_purpose | text | yes | Hvorfor samtykke indhentes |
+| consent_text_version | varchar | yes | Version af samtykketekst |
+| status | varchar | yes | pending, accepted, withdrawn, expired |
+| accepted_at | timestamp | no | Accepteret tidspunkt |
+| withdrawn_at | timestamp | no | Tilbagetrukket tidspunkt |
+| created_at | timestamp | yes | Oprettet tidspunkt |
+| updated_at | timestamp | yes | Senest opdateret |
 
 ---
 
 # Table: ai_runs
 
-## Formål
+## Formaal
 
-Gemmer AI-kørsler til debugging, audit og omkostningskontrol.
-
-Denne tabel er ikke nødvendig i første mini-MVP, men anbefales tidligt.
+Gemmer AI-koersler til audit, debugging og omkostningskontrol.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | lead_id | bigint | no | Reference til leads.id |
-| provider | varchar | yes | AI provider, fx openai |
+| provider | varchar | yes | AI provider |
 | model | varchar | yes | Modelnavn |
 | prompt_name | varchar | yes | Prompt-fil |
 | prompt_version | varchar | no | Prompt version |
 | input_hash | varchar | no | Hash af input |
-| input_json | json | no | Input til AI, helst minimeret |
+| input_json | json | no | Minimeret input |
 | output_json | json | no | AI response |
+| output_validated | boolean | yes | Om output er valideret |
+| validation_errors | json | no | Valideringsfejl |
 | tokens_input | integer | no | Input tokens |
 | tokens_output | integer | no | Output tokens |
 | cost_estimate | decimal | no | Estimeret omkostning |
-| success | boolean | yes | Om kaldet lykkedes |
-| error_message | text | no | Fejlbesked hvis relevant |
+| success | boolean | yes | Om kald lykkedes |
+| error_message | text | no | Fejlbesked |
 | created_at | timestamp | yes | Oprettet tidspunkt |
-
-## Notes
 
 Undgå at logge unødvendige følsomme oplysninger.
 
@@ -350,42 +537,25 @@ Undgå at logge unødvendige følsomme oplysninger.
 
 # Table: cases
 
-## Formål
+## Status
 
-Oprettes først når et lead bliver til en reel sag.
+Future scope.
 
-| Field | Type | Required | Description |
-|---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
-| lead_id | bigint | yes | Reference til leads.id |
-| case_number | varchar | yes | Internt sagsnummer |
-| status | varchar | yes | Sagsstatus |
-| assigned_to | bigint | no | Ansvarlig medarbejder |
-| expected_value | integer | no | Forventet erstatningsværdi |
-| expected_revenue | integer | no | Forventet omsætning |
-| created_at | timestamp | yes | Oprettet tidspunkt |
-| updated_at | timestamp | yes | Senest opdateret |
+Oprettes først når et lead bliver til en aktiv sag.
 
-## status values
-
-```text
-ACTIVE_CASE
-SUBMITTED
-DECISION
-CLOSED
-```
+MVP 0.1 bør ikke afhænge af fuld case lifecycle.
 
 ---
 
 # Table: audit_logs
 
-## Formål
+## Formaal
 
-Logger væsentlige handlinger i systemet.
+Logger væsentlige handlinger.
 
 | Field | Type | Required | Description |
 |---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
+| id | bigint | yes | Primaer noegle |
 | user_id | bigint | no | Intern bruger |
 | lead_id | bigint | no | Reference til lead |
 | case_id | bigint | no | Reference til sag |
@@ -399,72 +569,58 @@ Logger væsentlige handlinger i systemet.
 
 ```text
 lead.created
-lead.viewed
 lead.status_changed
-document.uploaded
+conversation.message_created
+fact.inferred
+fact.confirmed
+question.skipped
+decision.created
+review.required
+review.completed
+crm.assignment_changed
 consent.accepted
-ai.screening_generated
+document.readiness_updated
+ai.run_completed
 ```
 
 ---
 
-# Table: consents
+# Implementation Notes
 
-## Formål
+## MVP recommended minimum
 
-Gemmer samtykker.
+For MVP 0.1, implement at minimum:
 
-| Field | Type | Required | Description |
-|---|---|---:|---|
-| id | bigint | yes | Primær nøgle |
-| lead_id | bigint | yes | Reference til lead |
-| consent_type | varchar | yes | Type samtykke |
-| consent_text_version | varchar | yes | Version af samtykketekst |
-| accepted_at | timestamp | no | Hvornår accepteret |
-| withdrawn_at | timestamp | no | Hvornår trukket tilbage |
-| ip_address | varchar | no | IP-adresse |
-| user_agent | text | no | Browser/klient |
-| created_at | timestamp | yes | Oprettet tidspunkt |
-| updated_at | timestamp | yes | Senest opdateret |
+- leads
+- lead_conversations
+- lead_facts or lead_entities with confirmation_state
+- lead_missing_information
+- lead_scores
+- lead_decisions
+- lead_reviews
+- lead_handover_snapshots
+- ai_runs
+- audit_logs
 
-## consent_type examples
+## Future tables
 
-```text
-screening
-health_data_processing
-document_processing
-power_of_attorney
-```
+Future releases can expand:
 
----
+- lead_documents
+- consents
+- cases
+- document analysis tables
+- communication tables
+- payment or economic tables
 
-# MVP Priority
+## Migration rule
 
-## Must have for MVP 0.1.0
+Do not remove legacy fields immediately.
 
-```text
-leads
-lead_conversations
-lead_scores
-lead_entities
-lead_missing_information
-lead_assessments
-ai_runs
-```
+Instead:
 
-## Later
-
-```text
-lead_documents
-cases
-audit_logs
-consents
-```
-
----
-
-# Resultat
-
-Data Dictionary gør databasen implementerbar uden at miste betydningen bag hvert felt.
-
-Dette dokument skal holdes opdateret, når migrations ændres.
+1. add new decision-compatible fields
+2. map legacy fields to new outcomes
+3. update API responses
+4. update CRM UI
+5. deprecate old fields only after implementation is stable
