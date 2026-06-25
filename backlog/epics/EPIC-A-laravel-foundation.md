@@ -19,24 +19,181 @@ It prepares the technical foundation required for later epics.
 
 ---
 
-## Business Value
+## Business Objectives
 
-A strong foundation reduces implementation risk and makes later work easier to review, test and maintain.
+This epic enables the platform to:
 
-This epic enables:
+- establish a predictable Laravel project baseline
+- reduce implementation risk before business logic begins
+- create a safe local development setup
+- enforce repository and environment conventions
+- enable future database, conversation, AI and CRM implementation
+- support repeatable testing and CI setup
 
-- consistent local development
-- predictable project structure
-- safe configuration management
-- baseline CI and quality checks
-- future API and CRM work
-- controlled implementation of AI, decisions and policies
+---
+
+## Success Metrics
+
+This epic is successful when:
+
+- the Laravel application can be installed locally
+- the application can bootstrap without business logic
+- `.env.example` exists with safe placeholders only
+- dependencies can be installed predictably
+- basic tests can run
+- generated and sensitive files are ignored correctly
+- developers can follow setup documentation without guessing
+
+---
+
+## Bounded Context
+
+```text
+Application Foundation Context
+```
+
+The Application Foundation Context owns framework setup, development conventions and baseline repository readiness.
+
+It does not own product workflow, AI behavior, routing, CRM, documents, identity or consent.
+
+---
+
+## Domain Responsibilities
+
+### Owns
+
+```text
+framework baseline
+local environment setup
+repository implementation guardrails
+dependency management
+basic test runner setup
+baseline CI structure
+safe dummy data rules
+```
+
+### Must never own
+
+```text
+business decision logic
+AI prompt execution
+CRM workflow
+identity verification
+document collection
+human review outcomes
+```
+
+### Inbound Events
+
+```text
+ArchitectureBaselineAccepted
+BacklogEpicCreated
+SprintFoundationStarted
+```
+
+### Outbound Events
+
+```text
+ApplicationBaselineCreated
+EnvironmentConfigured
+TestRunnerValidated
+CiBaselineCreated
+```
+
+### Public Contracts
+
+```text
+DeveloperSetupGuide
+EnvironmentConfigurationContract
+RepositoryGuardrailRules
+```
+
+### Internal Contracts
+
+```text
+ApplicationBootstrapCheck
+EnvironmentSanityCheck
+TestRunnerValidation
+```
+
+---
+
+## Domain Model
+
+### Entities
+
+```text
+None for MVP foundation
+```
+
+### Value Objects
+
+```text
+EnvironmentName
+ApplicationVersion
+DependencyVersion
+ConfigurationKey
+```
+
+### Domain Services
+
+```text
+None required for MVP foundation
+```
+
+### Application Services
+
+```text
+ApplicationBootstrapValidation
+EnvironmentConfigurationValidation
+```
+
+### Events
+
+```text
+ApplicationBootstrapped
+EnvironmentExampleCreated
+TestsValidated
+```
+
+These are conceptual events for planning and do not need to be implemented as Laravel events unless useful.
+
+---
+
+## Architecture Decision Mapping
+
+| Architecture Artifact | Implementation Meaning |
+|---|---|
+| DOC-002 Repository Constitution | Defines repository structure and documentation authority |
+| DOC-003 Architecture Index | Defines current architecture entry point |
+| ADR-000 Enterprise Architecture Principles | Defines architecture and implementation principles |
+| AF-003 Implementation Readiness Checklist | Defines when coding may begin safely |
+| POL-008 AI Usage Policy | Prevents uncontrolled AI implementation before the AI layer exists |
+
+---
+
+## Proposed Implementation Components
+
+Potential Laravel or repository components:
+
+```text
+Laravel application baseline
+.env.example
+.gitignore
+composer.json
+phpunit.xml or pest configuration
+README setup section
+GitHub Actions workflow
+local development notes
+```
+
+These names are suggestions and may be refined during implementation.
 
 ---
 
 ## Scope
 
-EPIC-A includes:
+This epic includes:
 
 - Laravel project baseline
 - repository structure alignment
@@ -46,13 +203,13 @@ EPIC-A includes:
 - dependency management
 - basic CI foundation
 - safe dummy data rules
-- initial documentation for developers
+- initial developer documentation
 
 ---
 
 ## Out of Scope
 
-EPIC-A does not include:
+This epic does not include:
 
 - production deployment
 - real AI provider integration
@@ -64,75 +221,61 @@ EPIC-A does not include:
 - human review queue
 - real personal data handling
 
-These areas are handled by later epics.
+---
+
+## Data Impact
+
+This epic should not introduce final business tables.
+
+Database work belongs primarily to:
+
+```text
+EPIC-B - Data Model and Migrations
+```
+
+EPIC-A may include only framework-level migrations if Laravel requires them.
 
 ---
 
-## Architecture Traceability
+## API Boundaries
 
-### Foundation
+This epic should not expose product APIs.
 
-```text
-docs/foundation/DOC-001-architecture-overview.md
-docs/foundation/DOC-002-repository-constitution.md
-docs/foundation/DOC-003-architecture-index.md
-adr/ADR-000-enterprise-architecture-principles.md
-```
-
-### Architecture Freeze
-
-```text
-architecture-freeze/AF-001-architecture-freeze-report.md
-architecture-freeze/AF-003-implementation-readiness-checklist.md
-```
-
-### Policy
-
-```text
-policies/POL-008-ai-usage-policy.md
-```
-
-POL-008 is relevant because this epic must prevent uncontrolled AI implementation before the policy-backed AI layer exists.
+If health-check or local bootstrap endpoints are added, they must not expose secrets, environment details or internal configuration values.
 
 ---
 
-## Technical Requirements
+## Queue and Event Considerations
 
-The foundation should support:
+No queues are required in EPIC-A.
 
-- PHP and Laravel baseline
-- Composer dependency management
-- environment variables through `.env.example`
-- no secrets committed to repository
-- local development documentation
-- structured folder conventions
-- basic test runner setup
-- basic static quality tooling if selected
-- CI placeholder or baseline workflow
-
-Exact Laravel version and package choices should be confirmed in the first implementation issue.
+MVP should avoid queue setup unless needed by framework installation or later epics.
 
 ---
 
-## Repository Requirements
+## Cache Strategy
 
-The repository should remain aligned with the architecture structure.
+No business caching should be introduced in EPIC-A.
 
-Implementation code should not replace or contradict architecture documents.
-
-Developer documentation should explain:
-
-```text
-how to install
-how to configure environment
-how to run tests
-how to start local development
-how to avoid real data
-```
+Only default Laravel cache configuration may exist.
 
 ---
 
-## Security Requirements
+## Non-Functional Requirements
+
+This epic should be:
+
+- minimal
+- secure by default
+- maintainable
+- easy to install locally
+- compatible with future CI
+- free from real personal data
+- aligned with repository governance
+
+---
+
+## Security and Privacy Considerations
 
 EPIC-A must ensure:
 
@@ -142,20 +285,7 @@ EPIC-A must ensure:
 - local dummy data is clearly marked as fake
 - storage paths and cache folders are ignored appropriately
 - dependencies are installed through normal package management
-
----
-
-## Data Impact
-
-EPIC-A should not introduce final business tables unless explicitly required by an issue.
-
-Database work belongs primarily to:
-
-```text
-EPIC-B - Data Model and Migrations
-```
-
-EPIC-A may include only framework-level migrations if Laravel requires them.
+- no real AI, identity or document integrations are introduced accidentally
 
 ---
 
@@ -171,20 +301,19 @@ EPIC-A is complete when:
 - basic tests can run
 - repository ignores generated files correctly
 - implementation does not include out-of-scope business logic
-- ServerAdmin can start Sprint 0 work from documented instructions
+- ServerAdmin can start Sprint 000 work from documented instructions
 
 ---
 
 ## Test Strategy
 
-Minimum test expectations:
+Minimum tests should cover:
 
 - application boot test
 - basic test runner validation
 - environment configuration sanity check
 - no real data fixture check if applicable
-
-Future test coverage expands in EPIC-H.
+- CI workflow can execute baseline checks
 
 ---
 
@@ -196,6 +325,16 @@ Future test coverage expands in EPIC-H.
 | Secrets are committed accidentally | Use `.env.example` and `.gitignore` rules |
 | Framework setup diverges from architecture | Reference DOC-002 and ADR-000 in issues |
 | AI integration is added too early | Block real AI work until EPIC-D and POL-008 mapping |
+| Local setup becomes unclear | Maintain developer setup instructions |
+
+---
+
+## Open Questions
+
+- Which Laravel version should be the official implementation target?
+- Should the project use PHPUnit or Pest as the preferred test runner?
+- Should baseline static analysis be introduced immediately or after Sprint 000?
+- Should Docker be part of MVP local setup or optional later setup?
 
 ---
 
@@ -213,27 +352,50 @@ ISSUE-006 - Add baseline CI workflow
 ISSUE-007 - Add repository implementation guardrails
 ```
 
-These issues should be created under:
-
-```text
-backlog/issues/
-```
-
 ---
 
 ## Dependencies
 
-EPIC-A depends on:
+This epic depends on:
 
 - Architecture baseline completed
 - Policy Pack draft completed
 - Traceable backlog index created
 
-EPIC-A enables:
+This epic enables:
 
 - EPIC-B Data Model and Migrations
 - EPIC-C Digital First Conversation
 - EPIC-H Security, Audit and Testing
+
+---
+
+## Implementation Sequence
+
+Recommended sequence:
+
+```text
+1. Confirm framework version and constraints
+2. Create Laravel application baseline
+3. Add environment and ignore rules
+4. Add setup documentation
+5. Add basic test runner
+6. Add baseline CI
+7. Add implementation guardrails
+```
+
+---
+
+## Future Extensions
+
+Future versions may add:
+
+- Docker-based local development
+- advanced static analysis
+- code style automation
+- deployment pipeline
+- observability baseline
+- environment-specific configuration validation
 
 ---
 
@@ -248,13 +410,3 @@ No secrets are committed
 Out-of-scope business logic is absent
 Sprint 000 can reference this epic
 ```
-
----
-
-## Implementation Note
-
-This epic should be implemented cautiously.
-
-The purpose is to create a stable base, not to accelerate into business logic.
-
-Every implementation issue should remain traceable to the architecture and policy baseline.
