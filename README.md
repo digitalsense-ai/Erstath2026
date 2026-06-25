@@ -1,394 +1,334 @@
-# ErstatningsHjælp
+# ErstatningsHjaelp
 
-ErstatningsHjælp er et AI-baseret screenings- og CRM-system til vurdering og prioritering af potentielle patientskade- og erstatningssager.
+ErstatningsHjaelp is an AI-assisted intake, screening, routing and CRM platform for structured case handling.
 
-Målet er ikke, at AI skal afgøre en sag juridisk. Målet er at bruge AI til at:
+The goal is not for AI to make final legal or business decisions.
 
-- modtage leads
-- stille intelligente opfølgende spørgsmål
-- udtrække relevante fakta
-- beregne interne scores
-- prioritere de bedste sager
-- forberede sagsbehandlerens arbejde
+The goal is to use AI responsibly to:
 
-Systemet skal fungere som en lead engine, hvor svage eller irrelevante sager filtreres tidligt fra, mens lovende sager senere kan sendes videre til næste kvalificeringstrin og manuel vurdering.
+- receive and understand user descriptions
+- reflect the user's situation in human language
+- ask only relevant follow-up questions
+- extract structured facts
+- support internal scoring and routing
+- identify missing information
+- prepare CRM handover
+- support human review where needed
 
 ---
 
-# Current project status
+## Current Project Status
 
 ```text
-Current phase: Implementation preparation complete
-Current milestone: MVP 0.1 - AI Screening & CRM
-Current priority: PR-001 Laravel Foundation
+Current phase: Enterprise Architecture Baseline
+Current priority: Repository consistency and Architecture Freeze preparation
 Implementation status: Not started
-ServerAdmin status: Awaiting implementation start
+ServerAdmin status: Awaiting updated handover after repository consistency review
 ```
 
-## Project assets
+The repository has moved from an early MVP documentation structure into a domain-based enterprise architecture structure.
 
-```text
-Documents: 21
-Prompts: 6
-Epics: 8
-GitHub Issues: 30 planned/open + 1 closed duplicate
-PR Plans: 9 active implementation plans
-Release documents: 2
-Handoff plan: 1
-Governance document: 1
-```
+The new architecture baseline is now defined by:
 
-## First build order
-
-```text
-PR-001 Laravel Foundation
-PR-002 Core Database Migrations
-PR-003 Core Eloquent Models
-PR-004 Prompt Repository
-PR-005 AiScreeningService
-PR-006 AI JSON Validator
-PR-007 LeadScoringService
-PR-008 Screening Start Endpoint
-PR-009 Continue Screening Endpoint
-```
-
-After PR-009, continue with CRM implementation from GitHub Issues #10-#15.
+- Foundation Pack
+- Experience Pack
+- Pattern Library
+- Decision Pack
+- Repository Consistency Review
 
 ---
 
-# MVP 0.1 goal
+## Single Source of Truth
 
-MVP 0.1 must prove the core product flow:
+GitHub is the official project memory.
+
+Chat discussions may be used for exploration and drafting, but only committed repository files define the official architecture, backlog, policies and implementation guidance.
+
+Start here:
 
 ```text
-User writes a short case description
-↓
-AI screens the case
-↓
-System extracts structured facts
-↓
-System calculates internal scores
-↓
-System asks the next relevant question
-↓
-Lead is saved
-↓
-Internal user reviews lead in CRM
+docs/foundation/DOC-003-architecture-index.md
 ```
 
 ---
 
-# Kerneidé
+## Architecture Baseline
 
-Traditionelt flow:
+### Foundation Pack
+
+```text
+docs/foundation/DOC-000-product-constitution.md
+docs/foundation/DOC-001-architecture-overview.md
+docs/foundation/DOC-002-repository-constitution.md
+docs/foundation/DOC-003-architecture-index.md
+adr/ADR-000-enterprise-architecture-principles.md
+```
+
+### Experience Pack
+
+```text
+docs/experience/DOC-020-experience-architecture.md
+docs/experience/DOC-021-digital-first-conversation-flow.md
+docs/experience/DOC-022-conversation-patterns.md
+docs/experience/DOC-023-tone-of-voice-guide.md
+```
+
+### Pattern Library
+
+```text
+patterns/PAT-001-speak-human-store-structured.md
+patterns/PAT-002-understanding-before-questioning.md
+patterns/PAT-003-confirm-before-classify.md
+patterns/PAT-004-never-ask-twice.md
+patterns/PAT-005-explain-why.md
+patterns/PAT-006-smart-skip.md
+patterns/PAT-007-one-thought-per-screen.md
+patterns/PAT-008-respectful-guide-away.md
+patterns/PAT-009-human-review-bridge.md
+```
+
+### Decision Pack
+
+```text
+decisions/DEC-000-decision-catalog.md
+decisions/DEC-001-start-conversation.md
+decisions/DEC-002-empathy-reflection.md
+decisions/DEC-003-confirm-understanding.md
+decisions/DEC-004-smart-skip-decision.md
+decisions/DEC-005-routing-recommendation.md
+decisions/DEC-006-human-review.md
+decisions/DEC-007-information-quality.md
+decisions/DEC-008-acceptance-policy.md
+decisions/DEC-009-identity-gate.md
+decisions/DEC-010-consent-gate.md
+decisions/DEC-011-document-readiness.md
+decisions/DEC-012-guide-elsewhere.md
+decisions/DEC-013-crm-assignment.md
+```
+
+### Repository Review
+
+```text
+reviews/REV-001-repository-consistency-review.md
+```
+
+---
+
+## Important Status Note
+
+The repository still contains older flat documents under `docs/01-...` to `docs/32-...`.
+
+These documents are not deleted because they still contain useful historical and implementation detail.
+
+However, they are now under repository consistency review and must be reconciled with the new architecture baseline before implementation begins.
+
+Use this review as the migration guide:
+
+```text
+reviews/REV-001-repository-consistency-review.md
+```
+
+---
+
+## Target Repository Structure
+
+```text
+/docs
+  /foundation
+  /experience
+  /decision
+  /trust
+  /ai
+  /case
+  /identity
+  /document
+  /communication
+  /security
+  /governance
+  /platform
+
+/adr
+/policies
+/patterns
+/decisions
+/backlog
+  /epics
+  /issues
+/sprints
+/reviews
+/handover
+/prompts
+/github
+```
+
+The old `github/` folder currently contains early epics and PR planning files. These should later be migrated into `backlog/epics`, `backlog/issues` and `sprints`.
+
+---
+
+## Product North Star
+
+Every user should leave ErstatningsHjaelp with more clarity, more trust and a clearer understanding of the next step than when they began.
+
+This also applies when the platform cannot continue with a case.
+
+---
+
+## Core Product Flow
 
 ```text
 Landing page
 ↓
-Long form
+Digital first conversation
 ↓
-Manual review
+Empathy reflection
+↓
+Confirmation or correction
+↓
+Guided screening with Smart Skip
+↓
+Information quality check
+↓
+Routing recommendation
+↓
+Human review when needed
+↓
+Identity, consent or documents only when relevant
+↓
+CRM handover
 ```
 
-ErstatningsHjælp-flow:
+---
+
+## Core Decision Model
+
+Important decisions follow this model:
 
 ```text
-Landing page
+Input information
 ↓
-Bruger fortæller kort hvad der skete
+Interpretation
 ↓
-AI stiller få intelligente spørgsmål
+Confidence assessment
 ↓
-System beregner 3 scores
+Policy check
 ↓
-Kun lovende sager går videre
+Decision or recommendation
 ↓
-Sagsbehandler vurderer lead i CRM
+User-facing explanation
+↓
+Next action
+↓
+Audit record
 ```
 
 ---
 
-# De 3 hovedscores
+## AI Responsibility Model
 
-## 1. Case Strength Score
+AI may:
 
-Måler hvor stærk sagen umiddelbart ser ud.
+- summarize
+- extract facts
+- infer possible meaning
+- suggest next questions
+- support scoring
+- recommend routing
+- identify missing information
+- prepare handover summaries
 
-## 2. Information Quality Score
+AI must not:
 
-Måler hvor meget brugbar information systemet har.
-
-## 3. Commercial Value Score
-
-Måler om sagen er økonomisk interessant for virksomheden.
-
-## Overall Score
-
-```text
-overall_score =
-(case_strength * 0.50)
-+
-(information_quality * 0.20)
-+
-(commercial_value * 0.30)
-```
+- promise outcomes
+- make final legal decisions
+- expose raw scores or internal labels to users
+- override policy-required human review
+- replace human review in sensitive or uncertain situations
 
 ---
 
-# Sagskategorier
+## MVP 0.1 Scope
 
-| Kategori | Beskrivelse | Handling |
-|---|---|---|
-| A | Stærk sag | Gå videre til næste kvalificeringstrin |
-| B | Lovende, men mangler info | Indhent flere oplysninger |
-| C | Usikker sag | Manuel vurdering eller flere oplysninger |
-| D | Svag/irrelevant/forældet | Afvis venligt eller giv generel information |
+MVP 0.1 remains focused on proving the core screening and CRM workflow.
 
----
-
-# Foreslået teknologistak
-
-- Laravel 12
-- Livewire 3 eller Blade til første CRM
-- MySQL
-- OpenAI API via isoleret service-lag
-- Laravel Breeze eller tilsvarende auth
-- Hetzner VPS eller tilsvarende VPS senere
-
----
-
-# Repository structure
-
-```text
-erstatningshjaelp/
-│
-├── docs/
-│   ├── 01-database-blueprint.md
-│   ├── 02-ai-engine.md
-│   ├── 03-scoring-engine.md
-│   ├── 04-conversation-engine.md
-│   ├── 05-crm-workflow.md
-│   ├── 06-domain-model.md
-│   ├── 07-mvp-roadmap.md
-│   ├── 08-api-specification.md
-│   ├── 09-security-gdpr.md
-│   ├── 10-testing-strategy.md
-│   ├── 11-laravel-build-queue.md
-│   ├── 12-data-dictionary.md
-│   ├── 13-ai-cost-operations-model.md
-│   ├── 14-business-metrics-kpi-framework.md
-│   ├── 15-case-intelligence-roadmap.md
-│   ├── 16-project-review.md
-│   ├── 17-user-journey.md
-│   ├── 18-architecture-governance.md
-│   ├── 19-architecture-review-final.md
-│   ├── 20-data-dictionary-v2.md
-│   ├── 21-consistency-review.md
-│   ├── serveradmin-handoff-plan.md
-│   └── sprint-00.md
-│
-├── prompts/
-│   ├── 01-screening-system-prompt.md
-│   ├── 02-entity-extraction-prompt.md
-│   ├── 03-score-engine-prompt.md
-│   ├── 04-next-question-prompt.md
-│   ├── 05-summary-prompt.md
-│   └── 06-case-category-prompt.md
-│
-├── github/
-│   ├── Epic-01-Laravel-Foundation.md
-│   ├── Epic-02-AI-Screening.md
-│   ├── Epic-03-CRM.md
-│   ├── Epic-04-Testing.md
-│   ├── Epic-05-Security-GDPR.md
-│   ├── Epic-06-Documents.md
-│   ├── Epic-07-Testing-QA-Safety-Net.md
-│   ├── Epic-08-Security-Compliance-Hardening.md
-│   ├── MVP-0.1-Release-Plan.md
-│   ├── MVP-0.1-Milestone.md
-│   ├── PR-001-Laravel-Foundation.md
-│   ├── PR-002-Core-Database-Migrations.md
-│   ├── PR-003-Core-Eloquent-Models.md
-│   ├── PR-004-Prompt-Repository.md
-│   ├── PR-005-AiScreeningService.md
-│   ├── PR-006-AI-JSON-Validator.md
-│   ├── PR-007-LeadScoringService.md
-│   ├── PR-008-Screening-Start-Endpoint.md
-│   └── PR-009-Continue-Screening-Endpoint.md
-│
-├── app/
-├── database/
-├── resources/
-├── routes/
-├── tests/
-└── README.md
-```
-
-Laravel-projektet placeres som udgangspunkt direkte i repo-roden, medmindre andet besluttes senere.
-
----
-
-# MVP 0.1 scope
-
-## Version 0.1.0 skal indeholde
+MVP 0.1 should include:
 
 - Laravel foundation
-- Core database migrations
-- Core Eloquent models
-- Prompt Repository
+- core database migrations
+- core models
+- prompt repository
 - AI screening service
 - AI JSON validation
-- Deterministic scoring service
-- Screening start endpoint
-- Continue screening endpoint
-- Internal authentication
-- Lead list API
-- Lead detail API
+- scoring support
+- screening start endpoint
+- continue screening endpoint
+- internal authentication
+- lead list and detail APIs
 - CRM lead board
-- CRM lead detail page
-- Lead status updates
-- Testing and QA foundation
-- Security and compliance foundation
+- lead status updates
+- testing and security foundation
 
-## Version 0.1.0 skal ikke indeholde
+MVP 0.1 should not include:
 
-- Advanced identity integrations
-- Authorization signing flows
-- Active file upload implementation
-- Advanced document analysis
-- Complaint generator
-- Automated final decision
-- Automated compensation calculation
-- Automated external submission
-- Production deployment
+- advanced identity integrations
+- authorization signing flows
+- active file upload implementation
+- advanced document analysis
+- complaint generator
+- automated final decision
+- automated compensation calculation
+- automated external submission
+- production deployment
 
 ---
 
-# MVP-active status flow
+## Current Implementation Warning
+
+Do not start implementation from the old PR plan alone.
+
+Before implementation begins, update these files according to `REV-001`:
 
 ```text
-NEW
-↓
-SCREENING
-↓
-AWAITING_INFO
-↓
-QUALIFIED
-↓
-REVIEW
-↓
-CLOSED
-```
-
-Sidegren:
-
-```text
-REJECTED
-```
-
-Future-reserved statuses are documented in the data dictionary and must not be activated before the related flow exists.
-
----
-
-# Security and compliance
-
-Dette projekt kan senere komme til at håndtere følsomme oplysninger.
-
-Derfor gælder følgende fra start:
-
-- Ingen rigtige CPR-numre i kode, tests eller seed-data
-- Ingen rigtigt sagsmateriale i repoet
-- Ingen API-nøgler i GitHub
-- Real local environment files må aldrig committes
-- Brug kun dummy-data i udvikling
-- Dokumenter og uploads skal senere opbevares sikkert udenfor public webroot
-- Public endpoints må ikke eksponere raw AI/debug payloads
-
----
-
-# Key project documents
-
-Start her:
-
-```text
-README.md
 docs/serveradmin-handoff-plan.md
-github/MVP-0.1-Release-Plan.md
-github/MVP-0.1-Milestone.md
-docs/18-architecture-governance.md
-docs/19-architecture-review-final.md
-docs/20-data-dictionary-v2.md
-docs/21-consistency-review.md
-```
-
-Hvis du skal implementere:
-
-```text
-github/PR-001-Laravel-Foundation.md
-```
-
-Hvis du skal forstå arkitektur:
-
-```text
-docs/01-database-blueprint.md
-docs/02-ai-engine.md
+docs/27-sprint-backlog-masterplan.md
 docs/03-scoring-engine.md
 docs/04-conversation-engine.md
 docs/05-crm-workflow.md
-docs/06-domain-model.md
-docs/08-api-specification.md
-docs/19-architecture-review-final.md
-docs/20-data-dictionary-v2.md
-docs/21-consistency-review.md
+docs/12-data-dictionary.md
+docs/31-acceptance-and-routing-architecture.md
 ```
 
 ---
 
-# Næste skridt
+## Security and Data Rules
 
-Start implementering med:
+From the beginning:
 
-```text
-github/PR-001-Laravel-Foundation.md
-```
-
-Derefter følges PR-planerne i rækkefølge:
-
-```text
-PR-001
-PR-002
-PR-003
-PR-004
-PR-005
-PR-006
-PR-007
-PR-008
-PR-009
-```
-
-Når PR-009 er færdig, er AI-screening-kernen bygget.
-
-Derefter fortsættes med CRM-issues:
-
-```text
-#10
-#11
-#12
-#13
-#14
-#15
-```
+- no real CPR numbers in code, tests or seed data
+- no real case material in the repository
+- no API keys in GitHub
+- no real local environment files committed
+- use dummy data in development
+- document and upload storage must not be public
+- public endpoints must not expose raw AI/debug payloads
+- sensitive steps require clear purpose and explanation
 
 ---
 
-# Projektprincip
+## Next Steps
 
-Byg småt først.
+1. Finish repository consistency updates.
+2. Update ServerAdmin handover.
+3. Update data dictionary and core MVP docs.
+4. Create Policy Pack.
+5. Create implementation backlog from the architecture baseline.
+6. Prepare Architecture Freeze v1.0.
 
-Første mål er ikke at bygge hele sagsmotoren.
+---
 
-Første mål er at bevise:
+## Project Principle
 
-> Kan AI modtage en kort sagsbeskrivelse og returnere struktureret screening med scores, manglende oplysninger og næste bedste spørgsmål?
+Build small, but build consistently.
 
-Hvis det virker, kan resten bygges ovenpå.
+The first goal is not to build the full case platform.
+
+The first goal is to prove that the platform can receive a user description, understand it respectfully, structure it internally, support responsible routing and prepare a useful CRM handover.
