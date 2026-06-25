@@ -19,7 +19,7 @@ This epic translates the architecture baseline into implementable Laravel migrat
 
 ## Business Objectives
 
-EPIC-B enables the platform to:
+This epic enables the platform to:
 
 - store leads safely and consistently
 - preserve the conversation history
@@ -47,9 +47,197 @@ This epic is successful when:
 
 ---
 
+## Bounded Context
+
+```text
+Data Foundation Context
+```
+
+The Data Foundation Context owns the persistence model for the MVP platform.
+
+It provides the database structures that conversation, AI screening, decision routing, CRM and audit layers depend on.
+
+---
+
+## Domain Responsibilities
+
+### Owns
+
+```text
+core lead data persistence
+conversation message persistence
+fact and confirmation-state persistence
+missing information persistence
+score persistence
+decision persistence
+review requirement persistence
+CRM handover snapshot persistence
+AI run logging persistence
+audit log persistence
+```
+
+### Must never own
+
+```text
+conversation flow behavior
+AI prompt execution
+scoring algorithm behavior
+routing policy evaluation
+CRM presentation UI
+human reviewer judgment
+```
+
+### Inbound Events
+
+```text
+LeadCreated
+ConversationMessageStored
+FactCandidateExtracted
+ScoreCalculated
+DecisionRecorded
+HumanReviewRequired
+AiRunCompleted
+AuditEventRequested
+```
+
+### Outbound Events
+
+```text
+CoreDataModelCreated
+LeadPersistenceReady
+DecisionPersistenceReady
+AuditPersistenceReady
+```
+
+### Public Contracts
+
+```text
+LeadRepository
+ConversationMessageRepository
+LeadFactRepository
+LeadDecisionRepository
+LeadReviewRepository
+AuditLogRepository
+```
+
+### Internal Contracts
+
+```text
+MigrationDefinition
+ModelRelationshipDefinition
+EnumValueDefinition
+FakeDataGuardrail
+```
+
+---
+
+## Domain Model
+
+### Entities
+
+```text
+Lead
+LeadConversation
+LeadFact
+LeadMissingInformation
+LeadScore
+LeadDecision
+LeadReview
+LeadHandoverSnapshot
+AiRun
+AuditLog
+```
+
+### Value Objects
+
+```text
+LeadStatus
+FactKey
+FactSourceType
+ConfirmationState
+ConfidenceValue
+DecisionId
+PolicyId
+RoutingOutcome
+ReviewReason
+AuditAction
+```
+
+### Domain Services
+
+```text
+DataModelConsistencyService
+FakeDataGuardrailService
+```
+
+### Application Services
+
+```text
+CreateLeadRecord
+StoreConversationMessage
+StoreLeadFact
+RecordLeadDecision
+RecordAuditEvent
+```
+
+### Events
+
+```text
+LeadRecordCreated
+ConversationMessagePersisted
+LeadFactPersisted
+LeadDecisionPersisted
+AuditLogRecorded
+```
+
+These names are planning suggestions and may be refined during implementation.
+
+---
+
+## Architecture Decision Mapping
+
+| Architecture Artifact | Implementation Meaning |
+|---|---|
+| docs/12-data-dictionary.md | Primary source for MVP tables, fields and states |
+| docs/03-scoring-engine.md | Defines score persistence as decision input |
+| docs/04-conversation-engine.md | Defines conversation and message storage needs |
+| docs/05-crm-workflow.md | Defines CRM handover data needs |
+| DEC-003 Confirm Understanding | Requires confirmation state on facts |
+| DEC-005 Routing Recommendation | Requires routing outcome persistence |
+| DEC-006 Human Review | Requires review reason persistence |
+| DEC-007 Information Quality | Requires missing information persistence |
+| DEC-013 CRM Assignment | Requires CRM handover data |
+| POL-003 Confidence Policy | Requires confidence values and bands |
+| POL-008 AI Usage Policy | Requires AI run validation and logging |
+
+---
+
+## Proposed Implementation Components
+
+Potential Laravel components:
+
+```text
+Lead model and migration
+LeadConversation model and migration
+LeadFact model and migration
+LeadMissingInformation model and migration
+LeadScore model and migration
+LeadDecision model and migration
+LeadReview model and migration
+LeadHandoverSnapshot model and migration
+AiRun model and migration
+AuditLog model and migration
+Model factories with fake-only data
+Repository classes or query services where useful
+```
+
+These names are suggestions and may be refined during implementation.
+
+---
+
 ## Scope
 
-EPIC-B includes data structures for:
+This epic includes data structures for:
 
 - leads
 - lead conversations
@@ -66,7 +254,7 @@ EPIC-B includes data structures for:
 
 ## Out of Scope
 
-EPIC-B does not include:
+This epic does not include:
 
 - full CRM UI
 - AI provider integration
@@ -80,47 +268,11 @@ EPIC-B does not include:
 
 ---
 
-## Architecture Traceability
+## Data Impact
 
-### Primary Architecture
+This epic creates the core MVP database structures.
 
-```text
-docs/12-data-dictionary.md
-docs/03-scoring-engine.md
-docs/04-conversation-engine.md
-docs/05-crm-workflow.md
-docs/31-acceptance-and-routing-architecture.md
-```
-
-### Decisions
-
-```text
-decisions/DEC-000-decision-catalog.md
-decisions/DEC-003-confirm-understanding.md
-decisions/DEC-004-smart-skip-decision.md
-decisions/DEC-005-routing-recommendation.md
-decisions/DEC-006-human-review.md
-decisions/DEC-007-information-quality.md
-decisions/DEC-008-acceptance-policy.md
-decisions/DEC-013-crm-assignment.md
-```
-
-### Policies
-
-```text
-policies/POL-001-acceptance-policy.md
-policies/POL-002-routing-policy.md
-policies/POL-003-confidence-policy.md
-policies/POL-005-human-review-policy.md
-policies/POL-007-communication-policy.md
-policies/POL-008-ai-usage-policy.md
-```
-
----
-
-## Data Model Requirements
-
-The MVP data model should support these minimum tables:
+Minimum tables:
 
 ```text
 leads
@@ -139,37 +291,29 @@ If implementation needs a simpler path, `lead_entities` may temporarily be used,
 
 ---
 
-## Key Data Principles
+## API Boundaries
 
-### 1. Store facts with reliability metadata
+EPIC-B should not expose public APIs directly.
 
-The system must distinguish between:
+It should provide Eloquent models, migrations and possibly repository/query boundaries that later API layers can use.
 
-```text
-ai_inferred
-confirmation_pending
-user_confirmed
-user_corrected
-document_supported
-human_reviewed
-unresolved
-```
+Public API behavior belongs to later epics.
 
-### 2. Store decisions as records
+---
 
-Important decisions must be stored in `lead_decisions`, not only inferred from current lead status.
+## Queue and Event Considerations
 
-### 3. Scores are inputs, not outcomes
+No queue processing is required for core migrations.
 
-Scores must be stored as signals and must not directly replace routing or policy decisions.
+Future events may be emitted when records are created or updated, but MVP should keep persistence simple unless later epics require events.
 
-### 4. CRM needs structured handover
+---
 
-CRM views should not reconstruct the case from raw conversation text alone.
+## Cache Strategy
 
-### 5. Audit is a first-class concern
+No business caching should be introduced in EPIC-B.
 
-Important events must be auditable from the beginning.
+Database structures should remain the source of truth.
 
 ---
 
@@ -187,7 +331,7 @@ The data model should be:
 
 ---
 
-## Security Considerations
+## Security and Privacy Considerations
 
 This epic must ensure:
 
@@ -197,6 +341,7 @@ This epic must ensure:
 - AI run logging avoids unnecessary sensitive data
 - audit logs do not expose data publicly
 - storage of user-facing messages is intentional and traceable
+- factories and seeders do not contain real names, CPR numbers, emails or case details
 
 ---
 
@@ -248,8 +393,7 @@ Minimum tests should cover:
 - Should decision policy references be stored as JSON arrays or separate relation records?
 - Should audit logging be generic from day one or gradually expanded?
 - Should model enums be implemented with PHP enums or config arrays in MVP?
-
-These questions should be resolved in implementation issues before coding begins.
+- Should repositories be introduced immediately or only when query complexity requires them?
 
 ---
 
@@ -277,13 +421,13 @@ ISSUE-020 - Add fake-only seed data guardrails
 
 ## Dependencies
 
-EPIC-B depends on:
+This epic depends on:
 
 - EPIC-A Laravel Foundation
 - Data Dictionary v2.0
 - Policy Pack v1.0 Draft
 
-EPIC-B enables:
+This epic enables:
 
 - EPIC-C Digital First Conversation
 - EPIC-D AI Screening Service
