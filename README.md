@@ -17,24 +17,42 @@ The goal is to use AI responsibly to:
 
 ---
 
+## Start Here
+
+The main entry point for implementation is:
+
+```text
+docs/IMPLEMENTATION-MASTER-INDEX.md
+```
+
+Developers and ServerAdmin should read this file first. It links the architecture, specifications, developer handbook, backlog, epics, sprints and issue files into one practical implementation map.
+
+---
+
 ## Current Project Status
 
 ```text
-Current phase: Enterprise Architecture Baseline
-Current priority: Repository consistency and Architecture Freeze preparation
-Implementation status: Not started
-ServerAdmin status: Awaiting updated handover after repository consistency review
+Current phase: Implementation Preparation
+Current priority: Design Freeze v1.0, handoff and Sprint 000 implementation readiness
+Implementation status: Backlog and specifications completed; coding not started
+ServerAdmin status: Ready for implementation handoff using the Implementation Master Index
 ```
 
-The repository has moved from an early MVP documentation structure into a domain-based enterprise architecture structure.
+The repository has moved from early MVP documentation into a structured implementation-ready architecture.
 
-The new architecture baseline is now defined by:
+The current implementation baseline includes:
 
-- Foundation Pack
-- Experience Pack
+- Foundation and Architecture documents
+- Experience and Conversation design
 - Pattern Library
 - Decision Pack
-- Repository Consistency Review
+- Policy Pack
+- Architecture Freeze documents
+- Traceable backlog from ISSUE-001 to ISSUE-090
+- API specifications from SPEC-001 to SPEC-005
+- Database specifications from SPEC-006 to SPEC-010
+- Developer Handbook from DEV-001 to DEV-010
+- Implementation Master Index
 
 ---
 
@@ -44,10 +62,74 @@ GitHub is the official project memory.
 
 Chat discussions may be used for exploration and drafting, but only committed repository files define the official architecture, backlog, policies and implementation guidance.
 
-Start here:
+Primary start point:
+
+```text
+docs/IMPLEMENTATION-MASTER-INDEX.md
+```
+
+Architecture index:
 
 ```text
 docs/foundation/DOC-003-architecture-index.md
+```
+
+---
+
+## Implementation Order
+
+Implementation should follow the sprint order:
+
+```text
+SPRINT-000 Foundation                         ISSUE-001 to ISSUE-007
+SPRINT-001 Data Model                         ISSUE-008 to ISSUE-020
+SPRINT-002 Conversation and AI Screening       ISSUE-021 to ISSUE-044
+SPRINT-003 Decision Engine                     ISSUE-045 to ISSUE-056
+SPRINT-004 CRM Handover and Human Review       ISSUE-057 to ISSUE-077
+SPRINT-005 Security, Audit and Testing         ISSUE-078 to ISSUE-090
+```
+
+Do not implement later sprint behavior before the earlier supporting data model, services and tests exist.
+
+---
+
+## Technical Specifications
+
+API specifications:
+
+```text
+docs/specifications/SPEC-001-api-overview.md
+docs/specifications/SPEC-002-conversation-api.md
+docs/specifications/SPEC-003-screening-and-decision-api.md
+docs/specifications/SPEC-004-crm-and-review-api.md
+docs/specifications/SPEC-005-audit-and-health-api.md
+```
+
+Database specifications:
+
+```text
+docs/specifications/SPEC-006-database-overview.md
+docs/specifications/SPEC-007-lead-core-schema.md
+docs/specifications/SPEC-008-conversation-and-facts-schema.md
+docs/specifications/SPEC-009-screening-decision-review-schema.md
+docs/specifications/SPEC-010-audit-and-supporting-schema.md
+```
+
+---
+
+## Developer Handbook
+
+```text
+docs/developer-handbook/DEV-001-project-setup-and-local-development.md
+docs/developer-handbook/DEV-002-folder-structure-and-architecture.md
+docs/developer-handbook/DEV-003-coding-standards.md
+docs/developer-handbook/DEV-004-conversation-engine-guide.md
+docs/developer-handbook/DEV-005-ai-integration-guide.md
+docs/developer-handbook/DEV-006-decision-engine-guide.md
+docs/developer-handbook/DEV-007-crm-and-human-review-guide.md
+docs/developer-handbook/DEV-008-testing-standards.md
+docs/developer-handbook/DEV-009-deployment-guide.md
+docs/developer-handbook/DEV-010-sprint-by-sprint-implementation-guide.md
 ```
 
 ---
@@ -73,262 +155,33 @@ docs/experience/DOC-022-conversation-patterns.md
 docs/experience/DOC-023-tone-of-voice-guide.md
 ```
 
-### Pattern Library
+### Governance Packs
 
 ```text
-patterns/PAT-001-speak-human-store-structured.md
-patterns/PAT-002-understanding-before-questioning.md
-patterns/PAT-003-confirm-before-classify.md
-patterns/PAT-004-never-ask-twice.md
-patterns/PAT-005-explain-why.md
-patterns/PAT-006-smart-skip.md
-patterns/PAT-007-one-thought-per-screen.md
-patterns/PAT-008-respectful-guide-away.md
-patterns/PAT-009-human-review-bridge.md
-```
-
-### Decision Pack
-
-```text
-decisions/DEC-000-decision-catalog.md
-decisions/DEC-001-start-conversation.md
-decisions/DEC-002-empathy-reflection.md
-decisions/DEC-003-confirm-understanding.md
-decisions/DEC-004-smart-skip-decision.md
-decisions/DEC-005-routing-recommendation.md
-decisions/DEC-006-human-review.md
-decisions/DEC-007-information-quality.md
-decisions/DEC-008-acceptance-policy.md
-decisions/DEC-009-identity-gate.md
-decisions/DEC-010-consent-gate.md
-decisions/DEC-011-document-readiness.md
-decisions/DEC-012-guide-elsewhere.md
-decisions/DEC-013-crm-assignment.md
-```
-
-### Repository Review
-
-```text
-reviews/REV-001-repository-consistency-review.md
+patterns/
+decisions/
+policies/
+architecture-freeze/
 ```
 
 ---
 
-## Important Status Note
+## Data and Privacy Rule
 
-The repository still contains older flat documents under `docs/01-...` to `docs/32-...`.
+All tests, factories, seeders and examples must use fake data only.
 
-These documents are not deleted because they still contain useful historical and implementation detail.
+Do not commit real names, real emails, real case details, production identifiers, copied real user messages, secrets or credentials.
 
-However, they are now under repository consistency review and must be reconciled with the new architecture baseline before implementation begins.
+---
 
-Use this review as the migration guide:
+## First Developer Action
+
+Recommended first steps:
 
 ```text
-reviews/REV-001-repository-consistency-review.md
+1. Read docs/IMPLEMENTATION-MASTER-INDEX.md
+2. Read DEV-001, DEV-002 and DEV-010
+3. Read SPEC-006 and SPEC-007
+4. Start with SPRINT-000 / ISSUE-001
+5. Implement sprint by sprint
 ```
-
----
-
-## Target Repository Structure
-
-```text
-/docs
-  /foundation
-  /experience
-  /decision
-  /trust
-  /ai
-  /case
-  /identity
-  /document
-  /communication
-  /security
-  /governance
-  /platform
-
-/adr
-/policies
-/patterns
-/decisions
-/backlog
-  /epics
-  /issues
-/sprints
-/reviews
-/handover
-/prompts
-/github
-```
-
-The old `github/` folder currently contains early epics and PR planning files. These should later be migrated into `backlog/epics`, `backlog/issues` and `sprints`.
-
----
-
-## Product North Star
-
-Every user should leave ErstatningsHjaelp with more clarity, more trust and a clearer understanding of the next step than when they began.
-
-This also applies when the platform cannot continue with a case.
-
----
-
-## Core Product Flow
-
-```text
-Landing page
-↓
-Digital first conversation
-↓
-Empathy reflection
-↓
-Confirmation or correction
-↓
-Guided screening with Smart Skip
-↓
-Information quality check
-↓
-Routing recommendation
-↓
-Human review when needed
-↓
-Identity, consent or documents only when relevant
-↓
-CRM handover
-```
-
----
-
-## Core Decision Model
-
-Important decisions follow this model:
-
-```text
-Input information
-↓
-Interpretation
-↓
-Confidence assessment
-↓
-Policy check
-↓
-Decision or recommendation
-↓
-User-facing explanation
-↓
-Next action
-↓
-Audit record
-```
-
----
-
-## AI Responsibility Model
-
-AI may:
-
-- summarize
-- extract facts
-- infer possible meaning
-- suggest next questions
-- support scoring
-- recommend routing
-- identify missing information
-- prepare handover summaries
-
-AI must not:
-
-- promise outcomes
-- make final legal decisions
-- expose raw scores or internal labels to users
-- override policy-required human review
-- replace human review in sensitive or uncertain situations
-
----
-
-## MVP 0.1 Scope
-
-MVP 0.1 remains focused on proving the core screening and CRM workflow.
-
-MVP 0.1 should include:
-
-- Laravel foundation
-- core database migrations
-- core models
-- prompt repository
-- AI screening service
-- AI JSON validation
-- scoring support
-- screening start endpoint
-- continue screening endpoint
-- internal authentication
-- lead list and detail APIs
-- CRM lead board
-- lead status updates
-- testing and security foundation
-
-MVP 0.1 should not include:
-
-- advanced identity integrations
-- authorization signing flows
-- active file upload implementation
-- advanced document analysis
-- complaint generator
-- automated final decision
-- automated compensation calculation
-- automated external submission
-- production deployment
-
----
-
-## Current Implementation Warning
-
-Do not start implementation from the old PR plan alone.
-
-Before implementation begins, update these files according to `REV-001`:
-
-```text
-docs/serveradmin-handoff-plan.md
-docs/27-sprint-backlog-masterplan.md
-docs/03-scoring-engine.md
-docs/04-conversation-engine.md
-docs/05-crm-workflow.md
-docs/12-data-dictionary.md
-docs/31-acceptance-and-routing-architecture.md
-```
-
----
-
-## Security and Data Rules
-
-From the beginning:
-
-- no real CPR numbers in code, tests or seed data
-- no real case material in the repository
-- no API keys in GitHub
-- no real local environment files committed
-- use dummy data in development
-- document and upload storage must not be public
-- public endpoints must not expose raw AI/debug payloads
-- sensitive steps require clear purpose and explanation
-
----
-
-## Next Steps
-
-1. Finish repository consistency updates.
-2. Update ServerAdmin handover.
-3. Update data dictionary and core MVP docs.
-4. Create Policy Pack.
-5. Create implementation backlog from the architecture baseline.
-6. Prepare Architecture Freeze v1.0.
-
----
-
-## Project Principle
-
-Build small, but build consistently.
-
-The first goal is not to build the full case platform.
-
-The first goal is to prove that the platform can receive a user description, understand it respectfully, structure it internally, support responsible routing and prepare a useful CRM handover.
