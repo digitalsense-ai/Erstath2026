@@ -1,0 +1,171 @@
+# Implementation Master Index
+
+Version: 1.0 Draft
+Status: Active
+Owner: Product / Engineering / Delivery
+Domain: Implementation Handoff
+
+## Purpose
+
+This document is the main entry point for implementing the MVP.
+
+It links the architecture, specifications, developer handbook, backlog, epics, sprints and issue files into one practical implementation map.
+
+## Implementation Rule
+
+Implementation should start from the backlog and follow the sprint order.
+
+Developers should not implement later sprint functionality before the required foundation, data model, services and tests exist.
+
+## Core Reading Order
+
+New developers should read these documents first:
+
+```text
+README.md
+docs/IMPLEMENTATION-MASTER-INDEX.md
+docs/foundation/DOC-000-product-constitution.md
+docs/foundation/DOC-001-architecture-overview.md
+docs/foundation/DOC-002-repository-constitution.md
+docs/foundation/DOC-003-architecture-index.md
+architecture-freeze/AF-003-implementation-readiness-checklist.md
+```
+
+## Specification Packs
+
+### API Specification
+
+```text
+docs/specifications/SPEC-001-api-overview.md
+docs/specifications/SPEC-002-conversation-api.md
+docs/specifications/SPEC-003-screening-and-decision-api.md
+docs/specifications/SPEC-004-crm-and-review-api.md
+docs/specifications/SPEC-005-audit-and-health-api.md
+```
+
+### Database Specification
+
+```text
+docs/specifications/SPEC-006-database-overview.md
+docs/specifications/SPEC-007-lead-core-schema.md
+docs/specifications/SPEC-008-conversation-and-facts-schema.md
+docs/specifications/SPEC-009-screening-decision-review-schema.md
+docs/specifications/SPEC-010-audit-and-supporting-schema.md
+```
+
+## Developer Handbook
+
+```text
+docs/developer-handbook/DEV-001-project-setup-and-local-development.md
+docs/developer-handbook/DEV-002-folder-structure-and-architecture.md
+docs/developer-handbook/DEV-003-coding-standards.md
+docs/developer-handbook/DEV-004-conversation-engine-guide.md
+docs/developer-handbook/DEV-005-ai-integration-guide.md
+docs/developer-handbook/DEV-006-decision-engine-guide.md
+docs/developer-handbook/DEV-007-crm-and-human-review-guide.md
+docs/developer-handbook/DEV-008-testing-standards.md
+docs/developer-handbook/DEV-009-deployment-guide.md
+docs/developer-handbook/DEV-010-sprint-by-sprint-implementation-guide.md
+```
+
+## Backlog Index
+
+```text
+backlog/BACKLOG-000-traceable-backlog-index.md
+backlog/issues/ISSUE-000-issue-catalog.md
+```
+
+## Sprint Order
+
+```text
+SPRINT-000 Foundation                 ISSUE-001 to ISSUE-007
+SPRINT-001 Data Model                 ISSUE-008 to ISSUE-020
+SPRINT-002 Conversation + Screening   ISSUE-021 to ISSUE-044
+SPRINT-003 Decision Engine            ISSUE-045 to ISSUE-056
+SPRINT-004 CRM + Human Review         ISSUE-057 to ISSUE-077
+SPRINT-005 Security + Testing         ISSUE-078 to ISSUE-090
+```
+
+Sprint documents:
+
+```text
+sprints/SPRINT-000-foundation.md
+sprints/SPRINT-001-data-model.md
+sprints/SPRINT-002-conversation.md
+sprints/SPRINT-003-decision-engine.md
+sprints/SPRINT-004-crm-handover.md
+sprints/SPRINT-005-security-audit-testing.md
+```
+
+## Epic Map
+
+```text
+backlog/epics/EPIC-A-laravel-foundation.md
+backlog/epics/EPIC-B-data-model-and-migrations.md
+backlog/epics/EPIC-C-digital-first-conversation.md
+backlog/epics/EPIC-D-ai-screening-service.md
+backlog/epics/EPIC-E-decision-and-routing-engine.md
+backlog/epics/EPIC-F-crm-lead-board-and-detail.md
+backlog/epics/EPIC-G-human-review-queue.md
+backlog/epics/EPIC-H-security-audit-and-testing.md
+```
+
+## Policy, Pattern and Decision References
+
+Developers should use these folders when implementation choices are unclear:
+
+```text
+policies/
+patterns/
+decisions/
+adr/
+reviews/
+architecture-freeze/
+```
+
+## Per-Sprint Working Pattern
+
+For each sprint:
+
+```text
+1. Read the sprint document.
+2. Read the related epic.
+3. Read all issue files in that sprint.
+4. Read the related API and database specifications.
+5. Read the relevant developer handbook guide.
+6. Implement issues in order.
+7. Add or update tests.
+8. Update documentation if assumptions change.
+9. Run the test suite.
+10. Complete the sprint closeout issue.
+```
+
+## Non-Negotiable Rules
+
+- Use fake data only in tests, factories, seeders and examples.
+- Do not commit real secrets.
+- Keep controllers thin.
+- Put business behavior in services.
+- Keep AI output validated before use.
+- Keep AI-created facts unconfirmed by default.
+- Store decisions separately from scores.
+- Preserve auditability for important internal actions.
+
+## Implementation Start Point
+
+The implementation should start with:
+
+```text
+sprints/SPRINT-000-foundation.md
+backlog/issues/ISSUE-001-confirm-laravel-version-and-foundation-constraints.md
+```
+
+## Definition of Done
+
+```text
+master index exists
+specification packs linked
+developer handbook linked
+backlog and sprint order linked
+implementation rules documented
+```
