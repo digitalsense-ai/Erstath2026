@@ -4,61 +4,76 @@ Version: 1.0 Draft
 Status: Active
 Owner: Product / QA / Engineering
 Domain: Business Test Cases
-Related: docs/IMPLEMENTATION-MASTER-INDEX.md, architecture-freeze/AF-004-design-freeze-v1.md
+Related: docs/IMPLEMENTATION-MASTER-INDEX.md, architecture-freeze/AF-004-design-freeze-v1.md, test-cases/TC-100-business-test-library-complete.md
 
 ## Purpose
 
-Create a catalog of business-level test cases for validating the MVP end-to-end.
+Catalog business-level test cases for validating the MVP.
 
-These cases are not PHPUnit tests. They describe realistic intake scenarios and expected system behavior across conversation, facts, screening, decision, CRM and review.
+These are not PHPUnit tests. They describe expected product behavior across intake, screening, decision, review, audit and fallback handling.
+
+## Completion Status
+
+```text
+Business Test Case Library: COMPLETE
+Covered range: TC-000 to TC-100
+```
 
 ## Test Case Groups
 
 ```text
-TC-001 to TC-020    Basic patient injury flows
-TC-021 to TC-040    No or weak compensable damage flows
-TC-041 to TC-060    Human review required flows
+TC-001 to TC-020    Basic intake flows
+TC-021 to TC-040    Guide-away and weak-case flows
+TC-041 to TC-060    Human review and uncertainty flows
 TC-061 to TC-080    Missing information and Smart Skip flows
-TC-081 to TC-100    CRM handover and internal review flows
+TC-081 to TC-100    Edge, privacy, audit and fallback flows
+```
+
+## Group Closeout Files
+
+```text
+TC-020 Basic Flow Group Closeout
+TC-040 Guide Away Group Closeout
+TC-060 Human Review Group Closeout
+TC-080 Missing Information Group Closeout
+TC-100 Business Test Library Complete
 ```
 
 ## Standard Test Case Format
 
-Each test case should include:
-
 ```text
 Purpose
-Scenario
-Initial user description
-Expected conversation behavior
+Initial user description or scenario
+Expected behavior
 Expected facts
 Expected missing information
-Expected screening behavior
-Expected decision behavior
-Expected CRM or review behavior
-Acceptance notes
+Expected next step
+Acceptance checks
 ```
 
 ## Rules
 
-- Use realistic but fake examples only.
-- Do not use real names, real CPR numbers, real emails or real case details.
+- Use fake examples only.
+- Do not use real personal data.
 - Keep cases understandable for product, QA and engineering.
 - Expected outcomes should be testable.
 
-## Initial Cases
+## How to Use During Implementation
 
 ```text
-TC-001 Basic Patient Injury Flow
-TC-002 No Compensable Damage
-TC-003 Human Review Nerve Injury
+read relevant test cases
+map cases to feature tests where possible
+use fake data only
+verify expected behavior
+record gaps as follow-up issues
 ```
 
 ## Definition of Done
 
 ```text
 test case catalog exists
-standard format defined
-initial case groups defined
-fake-data rule documented
+TC-000 to TC-100 are complete
+groups are listed
+group closeout files are listed
+usage guidance documented
 ```
