@@ -9,7 +9,7 @@ Domain: Implementation Handoff
 
 This document is the main entry point for implementing the MVP.
 
-It links the architecture, specifications, developer handbook, backlog, epics, sprints and issue files into one practical implementation map.
+It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints and issue files into one practical implementation map.
 
 ## Implementation Rule
 
@@ -66,6 +66,31 @@ docs/developer-handbook/DEV-007-crm-and-human-review-guide.md
 docs/developer-handbook/DEV-008-testing-standards.md
 docs/developer-handbook/DEV-009-deployment-guide.md
 docs/developer-handbook/DEV-010-sprint-by-sprint-implementation-guide.md
+```
+
+## Business Test Case Library
+
+The business test case library is the QA baseline for validating MVP behavior during implementation.
+
+```text
+test-cases/TC-000-test-case-catalog.md
+test-cases/TC-100-business-test-library-complete.md
+```
+
+Completed groups:
+
+```text
+TC-001 to TC-020   Basic intake flows
+TC-021 to TC-040   Guide-away and weak-case flows
+TC-041 to TC-060   Human review and uncertainty flows
+TC-061 to TC-080   Missing information and Smart Skip flows
+TC-081 to TC-100   Edge, privacy, audit and fallback flows
+```
+
+Implementation rule:
+
+```text
+For each feature or sprint, read the relevant business test cases before writing or updating automated tests.
 ```
 
 ## Backlog Index
@@ -133,11 +158,12 @@ For each sprint:
 3. Read all issue files in that sprint.
 4. Read the related API and database specifications.
 5. Read the relevant developer handbook guide.
-6. Implement issues in order.
-7. Add or update tests.
-8. Update documentation if assumptions change.
-9. Run the test suite.
-10. Complete the sprint closeout issue.
+6. Read the relevant business test cases.
+7. Implement issues in order.
+8. Add or update tests.
+9. Update documentation if assumptions change.
+10. Run the test suite.
+11. Complete the sprint closeout issue.
 ```
 
 ## Non-Negotiable Rules
@@ -150,6 +176,7 @@ For each sprint:
 - Keep AI-created facts unconfirmed by default.
 - Store decisions separately from scores.
 - Preserve auditability for important internal actions.
+- Use business test cases as the expected behavior baseline.
 
 ## Implementation Start Point
 
@@ -166,6 +193,7 @@ backlog/issues/ISSUE-001-confirm-laravel-version-and-foundation-constraints.md
 master index exists
 specification packs linked
 developer handbook linked
+business test cases linked
 backlog and sprint order linked
 implementation rules documented
 ```
