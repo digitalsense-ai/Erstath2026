@@ -1,6 +1,6 @@
 # Implementation Master Index
 
-Version: 1.0 Draft
+Version: 1.1 Draft
 Status: Active
 Owner: Product / Engineering / Delivery
 Domain: Implementation Handoff
@@ -9,7 +9,7 @@ Domain: Implementation Handoff
 
 This document is the main entry point for implementing the MVP.
 
-It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints and issue files into one practical implementation map.
+It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts and readiness reviews into one practical implementation map.
 
 ## Implementation Rule
 
@@ -51,6 +51,57 @@ docs/specifications/SPEC-007-lead-core-schema.md
 docs/specifications/SPEC-008-conversation-and-facts-schema.md
 docs/specifications/SPEC-009-screening-decision-review-schema.md
 docs/specifications/SPEC-010-audit-and-supporting-schema.md
+```
+
+## Implementation Readiness Reviews
+
+```text
+reviews/REV-002-implementation-readiness-and-duplication-audit.md
+reviews/REV-003-database-readiness-review.md
+```
+
+Implementation rule:
+
+```text
+Use REV-002 before creating new planning documents.
+Use REV-003 before implementing Sprint 001 database migrations.
+```
+
+## JSON Contracts
+
+```text
+docs/contracts/CONTRACT-001-json-contracts-overview.md
+docs/contracts/CONTRACT-002-conversation-message-contract.md
+docs/contracts/CONTRACT-003-fact-extraction-contract.md
+docs/contracts/CONTRACT-004-screening-output-contract.md
+docs/contracts/CONTRACT-005-decision-output-contract.md
+docs/contracts/CONTRACT-006-crm-handover-contract.md
+docs/contracts/CONTRACT-007-human-review-contract.md
+```
+
+Implementation rule:
+
+```text
+Use these contracts for Laravel DTOs, validators, resources, AI output validation and feature test expectations.
+```
+
+## AI Prompt Pack
+
+```text
+docs/prompts/PROMPT-001-ai-prompt-pack-overview.md
+docs/prompts/PROMPT-002-conversation-prompt.md
+docs/prompts/PROMPT-003-fact-extraction-prompt.md
+docs/prompts/PROMPT-004-screening-prompt.md
+docs/prompts/PROMPT-005-decision-support-prompt.md
+docs/prompts/PROMPT-006-summary-and-handover-prompt.md
+docs/prompts/PROMPT-007-human-review-support-prompt.md
+```
+
+Implementation rule:
+
+```text
+Backend-facing AI prompts must return valid JSON matching the relevant JSON contract.
+AI output must be validated before it is mapped to database records or decisions.
 ```
 
 ## Developer Handbook
@@ -157,13 +208,15 @@ For each sprint:
 2. Read the related epic.
 3. Read all issue files in that sprint.
 4. Read the related API and database specifications.
-5. Read the relevant developer handbook guide.
-6. Read the relevant business test cases.
-7. Implement issues in order.
-8. Add or update tests.
-9. Update documentation if assumptions change.
-10. Run the test suite.
-11. Complete the sprint closeout issue.
+5. Read the relevant JSON contracts.
+6. Read the relevant AI prompts when AI behavior is implemented.
+7. Read the relevant developer handbook guide.
+8. Read the relevant business test cases.
+9. Implement issues in order.
+10. Add or update tests.
+11. Update documentation if assumptions change.
+12. Run the test suite.
+13. Complete the sprint closeout issue.
 ```
 
 ## Non-Negotiable Rules
@@ -192,6 +245,9 @@ backlog/issues/ISSUE-001-confirm-laravel-version-and-foundation-constraints.md
 ```text
 master index exists
 specification packs linked
+readiness reviews linked
+JSON contracts linked
+AI prompt pack linked
 developer handbook linked
 business test cases linked
 backlog and sprint order linked
