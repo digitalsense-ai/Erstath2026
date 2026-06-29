@@ -16,14 +16,20 @@ docs/IMPLEMENTATION-MASTER-INDEX.md
 
 Developers and ServerAdmin should read this file first.
 
+For the short ServerAdmin handoff, start here:
+
+```text
+handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+```
+
 ---
 
 ## Current Project Status
 
 ```text
 Current phase: Implementation Preparation
-Implementation status: Backlog, specifications and business test cases completed; coding not started
-ServerAdmin status: Ready for implementation handoff using the Implementation Master Index
+Implementation status: Backlog, specifications, contracts, prompts, readiness packs and business test cases completed; Laravel baseline handoff pending
+ServerAdmin status: Ready for Laravel baseline handoff and Sprint 000 foundation
 ```
 
 The current implementation baseline includes:
@@ -37,8 +43,13 @@ The current implementation baseline includes:
 - Traceable backlog from ISSUE-001 to ISSUE-090
 - API specifications from SPEC-001 to SPEC-005
 - Database specifications from SPEC-006 to SPEC-010
+- JSON Contracts from CONTRACT-001 to CONTRACT-007
+- AI Prompt Pack from PROMPT-001 to PROMPT-007
+- API Implementation Readiness Pack from API-READINESS-001 to API-READINESS-005
+- MVP Implementation Start Pack from MVP-START-001 to MVP-START-004
 - Developer Handbook from DEV-001 to DEV-010
 - Business Test Case Library from TC-000 to TC-100
+- ServerAdmin Handoff note
 - Implementation Master Index
 
 ---
@@ -47,6 +58,10 @@ The current implementation baseline includes:
 
 ```text
 docs/IMPLEMENTATION-MASTER-INDEX.md
+handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
+docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
+docs/api/API-READINESS-003-first-vertical-slice-plan.md
 docs/foundation/DOC-003-architecture-index.md
 backlog/BACKLOG-000-traceable-backlog-index.md
 backlog/issues/ISSUE-000-issue-catalog.md
@@ -68,6 +83,35 @@ SPRINT-005 Security, Audit and Testing         ISSUE-078 to ISSUE-090
 ```
 
 Do not implement later sprint behavior before the earlier supporting data model, services and tests exist.
+
+---
+
+## First Implementation Flow
+
+```text
+Laravel 12 baseline
+↓
+Sprint 000 Foundation
+↓
+First vertical slice
+↓
+POST /api/v1/conversations
+↓
+Fake AI provider
+↓
+Feature tests
+```
+
+Use these documents for the first implementation flow:
+
+```text
+handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
+docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
+docs/api/API-READINESS-003-first-vertical-slice-plan.md
+docs/mvp-start/MVP-START-003-first-feature-test-plan.md
+docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
+```
 
 ---
 
@@ -95,9 +139,10 @@ All tests, factories, seeders and examples must use fake data only.
 
 ```text
 1. Read docs/IMPLEMENTATION-MASTER-INDEX.md
-2. Read DEV-001, DEV-002 and DEV-010
-3. Read SPEC-006 and SPEC-007
-4. Read test-cases/TC-000-test-case-catalog.md
-5. Start with SPRINT-000 / ISSUE-001
-6. Implement sprint by sprint
+2. Read handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+3. Read MVP-START-001 and MVP-START-002
+4. Confirm Laravel baseline and Sprint 000 foundation
+5. Read API-READINESS-003, MVP-START-003 and MVP-START-004
+6. Build the first conversation vertical slice with Fake AI
+7. Implement sprint by sprint
 ```
