@@ -1,6 +1,6 @@
 # Implementation Master Index
 
-Version: 1.1 Draft
+Version: 1.2 Draft
 Status: Active
 Owner: Product / Engineering / Delivery
 Domain: Implementation Handoff
@@ -9,7 +9,7 @@ Domain: Implementation Handoff
 
 This document is the main entry point for implementing the MVP.
 
-It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts and readiness reviews into one practical implementation map.
+It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts, API readiness packs, MVP start packs and readiness reviews into one practical implementation map.
 
 ## Implementation Rule
 
@@ -102,6 +102,43 @@ Implementation rule:
 ```text
 Backend-facing AI prompts must return valid JSON matching the relevant JSON contract.
 AI output must be validated before it is mapped to database records or decisions.
+```
+
+## API Implementation Readiness Pack
+
+This pack translates the API specifications, JSON contracts and prompt pack into concrete Laravel implementation guidance.
+
+```text
+docs/api/API-READINESS-001-endpoint-implementation-map.md
+docs/api/API-READINESS-002-request-resource-dto-map.md
+docs/api/API-READINESS-003-first-vertical-slice-plan.md
+docs/api/API-READINESS-004-error-and-response-standard.md
+docs/api/API-READINESS-005-controller-service-boundary-rules.md
+```
+
+Implementation rule:
+
+```text
+Use API-READINESS-001 to API-READINESS-005 before building the first conversation, screening, decision, CRM or review endpoint.
+```
+
+## MVP Implementation Start Pack
+
+This pack should be used immediately after ServerAdmin has added or verified the Laravel 12 baseline.
+
+```text
+docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
+docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
+docs/mvp-start/MVP-START-003-first-feature-test-plan.md
+docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
+```
+
+Implementation rule:
+
+```text
+Use MVP-START-001 before domain coding begins.
+Use MVP-START-002 for Sprint 000 execution order.
+Use MVP-START-003 and MVP-START-004 for the first tested vertical slice.
 ```
 
 ## Developer Handbook
@@ -210,13 +247,15 @@ For each sprint:
 4. Read the related API and database specifications.
 5. Read the relevant JSON contracts.
 6. Read the relevant AI prompts when AI behavior is implemented.
-7. Read the relevant developer handbook guide.
-8. Read the relevant business test cases.
-9. Implement issues in order.
-10. Add or update tests.
-11. Update documentation if assumptions change.
-12. Run the test suite.
-13. Complete the sprint closeout issue.
+7. Read the API readiness pack when API endpoints are implemented.
+8. Read the MVP start pack when starting Sprint 000 or the first vertical slice.
+9. Read the relevant developer handbook guide.
+10. Read the relevant business test cases.
+11. Implement issues in order.
+12. Add or update tests.
+13. Update documentation if assumptions change.
+14. Run the test suite.
+15. Complete the sprint closeout issue.
 ```
 
 ## Non-Negotiable Rules
@@ -230,14 +269,28 @@ For each sprint:
 - Store decisions separately from scores.
 - Preserve auditability for important internal actions.
 - Use business test cases as the expected behavior baseline.
+- Start with Fake AI for the first vertical slice.
+- Do not build MitID, power of attorney signing or document analysis before the foundation and first screening slice work.
 
 ## Implementation Start Point
 
 The implementation should start with:
 
 ```text
+docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
+docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 sprints/SPRINT-000-foundation.md
 backlog/issues/ISSUE-001-confirm-laravel-version-and-foundation-constraints.md
+```
+
+## First Vertical Slice Start Point
+
+After Sprint 000 is stable, start with:
+
+```text
+docs/api/API-READINESS-003-first-vertical-slice-plan.md
+docs/mvp-start/MVP-START-003-first-feature-test-plan.md
+docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
 ```
 
 ## Definition of Done
@@ -248,6 +301,8 @@ specification packs linked
 readiness reviews linked
 JSON contracts linked
 AI prompt pack linked
+API readiness pack linked
+MVP start pack linked
 developer handbook linked
 business test cases linked
 backlog and sprint order linked
