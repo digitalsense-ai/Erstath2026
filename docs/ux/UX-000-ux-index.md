@@ -1,7 +1,7 @@
 # UX-000 - UX Pack Index
 
-Version: 1.0
-Status: Active Draft
+Version: 1.1
+Status: Active Draft - First UX Pack Complete
 Scope: Product UX and frontend handoff
 
 ## Purpose
@@ -14,7 +14,7 @@ It should make the product easy to build, test and review before frontend implem
 
 ## UX Pack Goals
 
-The UX Pack should define:
+The UX Pack defines:
 
 - customer journey
 - conversation flow
@@ -28,11 +28,34 @@ The UX Pack should define:
 - CRM and caseworker UX
 - human review workspace
 - notification and status patterns
+- prototype flow
+- usability testing
 - frontend handoff
+
+## UX Pack Documents
+
+```text
+UX-000-ux-index.md
+UX-001-user-journey-overview.md
+UX-002-conversation-flow.md
+UX-003-screen-by-screen-specification.md
+UX-004-component-library.md
+UX-005-design-system.md
+UX-006-mobile-first-guidelines.md
+UX-007-loading-empty-error-states.md
+UX-008-accessibility-guidelines.md
+UX-009-microcopy-and-tone-of-voice.md
+UX-010-caseworker-crm-ux.md
+UX-011-human-review-workspace.md
+UX-012-notification-and-status-patterns.md
+UX-013-prototype-flow.md
+UX-014-usability-test-checklist.md
+UX-015-handoff-to-frontend.md
+```
 
 ## Reading Order
 
-Start with:
+Start with the user journey and conversation:
 
 ```text
 UX-001-user-journey-overview.md
@@ -40,7 +63,7 @@ UX-002-conversation-flow.md
 UX-003-screen-by-screen-specification.md
 ```
 
-Then use:
+Then use component, visual and state guidance:
 
 ```text
 UX-004-component-library.md
@@ -59,7 +82,7 @@ UX-011-human-review-workspace.md
 UX-012-notification-and-status-patterns.md
 ```
 
-Finally use:
+Finally use prototype, testing and implementation handoff:
 
 ```text
 UX-013-prototype-flow.md
@@ -142,11 +165,58 @@ answer submitted
 next step shown
 ```
 
+## First Frontend Build Scope
+
+The first frontend build should focus on:
+
+```text
+/intake
+ConversationShell
+IntroCard
+TextAreaInput
+HelperExamples
+ThinkingIndicator
+AIQuestionCard
+PrimaryButton
+SecondaryButton
+InlineValidationMessage
+ConfirmationToast
+```
+
+This should connect to the first backend vertical slice:
+
+```text
+POST /api/v1/conversations
+Fake AI
+AI Case Brain
+one next question
+validated JSON
+```
+
 ## Implementation Rule
 
-Do not let the frontend invent UX behavior that conflicts with AI Case Brain, JSON contracts or business test cases.
+Do not let the frontend invent UX behavior that conflicts with AI Case Brain, JSON contracts, Rulebook or business test cases.
 
 UX should be implemented through reusable components and states.
+
+## First UX Pack Completion Criteria
+
+First UX Pack is considered complete when these documents exist and are internally aligned:
+
+```text
+UX-001 through UX-015
+```
+
+This first version is now ready for:
+
+```text
+frontend planning
+prototype design
+usability testing
+first intake implementation
+CRM planning
+human review workspace planning
+```
 
 ## Related Documents
 
@@ -155,5 +225,6 @@ docs/IMPLEMENTATION-MASTER-INDEX.md
 docs/ai-case-brain/BRAIN-013-smart-question-rules.md
 docs/ai-case-brain/BRAIN-018-brain-output-model.md
 docs/rulebook/RULEBOOK-090-smart-question-rules.md
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
 docs/mvp-start/MVP-START-003-first-feature-test-plan.md
 ```
