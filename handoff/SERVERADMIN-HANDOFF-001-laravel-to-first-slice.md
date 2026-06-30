@@ -1,6 +1,6 @@
 # SERVERADMIN-HANDOFF-001 - Laravel Baseline to First Slice
 
-Version: 1.0
+Version: 1.1
 Status: Ready for ServerAdmin
 Scope: MVP 0.1
 
@@ -46,6 +46,10 @@ Read:
 
 ```text
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
+docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
+docs/ai-case-brain/BRAIN-023-implementation-checklist.md
+docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
+docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
 docs/mvp-start/MVP-START-003-first-feature-test-plan.md
 docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
 ```
@@ -58,6 +62,8 @@ lead created
 conversation created
 message stored
 fake AI response processed
+AI Case Brain result created
+reason codes returned
 next question returned
 ```
 
@@ -79,9 +85,25 @@ Related business testcase:
 TC-001 Basic Patient Injury Flow
 ```
 
+## Minimum Brain Behavior
+
+The first slice only needs to support:
+
+```text
+classify likely domain
+classify likely case type
+detect missing information
+select one next question
+return reason codes
+validate output
+```
+
+Do not implement the full future rule library in the first slice.
+
 ## Rules
 
 - Use Fake AI first.
+- Use AI Case Brain for reasoning.
 - Keep controllers thin.
 - Put business logic in services.
 - Validate AI output before saving.
