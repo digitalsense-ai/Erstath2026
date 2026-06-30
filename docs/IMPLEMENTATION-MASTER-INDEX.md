@@ -1,6 +1,6 @@
 # Implementation Master Index
 
-Version: 1.3 Draft
+Version: 1.4 Draft
 Status: Active
 Owner: Product / Engineering / Delivery
 Domain: Implementation Handoff
@@ -9,7 +9,7 @@ Domain: Implementation Handoff
 
 This document is the main entry point for implementing the MVP.
 
-It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts, AI Case Brain, API readiness packs, MVP start packs and readiness reviews into one practical implementation map.
+It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts, AI Case Brain, API readiness packs, MVP start packs, ServerAdmin handoff notes and readiness reviews into one practical implementation map.
 
 ## Implementation Rule
 
@@ -24,11 +24,28 @@ New developers should read these documents first:
 ```text
 README.md
 docs/IMPLEMENTATION-MASTER-INDEX.md
+handoff/HANDOFF-000-index.md
 docs/foundation/DOC-000-product-constitution.md
 docs/foundation/DOC-001-architecture-overview.md
 docs/foundation/DOC-002-repository-constitution.md
 docs/foundation/DOC-003-architecture-index.md
 architecture-freeze/AF-003-implementation-readiness-checklist.md
+```
+
+## Handoff Pack
+
+This pack provides the shortest path from planning to implementation.
+
+```text
+handoff/HANDOFF-000-index.md
+handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+handoff/SERVERADMIN-HANDOFF-002-ai-case-brain-first-slice.md
+```
+
+Implementation rule:
+
+```text
+Use the handoff pack before ServerAdmin starts the Laravel baseline or first vertical slice implementation.
 ```
 
 ## Specification Packs
@@ -273,13 +290,14 @@ For each sprint:
 7. Read AI Case Brain when implementing reasoning, screening, smart questions, routing or review.
 8. Read the API readiness pack when API endpoints are implemented.
 9. Read the MVP start pack when starting Sprint 000 or the first vertical slice.
-10. Read the relevant developer handbook guide.
-11. Read the relevant business test cases.
-12. Implement issues in order.
-13. Add or update tests.
-14. Update documentation if assumptions change.
-15. Run the test suite.
-16. Complete the sprint closeout issue.
+10. Read the handoff pack when ServerAdmin or a new developer takes over implementation.
+11. Read the relevant developer handbook guide.
+12. Read the relevant business test cases.
+13. Implement issues in order.
+14. Add or update tests.
+15. Update documentation if assumptions change.
+16. Run the test suite.
+17. Complete the sprint closeout issue.
 ```
 
 ## Non-Negotiable Rules
@@ -302,6 +320,7 @@ For each sprint:
 The implementation should start with:
 
 ```text
+handoff/HANDOFF-000-index.md
 docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
 docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 sprints/SPRINT-000-foundation.md
@@ -313,6 +332,7 @@ backlog/issues/ISSUE-001-confirm-laravel-version-and-foundation-constraints.md
 After Sprint 000 is stable, start with:
 
 ```text
+handoff/SERVERADMIN-HANDOFF-002-ai-case-brain-first-slice.md
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
 docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
@@ -326,6 +346,7 @@ docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
 
 ```text
 master index exists
+handoff pack linked
 specification packs linked
 readiness reviews linked
 JSON contracts linked
