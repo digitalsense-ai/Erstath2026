@@ -22,13 +22,19 @@ For the short ServerAdmin handoff, start here:
 handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
 ```
 
+For AI reasoning and decision intelligence, start here:
+
+```text
+docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
+```
+
 ---
 
 ## Current Project Status
 
 ```text
 Current phase: Implementation Preparation
-Implementation status: Backlog, specifications, contracts, prompts, readiness packs and business test cases completed; Laravel baseline handoff pending
+Implementation status: Backlog, specifications, contracts, prompts, AI Case Brain, readiness packs and business test cases completed; Laravel baseline handoff pending
 ServerAdmin status: Ready for Laravel baseline handoff and Sprint 000 foundation
 ```
 
@@ -45,6 +51,7 @@ The current implementation baseline includes:
 - Database specifications from SPEC-006 to SPEC-010
 - JSON Contracts from CONTRACT-001 to CONTRACT-007
 - AI Prompt Pack from PROMPT-001 to PROMPT-007
+- AI Case Brain from BRAIN-000 to BRAIN-025
 - API Implementation Readiness Pack from API-READINESS-001 to API-READINESS-005
 - MVP Implementation Start Pack from MVP-START-001 to MVP-START-004
 - Developer Handbook from DEV-001 to DEV-010
@@ -59,6 +66,10 @@ The current implementation baseline includes:
 ```text
 docs/IMPLEMENTATION-MASTER-INDEX.md
 handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
+docs/ai-case-brain/BRAIN-023-implementation-checklist.md
+docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
+docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
 docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
 docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
@@ -99,6 +110,8 @@ POST /api/v1/conversations
 ↓
 Fake AI provider
 ↓
+AI Case Brain
+↓
 Feature tests
 ```
 
@@ -109,8 +122,34 @@ handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
 docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
 docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
+docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
+docs/ai-case-brain/BRAIN-023-implementation-checklist.md
+docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
+docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
 docs/mvp-start/MVP-START-003-first-feature-test-plan.md
 docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
+```
+
+---
+
+## AI Case Brain
+
+AI Case Brain is the structured reasoning layer behind:
+
+- domain classification
+- case type classification
+- missing information prioritisation
+- smart question selection
+- preliminary scoring
+- routing
+- human review escalation
+- guide-away handling
+- confidence and reason codes
+
+Start here:
+
+```text
+docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 ```
 
 ---
@@ -142,7 +181,9 @@ All tests, factories, seeders and examples must use fake data only.
 2. Read handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
 3. Read MVP-START-001 and MVP-START-002
 4. Confirm Laravel baseline and Sprint 000 foundation
-5. Read API-READINESS-003, MVP-START-003 and MVP-START-004
-6. Build the first conversation vertical slice with Fake AI
-7. Implement sprint by sprint
+5. Read API-READINESS-003
+6. Read BRAIN-000, BRAIN-023, BRAIN-024 and BRAIN-025
+7. Read MVP-START-003 and MVP-START-004
+8. Build the first conversation vertical slice with Fake AI and AI Case Brain
+9. Implement sprint by sprint
 ```
