@@ -19,7 +19,7 @@ Developers and ServerAdmin should read this file first.
 For the short ServerAdmin handoff, start here:
 
 ```text
-handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+handoff/HANDOFF-000-index.md
 ```
 
 For AI reasoning and decision intelligence, start here:
@@ -56,7 +56,7 @@ The current implementation baseline includes:
 - MVP Implementation Start Pack from MVP-START-001 to MVP-START-004
 - Developer Handbook from DEV-001 to DEV-010
 - Business Test Case Library from TC-000 to TC-100
-- ServerAdmin Handoff note
+- ServerAdmin Handoff Index and notes
 - Implementation Master Index
 
 ---
@@ -65,7 +65,9 @@ The current implementation baseline includes:
 
 ```text
 docs/IMPLEMENTATION-MASTER-INDEX.md
+handoff/HANDOFF-000-index.md
 handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+handoff/SERVERADMIN-HANDOFF-002-ai-case-brain-first-slice.md
 docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
 docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
@@ -118,7 +120,9 @@ Feature tests
 Use these documents for the first implementation flow:
 
 ```text
+handoff/HANDOFF-000-index.md
 handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
+handoff/SERVERADMIN-HANDOFF-002-ai-case-brain-first-slice.md
 docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
 docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
@@ -178,12 +182,13 @@ All tests, factories, seeders and examples must use fake data only.
 
 ```text
 1. Read docs/IMPLEMENTATION-MASTER-INDEX.md
-2. Read handoff/SERVERADMIN-HANDOFF-001-laravel-to-first-slice.md
-3. Read MVP-START-001 and MVP-START-002
-4. Confirm Laravel baseline and Sprint 000 foundation
-5. Read API-READINESS-003
-6. Read BRAIN-000, BRAIN-023, BRAIN-024 and BRAIN-025
-7. Read MVP-START-003 and MVP-START-004
-8. Build the first conversation vertical slice with Fake AI and AI Case Brain
-9. Implement sprint by sprint
+2. Read handoff/HANDOFF-000-index.md
+3. Read SERVERADMIN-HANDOFF-001 and SERVERADMIN-HANDOFF-002
+4. Read MVP-START-001 and MVP-START-002
+5. Confirm Laravel baseline and Sprint 000 foundation
+6. Read API-READINESS-003
+7. Read BRAIN-000, BRAIN-023, BRAIN-024 and BRAIN-025
+8. Read MVP-START-003 and MVP-START-004
+9. Build the first conversation vertical slice with Fake AI and AI Case Brain
+10. Implement sprint by sprint
 ```
