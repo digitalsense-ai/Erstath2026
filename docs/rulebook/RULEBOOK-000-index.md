@@ -1,6 +1,6 @@
 # RULEBOOK-000 - AI Case Brain Rulebook Index
 
-Version: 1.0
+Version: 1.1
 Status: Active Draft
 Scope: Long-term AI Case Brain rule library
 
@@ -16,7 +16,7 @@ It extends the MVP-first Brain documents without blocking the first vertical sli
 
 AI Case Brain defines the architecture, output model, evaluation order and first MVP rule set.
 
-The Rulebook defines the expanded long-term rule library.
+The Rulebook defines the expanded long-term rule library and maps it to future Laravel implementation.
 
 Use together:
 
@@ -52,6 +52,12 @@ RULEBOOK-110-human-review-rules.md
 RULEBOOK-120-guide-away-rules.md
 RULEBOOK-130-confidence-rules.md
 RULEBOOK-140-audit-and-explanation-rules.md
+```
+
+Then read the implementation mapping:
+
+```text
+RULEBOOK-150-rule-to-code-mapping.md
 ```
 
 ## MVP vs Full Rulebook
@@ -105,6 +111,27 @@ ConversationStartTest
 
 Then expand rulebook coverage sprint by sprint.
 
+## Code Mapping
+
+Use the code mapping document before turning Rulebook groups into Laravel services:
+
+```text
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
+```
+
+It maps rule groups to:
+
+```text
+BrainEvaluationService
+RuleEvaluationPipeline
+SmartQuestionSelector
+BrainRoutingService
+BrainConfidenceService
+BrainOutputValidator
+ReasonCodeCollector
+BrainExplanationBuilder
+```
+
 ## Related Documents
 
 ```text
@@ -112,4 +139,5 @@ docs/ai-case-brain/BRAIN-004-rule-library-structure.md
 docs/ai-case-brain/BRAIN-019-rule-evaluation-order.md
 docs/ai-case-brain/BRAIN-020-first-50-mvp-rules-catalog.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
 ```
