@@ -12,3 +12,6 @@ Route::get('/', function () {
         'errors' => [],
     ]);
 });
+
+Route::view('/intake', 'frontend-experience.intake')->name('frontend-experience.intake');
+Route::redirect('/prototype/frontend', '/intake');
