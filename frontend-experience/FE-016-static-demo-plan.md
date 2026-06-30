@@ -1,6 +1,6 @@
 # FE-016 - Static Demo Plan
 
-Version: 1.0
+Version: 1.1
 Status: Active Draft
 
 ## Purpose
@@ -20,6 +20,60 @@ A viewer should be able to open one URL and try the first experience on mobile o
 - one follow-up question
 - result card
 
+## Current implementation
+
+A GitHub Pages workflow has been added:
+
+```text
+.github/workflows/pages-frontend-demo.yml
+```
+
+The workflow builds a static site by copying:
+
+```text
+resources/views/frontend-experience/intake.blade.php
+public/frontend-experience/app.css
+public/frontend-experience/app.js
+public/frontend-experience/fakeConversationData.js
+```
+
+into a temporary `_site` folder.
+
+It also replaces Laravel `asset(...)` references with relative static paths.
+
+## Expected demo behavior
+
+When GitHub Pages is enabled for GitHub Actions, the workflow can publish the prototype as a static site.
+
+The demo should show:
+
+- first landing screen
+- animated AI welcome
+- rotating examples
+- free text input
+- fake AI response
+- one smart question
+- result card
+- mobile and desktop responsive layout
+
+## Manual step
+
+GitHub Pages may need to be enabled in repository settings:
+
+```text
+Settings -> Pages -> Build and deployment -> Source: GitHub Actions
+```
+
+After that, run:
+
+```text
+Actions -> Frontend Demo Pages -> Run workflow
+```
+
 ## Build note
 
 Use the existing frontend assets from `public/frontend-experience` and publish them as static files.
+
+## Safety rule
+
+The static demo must use fictional demo content only.
