@@ -1,6 +1,6 @@
 # Implementation Master Index
 
-Version: 1.4 Draft
+Version: 1.5 Draft
 Status: Active
 Owner: Product / Engineering / Delivery
 Domain: Implementation Handoff
@@ -9,13 +9,13 @@ Domain: Implementation Handoff
 
 This document is the main entry point for implementing the MVP.
 
-It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts, AI Case Brain, API readiness packs, MVP start packs, ServerAdmin handoff notes and readiness reviews into one practical implementation map.
+It links the architecture, specifications, developer handbook, business test cases, backlog, epics, sprints, issue files, JSON contracts, AI prompts, AI Case Brain, Rulebook, UX Pack, API readiness packs, MVP start packs, ServerAdmin handoff notes and readiness reviews into one practical implementation map.
 
 ## Implementation Rule
 
 Implementation should start from the backlog and follow the sprint order.
 
-Developers should not implement later sprint functionality before the required foundation, data model, services and tests exist.
+Developers should not implement later sprint functionality before the required foundation, data model, services, UX states and tests exist.
 
 ## Core Reading Order
 
@@ -142,6 +142,53 @@ Implementation rule:
 ```text
 Use AI Case Brain before implementing conversation reasoning, screening scores, smart questions, routing, human review escalation or decision support.
 Start with BRAIN-020 first 50 MVP rules rather than the full future rule library.
+```
+
+## Rulebook Pack
+
+This pack defines the expanded long-term AI Case Brain rule library and maps rule groups to Laravel services.
+
+```text
+docs/rulebook/RULEBOOK-000-index.md
+docs/rulebook/RULEBOOK-001-rulebook-principles.md
+docs/rulebook/RULEBOOK-003-rule-authoring-template.md
+docs/rulebook/RULEBOOK-010-domain-rules.md
+docs/rulebook/RULEBOOK-090-smart-question-rules.md
+docs/rulebook/RULEBOOK-100-routing-rules.md
+docs/rulebook/RULEBOOK-110-human-review-rules.md
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
+```
+
+Implementation rule:
+
+```text
+Use the Rulebook for controlled expansion after the first vertical slice works.
+Do not implement the full long-term rule library before MVP rule behavior is tested.
+```
+
+## UX Pack
+
+This pack defines the customer intake UX, screen-by-screen behavior, component library, design system, mobile rules, accessibility, microcopy, CRM UX, human review workspace, prototype flow, usability testing and frontend handoff.
+
+```text
+docs/ux/UX-000-ux-index.md
+docs/ux/UX-001-user-journey-overview.md
+docs/ux/UX-002-conversation-flow.md
+docs/ux/UX-003-screen-by-screen-specification.md
+docs/ux/UX-004-component-library.md
+docs/ux/UX-005-design-system.md
+docs/ux/UX-007-loading-empty-error-states.md
+docs/ux/UX-009-microcopy-and-tone-of-voice.md
+docs/ux/UX-010-caseworker-crm-ux.md
+docs/ux/UX-011-human-review-workspace.md
+docs/ux/UX-015-handoff-to-frontend.md
+```
+
+Implementation rule:
+
+```text
+Use the UX Pack before building intake frontend, CRM screens, human review workspace or prototype UI.
+Frontend must not expose internal scores, commercial value, raw reason codes or review priority to customers.
 ```
 
 ## API Implementation Readiness Pack
@@ -288,16 +335,18 @@ For each sprint:
 5. Read the relevant JSON contracts.
 6. Read the relevant AI prompts when AI behavior is implemented.
 7. Read AI Case Brain when implementing reasoning, screening, smart questions, routing or review.
-8. Read the API readiness pack when API endpoints are implemented.
-9. Read the MVP start pack when starting Sprint 000 or the first vertical slice.
-10. Read the handoff pack when ServerAdmin or a new developer takes over implementation.
-11. Read the relevant developer handbook guide.
-12. Read the relevant business test cases.
-13. Implement issues in order.
-14. Add or update tests.
-15. Update documentation if assumptions change.
-16. Run the test suite.
-17. Complete the sprint closeout issue.
+8. Read the Rulebook when expanding rule behavior beyond first MVP rules.
+9. Read the UX Pack when implementing intake frontend, CRM, review workspace or prototype.
+10. Read the API readiness pack when API endpoints are implemented.
+11. Read the MVP start pack when starting Sprint 000 or the first vertical slice.
+12. Read the handoff pack when ServerAdmin or a new developer takes over implementation.
+13. Read the relevant developer handbook guide.
+14. Read the relevant business test cases.
+15. Implement issues in order.
+16. Add or update tests.
+17. Update documentation if assumptions change.
+18. Run the test suite.
+19. Complete the sprint closeout issue.
 ```
 
 ## Non-Negotiable Rules
@@ -313,6 +362,8 @@ For each sprint:
 - Use business test cases as the expected behavior baseline.
 - Start with Fake AI for the first vertical slice.
 - Use AI Case Brain rules for reasoning instead of putting decision logic directly in prompts or controllers.
+- Use the UX Pack for intake, CRM and review UI behavior.
+- Do not expose internal commercial value, raw reason codes, internal confidence score or review priority to customers.
 - Do not build MitID, power of attorney signing or document analysis before the foundation and first screening slice work.
 
 ## Implementation Start Point
@@ -338,6 +389,8 @@ docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
 docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
 docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
+docs/ux/UX-000-ux-index.md
+docs/ux/UX-015-handoff-to-frontend.md
 docs/mvp-start/MVP-START-003-first-feature-test-plan.md
 docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
 ```
@@ -352,6 +405,8 @@ readiness reviews linked
 JSON contracts linked
 AI prompt pack linked
 AI Case Brain linked
+Rulebook linked
+UX Pack linked
 API readiness pack linked
 MVP start pack linked
 developer handbook linked
