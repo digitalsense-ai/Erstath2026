@@ -28,13 +28,25 @@ For AI reasoning and decision intelligence, start here:
 docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 ```
 
+For the expanded rule library, start here:
+
+```text
+docs/rulebook/RULEBOOK-000-index.md
+```
+
+For UX, prototype and frontend handoff, start here:
+
+```text
+docs/ux/UX-000-ux-index.md
+```
+
 ---
 
 ## Current Project Status
 
 ```text
 Current phase: Implementation Preparation
-Implementation status: Backlog, specifications, contracts, prompts, AI Case Brain, readiness packs and business test cases completed; Laravel baseline handoff pending
+Implementation status: Backlog, specifications, contracts, prompts, AI Case Brain, Rulebook, UX Pack, readiness packs and business test cases completed; Laravel baseline handoff pending
 ServerAdmin status: Ready for Laravel baseline handoff and Sprint 000 foundation
 ```
 
@@ -52,6 +64,8 @@ The current implementation baseline includes:
 - JSON Contracts from CONTRACT-001 to CONTRACT-007
 - AI Prompt Pack from PROMPT-001 to PROMPT-007
 - AI Case Brain from BRAIN-000 to BRAIN-025
+- Rulebook from RULEBOOK-000 to RULEBOOK-150
+- UX Pack from UX-000 to UX-015
 - API Implementation Readiness Pack from API-READINESS-001 to API-READINESS-005
 - MVP Implementation Start Pack from MVP-START-001 to MVP-START-004
 - Developer Handbook from DEV-001 to DEV-010
@@ -72,6 +86,10 @@ docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
 docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
 docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
+docs/rulebook/RULEBOOK-000-index.md
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
+docs/ux/UX-000-ux-index.md
+docs/ux/UX-015-handoff-to-frontend.md
 docs/mvp-start/MVP-START-001-laravel-baseline-handoff-checklist.md
 docs/mvp-start/MVP-START-002-sprint-000-implementation-order.md
 docs/api/API-READINESS-003-first-vertical-slice-plan.md
@@ -130,6 +148,8 @@ docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
 docs/ai-case-brain/BRAIN-023-implementation-checklist.md
 docs/ai-case-brain/BRAIN-024-fake-ai-brain-scenarios.md
 docs/ai-case-brain/BRAIN-025-qa-and-test-matrix.md
+docs/ux/UX-000-ux-index.md
+docs/ux/UX-015-handoff-to-frontend.md
 docs/mvp-start/MVP-START-003-first-feature-test-plan.md
 docs/mvp-start/MVP-START-004-fake-ai-provider-implementation-plan.md
 ```
@@ -154,6 +174,42 @@ Start here:
 
 ```text
 docs/ai-case-brain/BRAIN-000-ai-case-brain-index.md
+```
+
+---
+
+## Rulebook
+
+Rulebook is the expanded long-term rule library for AI Case Brain.
+
+Start here:
+
+```text
+docs/rulebook/RULEBOOK-000-index.md
+```
+
+Use this before turning rule groups into Laravel services:
+
+```text
+docs/rulebook/RULEBOOK-150-rule-to-code-mapping.md
+```
+
+---
+
+## UX Pack
+
+UX Pack defines the customer intake flow, screen-by-screen behavior, component library, design system, accessibility, microcopy, CRM UX, human review workspace, prototype flow, usability testing and frontend handoff.
+
+Start here:
+
+```text
+docs/ux/UX-000-ux-index.md
+```
+
+For frontend implementation, use:
+
+```text
+docs/ux/UX-015-handoff-to-frontend.md
 ```
 
 ---
@@ -188,7 +244,8 @@ All tests, factories, seeders and examples must use fake data only.
 5. Confirm Laravel baseline and Sprint 000 foundation
 6. Read API-READINESS-003
 7. Read BRAIN-000, BRAIN-023, BRAIN-024 and BRAIN-025
-8. Read MVP-START-003 and MVP-START-004
-9. Build the first conversation vertical slice with Fake AI and AI Case Brain
-10. Implement sprint by sprint
+8. Read UX-000 and UX-015 for intake frontend behavior
+9. Read MVP-START-003 and MVP-START-004
+10. Build the first conversation vertical slice with Fake AI and AI Case Brain
+11. Implement sprint by sprint
 ```
