@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>C2 - Trusted Conversation</title>
+    <title>C2 - Human First</title>
     <link rel="stylesheet" href="./app.css">
     <link rel="stylesheet" href="./accessibility.css">
     <link rel="stylesheet" href="./reassurance.css">
@@ -27,49 +27,41 @@
         <main>
             <section class="fe-hero" data-state="landing">
                 <div class="fe-hero-main">
-                    <p class="fe-eyebrow">C2 · Trusted Conversation</p>
+                    <p class="fe-eyebrow">C2 · Human First</p>
                     <h1>Er du usikker på, om noget gik galt under din behandling?</h1>
-                    <p class="fe-lead">Du behøver ikke vide, om du har en sag. Beskriv bare det, du husker, så hjælper vi dig med at forstå næste skridt.</p>
-
-                    <div class="fe-human-reassurance" aria-label="Tryghed før du starter">
-                        <span>Gratis indledende start</span>
-                        <span>Ingen dokumenter nu</span>
-                        <span>Du må være usikker</span>
-                        <span>Specialist kan se med</span>
-                    </div>
-
-                    <div class="fe-ai-welcome" aria-live="polite">
-                        <div class="fe-ai-label"><span class="fe-ai-dot"></span>ErstatningsHjælp</div>
-                        <div class="fe-ai-message">
-                            <div class="fe-ai-message-line"><span class="fe-ai-message-bubble">Hej. Jeg hjælper dig med at få overblik.</span></div>
-                            <div class="fe-ai-message-line"><span class="fe-ai-message-bubble">Skriv med dine egne ord. Det behøver ikke være perfekt.</span></div>
-                        </div>
-                    </div>
+                    <p class="fe-lead">Du behøver ikke vide, om du har en sag. Fortæl med dine egne ord, hvad der fik dig til at søge hjælp i dag.</p>
 
                     <form class="fe-input-card" novalidate>
-                        <label for="message-c2">Hvad fik dig til at søge hjælp i dag?</label>
-                        <p class="fe-input-intro">Start med 2-3 sætninger. Du kan skrive om behandling, tidspunkt, bekymring eller hvordan det påvirker dig.</p>
+                        <label for="message-c2">Start med det, du er mest bekymret for</label>
+                        <p class="fe-input-intro">Det behøver ikke være perfekt. Skriv 2-3 sætninger om, hvad du oplevede, og hvorfor du er i tvivl.</p>
                         <div class="fe-textarea-wrap">
-                            <textarea id="message-c2" rows="8" autocomplete="off"></textarea>
+                            <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper"></textarea>
                             <div id="c2ExampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
-                        <p class="fe-helper">Det er nok at starte kort. Du kan altid tilføje mere senere.</p>
+                        <p id="c2-helper" class="fe-helper">Det er nok at starte kort. Du kan altid tilføje mere senere.</p>
                         <div class="fe-actions">
                             <button class="fe-button fe-button-primary" type="button">Start gratis vurdering</button>
                             <span class="fe-action-note">Ikke en endelig afgørelse · ingen upload nu</span>
                         </div>
                     </form>
+
+                    <div class="fe-human-reassurance" aria-label="Tryghed før du starter">
+                        <span>Du kan starte med det, du husker</span>
+                        <span>Du behøver ikke kende reglerne</span>
+                        <span>Det er helt okay at være i tvivl</span>
+                        <span>Vi tager ét skridt ad gangen</span>
+                    </div>
                 </div>
 
                 <aside class="fe-trust-card" aria-label="Tydelig forventningsafstemning">
                     <p class="fe-card-kicker">Hvad sker der først?</p>
-                    <h2>Vi starter med at forstå din situation</h2>
-                    <p class="fe-card-text">Den første side handler kun om at komme trygt i gang. Du skal ikke bevise noget endnu.</p>
+                    <h2>Vi starter med at forstå, hvad du oplevede</h2>
+                    <p class="fe-card-text">Den første side handler kun om at komme trygt i gang. Du skal ikke bevise noget, vælge den rigtige kategori eller have dokumenter klar.</p>
                     <ul>
-                        <li>Du beskriver kort, hvad der bekymrer dig.</li>
-                        <li>Systemet spørger kun om næste vigtige ting.</li>
-                        <li>Hvis sagen virker relevant, kan den gennemgås nærmere.</li>
-                        <li>Du får ikke en endelig afgørelse på første side.</li>
+                        <li>Du fortæller med dine egne ord, hvad der bekymrer dig.</li>
+                        <li>Du bliver hjulpet videre med ét roligt spørgsmål ad gangen.</li>
+                        <li>Hvis sagen virker relevant, kan oplysningerne samles til nærmere gennemgang.</li>
+                        <li>Første trin er ikke en endelig vurdering af din sag.</li>
                     </ul>
                 </aside>
             </section>
@@ -79,16 +71,16 @@
                 <h2>En rolig start, når du ikke ved, om det er en sag</h2>
                 <div class="fe-info-grid">
                     <article>
-                        <h3>Behandling</h3>
+                        <h3>Når noget føles forkert</h3>
                         <p>Hvis du oplevede, at noget gik galt ved undersøgelse, operation, fødsel, medicin eller anden behandling.</p>
                     </article>
                     <article>
-                        <h3>Tvivl</h3>
-                        <p>Hvis du ikke ved, om det er en klage, en erstatningssag eller noget andet. Du kan stadig starte.</p>
+                        <h3>Når du er i tvivl</h3>
+                        <p>Du behøver ikke vide, om det er en klage, en erstatningssag eller noget andet. Det er netop derfor, du kan starte her.</p>
                     </article>
                     <article>
-                        <h3>Næste skridt</h3>
-                        <p>Vi hjælper med at stille de rigtige første spørgsmål, så forløbet bliver lettere at forstå.</p>
+                        <h3>Når du mangler næste skridt</h3>
+                        <p>Vi hjælper dig med at få sat ord på forløbet, så det bliver lettere at forstå, hvad der bør ske bagefter.</p>
                     </article>
                 </div>
             </section>
