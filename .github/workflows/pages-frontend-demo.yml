@@ -31,8 +31,11 @@ jobs:
           cp -R public/frontend-experience/* _site/frontend-experience/
           cp resources/views/frontend-experience/intake.blade.php _site/index.html
           sed -i "s|{{ asset('frontend-experience/app.css') }}|./frontend-experience/app.css|g" _site/index.html
+          sed -i "s|{{ asset('frontend-experience/accessibility.css') }}|./frontend-experience/accessibility.css|g" _site/index.html
+          sed -i "s|{{ asset('frontend-experience/reassurance.css') }}|./frontend-experience/reassurance.css|g" _site/index.html
           sed -i "s|{{ asset('frontend-experience/fakeConversationData.js') }}|./frontend-experience/fakeConversationData.js|g" _site/index.html
           sed -i "s|{{ asset('frontend-experience/app.js') }}|./frontend-experience/app.js|g" _site/index.html
+          sed -i "s|{{ asset('frontend-experience/empathyLayer.js') }}|./frontend-experience/empathyLayer.js|g" _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
