@@ -1,6 +1,6 @@
 # FE-016 - Static Demo Plan
 
-Version: 1.1
+Version: 1.2
 Status: Active Draft
 
 ## Purpose
@@ -10,6 +10,20 @@ Create a browser-visible prototype that can run without Laravel.
 ## Goal
 
 A viewer should be able to open one URL and try the first experience on mobile or desktop.
+
+## Demo URL
+
+Expected GitHub Pages URL:
+
+```text
+https://digitalsense-ai.github.io/Erstath2026/
+```
+
+If the page is not visible yet, run the workflow manually once:
+
+```text
+Actions -> Frontend Demo Pages -> Run workflow
+```
 
 ## Included states
 
@@ -41,6 +55,24 @@ into a temporary `_site` folder.
 
 It also replaces Laravel `asset(...)` references with relative static paths.
 
+## Automatic publishing
+
+The workflow now runs on:
+
+```text
+manual workflow dispatch
+push to main when frontend demo files change
+```
+
+Frontend-related paths:
+
+```text
+resources/views/frontend-experience/**
+public/frontend-experience/**
+frontend-experience/**
+.github/workflows/pages-frontend-demo.yml
+```
+
 ## Expected demo behavior
 
 When GitHub Pages is enabled for GitHub Actions, the workflow can publish the prototype as a static site.
@@ -55,6 +87,22 @@ The demo should show:
 - one smart question
 - result card
 - mobile and desktop responsive layout
+
+## Test checklist
+
+Open the demo URL and test:
+
+- page loads on desktop
+- page loads on mobile
+- AI welcome text appears
+- example text appears in the input area
+- button is disabled before typing
+- button becomes active after a short message
+- submitting shows AI thinking
+- one follow-up question appears
+- answer can be submitted
+- result card appears
+- scenario switcher works
 
 ## Manual step
 
