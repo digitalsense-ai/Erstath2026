@@ -21,6 +21,7 @@
 
 .fe-c2 .fe-input-intro {
     margin-bottom: 18px;
+    max-width: 720px;
 }
 
 .fe-c2 .fe-textarea-wrap {
@@ -93,7 +94,7 @@
 .fe-c2 .fe-side-stack {
     display: grid;
     gap: 22px;
-    margin-top: 232px;
+    margin-top: 256px;
 }
 
 .fe-c2 .fe-process-card,
