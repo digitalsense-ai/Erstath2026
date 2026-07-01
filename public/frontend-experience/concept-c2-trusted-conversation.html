@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="./app.css">
     <link rel="stylesheet" href="./accessibility.css">
     <link rel="stylesheet" href="./reassurance.css">
+    <link rel="stylesheet" href="./c2-human-first.css">
 </head>
 <body>
     <a class="fe-skip-link" href="#message-c2">Spring direkte til tekstfeltet</a>
 
-    <div class="fe-app">
+    <div class="fe-app fe-c2">
         <header class="fe-header" aria-label="Top navigation">
             <a class="fe-logo" href="./concept-c2-trusted-conversation.html" aria-label="ErstatningsHjælp forside">
                 <span class="fe-logo-mark">EH</span>
@@ -35,7 +36,7 @@
                         <label for="message-c2">Start med det, du er mest bekymret for</label>
                         <p class="fe-input-intro">Det behøver ikke være perfekt. Skriv 2-3 sætninger om, hvad du oplevede, og hvorfor du er i tvivl.</p>
                         <div class="fe-textarea-wrap">
-                            <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper"></textarea>
+                            <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper" placeholder=" "></textarea>
                             <div id="c2ExampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
                         <p id="c2-helper" class="fe-helper">Det er nok at starte kort. Du kan altid tilføje mere senere.</p>
@@ -143,8 +144,11 @@
             let stopped = false;
 
             textarea.addEventListener('input', function () {
-                stopped = true;
-                target.textContent = '';
+                stopped = textarea.value.trim().length > 0;
+                textarea.classList.toggle('has-user-text', stopped);
+                if (stopped) {
+                    target.textContent = '';
+                }
             });
 
             function sleep(ms) {
