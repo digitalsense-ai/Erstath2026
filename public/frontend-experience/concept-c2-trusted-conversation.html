@@ -90,7 +90,6 @@
             </section>
 
             <section id="help" class="fe-info-section">
-                <p class="fe-eyebrow">Hvad hjælper vi med?</p>
                 <h2>En rolig start, når du ikke ved, om det er en sag</h2>
                 <div class="fe-info-grid">
                     <article>
@@ -168,12 +167,26 @@
                 return new Promise(function (resolve) { window.setTimeout(resolve, ms); });
             }
 
+            function delayForCharacter(char) {
+                if (char === ',' || char === '-') {
+                    return 220;
+                }
+                if (char === '.') {
+                    return 420;
+                }
+                if (char === ' ') {
+                    return 52;
+                }
+                return 58 + Math.floor(Math.random() * 24);
+            }
+
             async function typeExample(text) {
                 target.textContent = '';
+                await sleep(650);
                 for (const char of text) {
                     if (stopped) return;
                     target.textContent += char;
-                    await sleep(22);
+                    await sleep(delayForCharacter(char));
                 }
             }
 
@@ -182,9 +195,12 @@
                     for (const example of examples) {
                         if (stopped) return;
                         await typeExample(example);
-                        await sleep(1400);
+                        await sleep(2400);
+                        target.style.opacity = '0';
+                        await sleep(350);
                         target.textContent = '';
-                        await sleep(250);
+                        target.style.opacity = '';
+                        await sleep(900);
                     }
                 }
             }
