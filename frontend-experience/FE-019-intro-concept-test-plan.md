@@ -1,6 +1,6 @@
 # FE-019 - Intro Concept Test Plan
 
-Version: 1.0
+Version: 1.1
 Status: Active Draft
 
 ## Purpose
@@ -25,17 +25,43 @@ Find the intro direction that performs best on:
 
 A calm reception-like first screen. The user should feel that help is available immediately.
 
+Prototype:
+
+- `public/frontend-experience/concept-a-digital-reception.html`
+
 ### B - Chat First Minimal
 
 A very simple first screen focused almost entirely on writing the first message.
+
+Prototype:
+
+- `public/frontend-experience/concept-b-chat-first.html`
 
 ### C - Trust And Explanation
 
 A clear first screen that explains what the service does, what happens next, and what the user does not need yet.
 
+Prototype:
+
+- `public/frontend-experience/concept-c-trust-explanation.html`
+
 ### D - Human Story
 
 A warmer first screen that helps the user feel less alone and more comfortable starting.
+
+Prototype:
+
+- `public/frontend-experience/concept-d-human-story.html`
+
+### C2 - Trusted Conversation
+
+A refined version of C that combines trust, a calm header, a focused first action, example text in the input area, FAQ and a footer.
+
+C2 is now the primary candidate.
+
+Prototype:
+
+- `public/frontend-experience/concept-c2-trusted-conversation.html`
 
 ## Test Questions
 
@@ -68,16 +94,22 @@ The winning version is the one most likely to make a real user write the first h
 
 ## Current Hypothesis
 
-The strongest final direction may be a hybrid of:
+The strongest current direction is:
 
-- Digital Reception
-- Trust And Explanation
+- C2 - Trusted Conversation
+
+Reason:
+
+- It keeps the trust and explanation from C.
+- It adds more human warmth from A and D.
+- It keeps the first action clear.
+- It avoids feeling too much like a pure chatbot.
 
 ## Done When
 
 This phase is complete when:
 
-- four concepts exist
-- each concept can be reviewed
+- all concepts can be reviewed
+- C2 is reviewed against the quality bar
 - one preferred direction is selected
 - reasons are documented
