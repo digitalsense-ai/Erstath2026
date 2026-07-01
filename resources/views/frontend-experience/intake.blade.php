@@ -34,10 +34,17 @@
                     <h1>Er du i tvivl om en skade efter behandling?</h1>
                     <p class="fe-lead">Vi hjælper dig med at finde ud af, om det kan være relevant at få din sag vurderet. Du behøver ikke kende reglerne. Start med at fortælle, hvad du er bekymret for.</p>
 
+                    <div class="fe-human-reassurance" aria-label="Tryghed før du starter">
+                        <span>Gratis at starte</span>
+                        <span>Ingen dokumenter nu</span>
+                        <span>Du må være usikker</span>
+                        <span>Ét spørgsmål ad gangen</span>
+                    </div>
+
                     <div class="fe-help-chips" aria-label="Kort om hvad tjenesten hjælper med">
                         <span>Skade efter behandling</span>
                         <span>Forsinket diagnose</span>
-                        <span>Forkert medicin</span>
+                        <span>Medicin der gjorde dig syg</span>
                         <span>Fødselsskade</span>
                     </div>
 
@@ -50,8 +57,8 @@
                     </div>
 
                     <form id="firstMessageForm" class="fe-input-card" novalidate>
-                        <label for="firstMessage">Hvad er du mest bekymret for lige nu?</label>
-                        <p class="fe-input-intro">Skriv fx hvad der skete, hvilken behandling det handlede om, eller hvorfor du tror noget gik galt.</p>
+                        <label for="firstMessage">Hvad fik dig til at søge hjælp i dag?</label>
+                        <p class="fe-input-intro">Du kan skrive helt almindeligt. Fortæl fx hvad der skete, hvad du er bekymret for, eller hvorfor du tror noget gik galt.</p>
                         <div class="fe-textarea-wrap">
                             <textarea id="firstMessage" name="firstMessage" rows="7" autocomplete="off" placeholder=""></textarea>
                             <div id="exampleTyping" class="fe-example-typing" aria-hidden="true"></div>
