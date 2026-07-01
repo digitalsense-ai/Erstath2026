@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ErstatningsHjælp - Gratis indledende vurdering</title>
-    <meta name="description" content="Fortæl kort hvad der er sket. Du behøver ikke kende reglerne - vi hjælper dig videre ét spørgsmål ad gangen.">
+    <meta name="description" content="ErstatningsHjælp hjælper dig med at finde ud af, om en skade efter behandling kan være relevant at få vurderet. Start med få sætninger.">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('frontend-experience/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend-experience/accessibility.css') }}">
 </head>
 <body>
+    <a class="fe-skip-link" href="#firstMessage">Spring direkte til tekstfeltet</a>
+
     <div id="frontend-experience" class="fe-app" data-initial-scenario="operation_injury_demo">
         <header class="fe-header" aria-label="Top navigation">
             <a class="fe-logo" href="/intake" aria-label="ErstatningsHjælp forside">
@@ -18,6 +21,7 @@
             </a>
 
             <nav class="fe-nav" aria-label="Sekundær navigation">
+                <a href="#what-we-help-with">Hvad hjælper vi med?</a>
                 <a href="#how-it-works">Sådan virker det</a>
                 <a href="#faq">FAQ</a>
             </nav>
@@ -27,8 +31,15 @@
             <section class="fe-hero" data-state="landing">
                 <div class="fe-hero-main">
                     <p class="fe-eyebrow">Gratis indledende vurdering</p>
-                    <h1>Fortæl os kort, hvad der er sket</h1>
-                    <p class="fe-lead">Du behøver ikke kende reglerne eller have dokumenter klar. Skriv med dine egne ord - vi hjælper dig videre ét spørgsmål ad gangen.</p>
+                    <h1>Er du i tvivl om en skade efter behandling?</h1>
+                    <p class="fe-lead">Vi hjælper dig med at finde ud af, om det kan være relevant at få din sag vurderet. Du behøver ikke kende reglerne. Start med at fortælle, hvad du er bekymret for.</p>
+
+                    <div class="fe-help-chips" aria-label="Kort om hvad tjenesten hjælper med">
+                        <span>Skade efter behandling</span>
+                        <span>Forsinket diagnose</span>
+                        <span>Forkert medicin</span>
+                        <span>Fødselsskade</span>
+                    </div>
 
                     <div class="fe-ai-welcome" aria-live="polite">
                         <div class="fe-ai-label">
@@ -39,27 +50,29 @@
                     </div>
 
                     <form id="firstMessageForm" class="fe-input-card" novalidate>
-                        <label for="firstMessage">Hvad skete der?</label>
+                        <label for="firstMessage">Hvad er du mest bekymret for lige nu?</label>
+                        <p class="fe-input-intro">Skriv fx hvad der skete, hvilken behandling det handlede om, eller hvorfor du tror noget gik galt.</p>
                         <div class="fe-textarea-wrap">
                             <textarea id="firstMessage" name="firstMessage" rows="7" autocomplete="off" placeholder=""></textarea>
                             <div id="exampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
-                        <p id="inputHelper" class="fe-helper">2-3 sætninger er nok til at starte.</p>
+                        <p id="inputHelper" class="fe-helper">Du kan skrive kort. 2-3 sætninger er nok til at starte.</p>
                         <div class="fe-actions">
                             <button id="startButton" class="fe-button fe-button-primary" type="submit" disabled>Start gratis vurdering</button>
-                            <span class="fe-action-note">Det tager typisk 5-10 minutter.</span>
+                            <span class="fe-action-note">Du skal ikke uploade dokumenter nu.</span>
                         </div>
                     </form>
                 </div>
 
-                <aside class="fe-trust-card" aria-label="Tryg start">
-                    <p class="fe-card-kicker">Tryg start</p>
-                    <h2>Ingen formular først</h2>
+                <aside class="fe-trust-card" aria-label="Hvad vi kan hjælpe med">
+                    <p class="fe-card-kicker">Hvad kan vi hjælpe med?</p>
+                    <h2>Hvis du tror, noget gik galt i sundhedsvæsenet</h2>
+                    <p class="fe-card-text">Vi hjælper dig med at forklare sagen trin for trin, så det bliver lettere at vurdere, om den bør ses nærmere.</p>
                     <ul>
                         <li>Du kan starte uden dokumenter.</li>
-                        <li>Du skriver med dine egne ord.</li>
-                        <li>AI stiller ét spørgsmål ad gangen.</li>
-                        <li>En specialist kan gennemgå sagen.</li>
+                        <li>Du behøver ikke kende reglerne.</li>
+                        <li>AI spørger roligt om én ting ad gangen.</li>
+                        <li>En specialist kan gennemgå oplysningerne.</li>
                     </ul>
                 </aside>
             </section>
@@ -116,13 +129,32 @@
                 </div>
             </section>
 
+            <section id="what-we-help-with" class="fe-info-section">
+                <p class="fe-eyebrow">Hvad hjælper vi med?</p>
+                <h2>Vi hjælper dig med at starte, selvom du ikke ved om du har en sag</h2>
+                <div class="fe-info-grid">
+                    <article>
+                        <h3>Noget gik galt</h3>
+                        <p>Du oplevede, at behandling, undersøgelse, diagnose eller medicin måske førte til skade eller forværring.</p>
+                    </article>
+                    <article>
+                        <h3>Du er usikker</h3>
+                        <p>Du ved ikke, om det er en klage, en erstatningssag eller noget helt tredje. Det er okay.</p>
+                    </article>
+                    <article>
+                        <h3>Vi hjælper med næste skridt</h3>
+                        <p>Systemet spørger stille og roligt ind til det vigtigste, så sagen kan forstås bedre.</p>
+                    </article>
+                </div>
+            </section>
+
             <section id="how-it-works" class="fe-steps">
                 <p class="fe-eyebrow">Sådan fungerer det</p>
                 <h2>En enkel start - uden lang formular</h2>
                 <div class="fe-step-grid">
                     <article>
                         <span>1</span>
-                        <h3>Fortæl hvad der skete</h3>
+                        <h3>Fortæl hvad du er bekymret for</h3>
                         <p>Start med nogle få sætninger. Du behøver ikke skrive perfekt.</p>
                     </article>
                     <article>
@@ -142,12 +174,16 @@
                 <p class="fe-eyebrow">FAQ</p>
                 <h2>Ofte stillede spørgsmål</h2>
                 <details>
-                    <summary>Skal jeg have dokumenter klar?</summary>
-                    <p>Nej. Du kan starte med din egen beskrivelse. Dokumenter kan være relevante senere.</p>
+                    <summary>Hvad kan ErstatningsHjælp hjælpe mig med?</summary>
+                    <p>Vi hjælper dig med at forklare, hvad der skete, og finde ud af om sagen kan være relevant at få vurderet nærmere.</p>
                 </details>
                 <details>
-                    <summary>Skal jeg kende reglerne?</summary>
-                    <p>Nej. Systemet hjælper dig med at forklare sagen trin for trin.</p>
+                    <summary>Skal jeg vide, om jeg har en sag?</summary>
+                    <p>Nej. Du kan starte med at beskrive din bekymring. Systemet stiller derefter ét spørgsmål ad gangen.</p>
+                </details>
+                <details>
+                    <summary>Skal jeg have dokumenter klar?</summary>
+                    <p>Nej. Du kan starte med din egen beskrivelse. Dokumenter kan være relevante senere.</p>
                 </details>
                 <details>
                     <summary>Er det en endelig vurdering?</summary>
