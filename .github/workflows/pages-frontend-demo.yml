@@ -2,11 +2,23 @@ name: Frontend Demo Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "resources/views/frontend-experience/**"
+      - "public/frontend-experience/**"
+      - "frontend-experience/**"
+      - ".github/workflows/pages-frontend-demo.yml"
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: frontend-demo-pages
+  cancel-in-progress: true
 
 jobs:
   build:
