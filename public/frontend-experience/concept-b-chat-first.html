@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="da">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Koncept B - Chat first</title>
+    <link rel="stylesheet" href="./app.css">
+    <link rel="stylesheet" href="./accessibility.css">
+    <link rel="stylesheet" href="./reassurance.css">
+</head>
+<body>
+    <main class="fe-app">
+        <section class="fe-hero" data-state="landing">
+            <div class="fe-hero-main">
+                <p class="fe-eyebrow">Koncept B · Chat first</p>
+                <h1>Skriv én sætning. Så hjælper vi dig videre.</h1>
+                <p class="fe-lead">Du skal ikke vælge kategori, finde dokumenter eller kende regler. Start med det, du husker bedst.</p>
+
+                <div class="fe-ai-welcome" aria-live="polite">
+                    <div class="fe-ai-label"><span class="fe-ai-dot"></span>Start her</div>
+                    <div class="fe-ai-message">
+                        <div class="fe-ai-message-line"><span class="fe-ai-message-bubble">Jeg ved ikke, om jeg har en sag, men...</span></div>
+                    </div>
+                </div>
+
+                <form class="fe-input-card">
+                    <label for="message-b">Skriv din første sætning</label>
+                    <textarea id="message-b" rows="8" placeholder="Fx: Jeg fik en operation, og bagefter..."></textarea>
+                    <div class="fe-actions">
+                        <button class="fe-button fe-button-primary" type="button">Fortsæt</button>
+                        <span class="fe-action-note">Gratis start · Ingen dokumenter nu</span>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="fe-trust-card">
+                <p class="fe-card-kicker">Kort fortalt</p>
+                <h2>Du skriver. Vi spørger næste gang.</h2>
+                <p class="fe-card-text">Denne version fjerner næsten al forklaring og fokuserer på at få brugeren i gang hurtigt.</p>
+            </aside>
+        </section>
+    </main>
+</body>
+</html>
