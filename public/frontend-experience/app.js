@@ -8,7 +8,8 @@
         currentQuestion: null,
         currentAnswer: '',
         result: null,
-        userStartedTyping: false
+        userStartedTyping: false,
+        welcomeComplete: false
     };
 
     const elements = {
@@ -66,10 +67,47 @@
         }
     }
 
+    function createWelcomeLine(text) {
+        const line = document.createElement('div');
+        line.className = 'fe-ai-message-line';
+        const bubble = document.createElement('span');
+        bubble.className = 'fe-ai-message-bubble';
+        line.appendChild(bubble);
+        elements.aiTypingWelcome.appendChild(line);
+        return bubble;
+    }
+
     async function runWelcomeTyping() {
-        const message = 'Hej. Jeg ved godt, det kan være svært at vide, hvor man skal starte. Skriv bare et par sætninger - jeg stiller de rigtige spørgsmål bagefter.';
-        await typeText(elements.aiTypingWelcome, message, { speed: 22, stopWhenTyping: true });
-        await sleep(900);
+        const messages = [
+            'Hej 👋',
+            'Jeg ved godt, det kan være svært at vide, hvor man skal starte.',
+            'Skriv bare et par sætninger.',
+            'Jeg stiller de rigtige spørgsmål bagefter.'
+        ];
+
+        elements.aiTypingWelcome.innerHTML = '';
+
+        if (prefersReducedMotion) {
+            messages.forEach((message) => {
+                const bubble = createWelcomeLine(message);
+                bubble.textContent = message;
+            });
+            state.welcomeComplete = true;
+            rotateExamples();
+            return;
+        }
+
+        for (const message of messages) {
+            if (state.userStartedTyping) {
+                break;
+            }
+            const bubble = createWelcomeLine(message);
+            await typeText(bubble, message, { speed: 20, stopWhenTyping: true });
+            await sleep(450);
+        }
+
+        state.welcomeComplete = true;
+        await sleep(700);
         rotateExamples();
     }
 
@@ -198,6 +236,7 @@
         input.id = 'questionAnswer';
         input.name = 'questionAnswer';
         input.className = 'fe-answer-input';
+        input.setAttribute('aria-describedby', 'questionHelper');
         elements.answerInputMount.appendChild(input);
 
         elements.answerForm.hidden = false;
