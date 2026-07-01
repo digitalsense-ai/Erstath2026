@@ -20,7 +20,7 @@
             </a>
             <nav class="fe-nav" aria-label="Navigation">
                 <a href="#help">Hvad hjælper vi med?</a>
-                <a href="#process">Sådan fungerer det</a>
+                <a href="#process">Sådan foregår det</a>
                 <a href="#faq">FAQ</a>
             </nav>
         </header>
@@ -39,10 +39,9 @@
                             <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper" placeholder=" "></textarea>
                             <div id="c2ExampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
-                        <p id="c2-helper" class="fe-helper">Det er nok at starte kort. Du kan altid tilføje mere senere.</p>
-                        <div class="fe-actions">
-                            <button class="fe-button fe-button-primary" type="button">Start gratis vurdering</button>
-                            <span class="fe-action-note">Ikke en endelig afgørelse · ingen upload nu</span>
+                        <div class="fe-input-bottom-row">
+                            <p id="c2-helper" class="fe-helper fe-secure-note">🔒 Sikker start. Dine oplysninger deles ikke med andre her.</p>
+                            <button class="fe-button fe-button-primary" type="button">Fortsæt</button>
                         </div>
                     </form>
 
@@ -54,16 +53,53 @@
                     </div>
                 </div>
 
-                <aside class="fe-trust-card" aria-label="Tydelig forventningsafstemning">
-                    <p class="fe-card-kicker">Hvad sker der først?</p>
-                    <h2>Vi starter med at forstå, hvad du oplevede</h2>
-                    <p class="fe-card-text">Den første side handler kun om at komme trygt i gang. Du skal ikke bevise noget, vælge den rigtige kategori eller have dokumenter klar.</p>
-                    <ul>
-                        <li>Du fortæller med dine egne ord, hvad der bekymrer dig.</li>
-                        <li>Du bliver hjulpet videre med ét roligt spørgsmål ad gangen.</li>
-                        <li>Hvis sagen virker relevant, kan oplysningerne samles til nærmere gennemgang.</li>
-                        <li>Første trin er ikke en endelig vurdering af din sag.</li>
-                    </ul>
+                <aside class="fe-side-stack" aria-label="Proces og forventningsafstemning">
+                    <section id="process" class="fe-process-card" aria-label="Sådan foregår det">
+                        <p class="fe-card-kicker">Sådan foregår det</p>
+                        <h2>Roligt fra første besked</h2>
+                        <ol class="fe-process-list">
+                            <li>
+                                <span>1</span>
+                                <div>
+                                    <strong>Du fortæller kort, hvad der skete</strong>
+                                    <p>Du skriver med dine egne ord. Det må gerne være cirka.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>2</span>
+                                <div>
+                                    <strong>Vi stiller ét spørgsmål ad gangen</strong>
+                                    <p>Du bliver ikke mødt af en lang formular.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>3</span>
+                                <div>
+                                    <strong>Vi samler oplysningerne</strong>
+                                    <p>Hvis sagen virker relevant, kan den gennemgås nærmere.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>4</span>
+                                <div>
+                                    <strong>Du får et tydeligere næste skridt</strong>
+                                    <p>Første trin er ikke en endelig afgørelse.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section class="fe-trust-card" aria-label="Tydelig forventningsafstemning">
+                        <p class="fe-card-kicker">Hvad sker der først?</p>
+                        <h2>Vi starter med at forstå, hvad du oplevede</h2>
+                        <p class="fe-card-text">Den første side handler kun om at komme trygt i gang. Du skal ikke bevise noget, vælge den rigtige kategori eller have dokumenter klar.</p>
+                        <ul>
+                            <li>Du fortæller med dine egne ord, hvad der bekymrer dig.</li>
+                            <li>Du bliver hjulpet videre med ét roligt spørgsmål ad gangen.</li>
+                            <li>Hvis sagen virker relevant, kan oplysningerne samles til nærmere gennemgang.</li>
+                            <li>Første trin er ikke en endelig vurdering af din sag.</li>
+                        </ul>
+                    </section>
                 </aside>
             </section>
 
@@ -83,16 +119,6 @@
                         <h3>Når du mangler næste skridt</h3>
                         <p>Vi hjælper dig med at få sat ord på forløbet, så det bliver lettere at forstå, hvad der bør ske bagefter.</p>
                     </article>
-                </div>
-            </section>
-
-            <section id="process" class="fe-steps">
-                <p class="fe-eyebrow">Sådan fungerer det</p>
-                <h2>Ingen lang formular i starten</h2>
-                <div class="fe-step-grid">
-                    <article><span>1</span><h3>Skriv med egne ord</h3><p>Start med det, du husker bedst. Det må gerne være cirka.</p></article>
-                    <article><span>2</span><h3>Få ét spørgsmål ad gangen</h3><p>Du bliver ikke mødt af en lang formular. Systemet spørger i rolig rækkefølge.</p></article>
-                    <article><span>3</span><h3>Få klarere næste skridt</h3><p>Hvis sagen bør ses nærmere, kan oplysningerne samles til videre gennemgang.</p></article>
                 </div>
             </section>
 
@@ -126,7 +152,7 @@
             <nav aria-label="Footer navigation">
                 <a href="#faq">FAQ</a>
                 <a href="#help">Hjælp</a>
-                <a href="#process">Sådan fungerer det</a>
+                <a href="#process">Sådan foregår det</a>
             </nav>
         </footer>
     </div>
@@ -134,10 +160,11 @@
     <script>
         (function () {
             const examples = [
-                'Jeg fik en operation sidste år, og bagefter...',
-                'Min læge overså mine symptomer i flere måneder...',
-                'Jeg fik medicin og blev meget dårlig bagefter...',
-                'Jeg ved ikke, om jeg har en sag, men jeg er bekymret fordi...'
+                '💬 Jeg fik en operation sidste år, og bagefter...',
+                '💬 Min læge overså mine symptomer i flere måneder...',
+                '💬 Jeg fik medicin og blev meget dårlig bagefter...',
+                '💬 Jeg ved ikke, om jeg har en sag, men jeg er bekymret fordi...',
+                '💬 Andet - jeg vil bare fortælle, hvad der skete...'
             ];
             const target = document.getElementById('c2ExampleTyping');
             const textarea = document.getElementById('message-c2');
