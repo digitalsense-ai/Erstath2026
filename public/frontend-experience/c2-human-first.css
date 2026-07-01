@@ -1,0 +1,106 @@
+/* C2 Human First refinements */
+
+.fe-c2 .fe-hero {
+    align-items: start;
+    padding-top: 48px;
+}
+
+.fe-c2 .fe-lead {
+    margin-bottom: 34px;
+}
+
+.fe-c2 .fe-input-card {
+    padding: 28px;
+}
+
+.fe-c2 .fe-input-card label {
+    margin-bottom: 12px;
+    font-size: 21px;
+    letter-spacing: -0.02em;
+}
+
+.fe-c2 .fe-input-intro {
+    margin-bottom: 18px;
+}
+
+.fe-c2 .fe-textarea-wrap {
+    margin-top: 8px;
+}
+
+.fe-c2 textarea {
+    min-height: 210px;
+    padding: 24px;
+    background: #fbfdfc;
+}
+
+.fe-c2 .fe-example-typing {
+    top: 24px;
+    left: 24px;
+    right: 24px;
+    color: #6f8290;
+    font-size: 18px;
+    line-height: 1.55;
+}
+
+.fe-c2 textarea:focus + .fe-example-typing {
+    display: block;
+}
+
+.fe-c2 textarea.has-user-text + .fe-example-typing {
+    display: none;
+}
+
+.fe-c2 .fe-helper {
+    margin-top: 14px;
+}
+
+.fe-c2 .fe-actions {
+    margin-top: 22px;
+}
+
+.fe-c2 .fe-human-reassurance {
+    margin-top: 34px;
+    margin-bottom: 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--fe-border);
+}
+
+.fe-c2 .fe-human-reassurance span {
+    min-height: 46px;
+    padding: 10px 16px;
+    font-size: 15px;
+}
+
+.fe-c2 .fe-trust-card {
+    margin-top: 38px;
+}
+
+@media (max-width: 900px) {
+    .fe-c2 .fe-hero {
+        padding-top: 24px;
+    }
+
+    .fe-c2 .fe-input-card {
+        padding: 22px;
+    }
+
+    .fe-c2 textarea {
+        min-height: 190px;
+        padding: 20px;
+    }
+
+    .fe-c2 .fe-example-typing {
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        font-size: 16px;
+    }
+
+    .fe-c2 .fe-human-reassurance {
+        margin-top: 28px;
+    }
+
+    .fe-c2 .fe-trust-card {
+        margin-top: 0;
+    }
+}
