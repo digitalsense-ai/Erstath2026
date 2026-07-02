@@ -27,6 +27,18 @@
 
         <main>
             <section class="fe-hero" data-state="landing">
+                <div class="fe-hero-bg" aria-hidden="true">
+                    <div class="fe-human-visual">
+                        <div class="fe-human-card">
+                            <span class="fe-human-avatar"></span>
+                            <div>
+                                <strong>Du starter roligt her</strong>
+                                <p>Et menneske kan se med, hvis sagen bør vurderes nærmere.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="fe-hero-main">
                     <h1>Er du usikker på, om noget gik galt under din behandling?</h1>
                     <p class="fe-lead">Fortæl os, hvad der skete. Vi hjælper dig med at vurdere, om der kan være grundlag for at undersøge et muligt erstatningskrav nærmere.</p>
@@ -145,11 +157,10 @@
     <script>
         (function () {
             const examples = [
-                '💬 Jeg blev opereret sidste år, og bagefter fik jeg flere problemer...',
-                '💬 Min diagnose blev først opdaget flere måneder senere...',
-                '💬 Jeg fik medicin og blev meget dårlig bagefter...',
-                '💬 Jeg ved ikke, om det er en sag, men jeg er bekymret fordi...',
-                '💬 Jeg vil bare fortælle, hvad der skete, og høre om det bør undersøges...'
+                '💬 Jeg blev opereret for ryggen sidste år...\n\n...men bagefter fik jeg stærke smerter i benet.\n\nJeg ved ikke, om det er normalt, eller om noget gik galt.',
+                '💬 Jeg søgte læge flere gange med de samme symptomer...\n\n...men diagnosen blev først stillet flere måneder senere.\n\nJeg er i tvivl om, om det burde være opdaget før.',
+                '💬 Jeg fik ny medicin efter min behandling...\n\n...og kort tid efter blev jeg meget dårlig.\n\nJeg vil gerne vide, om det bør undersøges nærmere.',
+                '💬 Jeg ved ikke, om det er en sag...\n\nmen efter behandlingen har jeg fået problemer, jeg ikke havde før.\n\nJeg vil gerne starte med at fortælle, hvad der skete.'
             ];
             const target = document.getElementById('c2ExampleTyping');
             const textarea = document.getElementById('message-c2');
@@ -168,21 +179,24 @@
             }
 
             function delayForCharacter(char) {
+                if (char === '\n') {
+                    return 260;
+                }
                 if (char === ',' || char === '-') {
                     return 220;
                 }
                 if (char === '.') {
-                    return 420;
+                    return 430;
                 }
                 if (char === ' ') {
-                    return 52;
+                    return 55;
                 }
-                return 58 + Math.floor(Math.random() * 24);
+                return 62 + Math.floor(Math.random() * 28);
             }
 
             async function typeExample(text) {
                 target.textContent = '';
-                await sleep(650);
+                await sleep(850);
                 for (const char of text) {
                     if (stopped) return;
                     target.textContent += char;
@@ -195,12 +209,12 @@
                     for (const example of examples) {
                         if (stopped) return;
                         await typeExample(example);
-                        await sleep(2400);
+                        await sleep(2800);
                         target.style.opacity = '0';
-                        await sleep(350);
+                        await sleep(400);
                         target.textContent = '';
                         target.style.opacity = '';
-                        await sleep(900);
+                        await sleep(1100);
                     }
                 }
             }
