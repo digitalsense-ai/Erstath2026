@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ErstatningsHjælp - Flow forslag</title>
+<link rel="stylesheet" href="./intake-flow-variants.css">
+<style>
+.eh-index { max-width: 1120px; margin: 0 auto; padding: 72px 28px; }
+.eh-index-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
+.eh-index-card { min-height: 270px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; text-decoration: none; transition: transform .16s ease, box-shadow .16s ease; }
+.eh-index-card:hover { transform: translateY(-3px); box-shadow: 0 28px 90px rgba(16,36,54,.16); }
+.eh-index-card h2 { margin: 0 0 12px; font-size: 24px; letter-spacing: -.04em; }
+.eh-index-card p { margin: 0; color: var(--eh-muted); line-height: 1.55; }
+.eh-index-number { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 999px; background: var(--eh-primary); color: white; font-weight: 900; margin-bottom: 18px; }
+.eh-index-tag { margin-top: 22px; color: var(--eh-green); font-weight: 900; font-size: 13px; }
+@media (max-width: 1050px) { .eh-index-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 650px) { .eh-index { padding: 42px 18px; } .eh-index-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="eh-index">
+<a class="eh-flow-logo" href="./concept-c2a-human-advisor.html"><span>EH</span><b>ErstatningsHjælp</b></a>
+<p class="eh-kicker" style="margin-top:44px">Side 2 efter klik</p>
+<h1 class="eh-title">5 forslag til vurderingsflowet</h1>
+<p class="eh-lead">Landing page skal skabe tryghed. Når brugeren klikker videre, skal denne side have ét formål: at få personen roligt i mål med den første beskrivelse og de vigtigste oplysninger.</p>
+<div class="eh-index-grid">
+<a class="eh-card eh-index-card" href="./intake-flow-1-focus.html"><div><div class="eh-index-number">1</div><h2>Fokus-flow</h2><p>Mest enkel. Brugeren skriver, mens trin vises diskret ved siden af.</p></div><div class="eh-index-tag">Mest effektiv</div></a>
+<a class="eh-card eh-index-card" href="./intake-flow-2-reception.html"><div><div class="eh-index-number">2</div><h2>Digital modtagelse</h2><p>Mest menneskelig. Føles som at blive taget roligt imod.</p></div><div class="eh-index-tag">Mest tryg</div></a>
+<a class="eh-card eh-index-card" href="./intake-flow-3-wizard.html"><div><div class="eh-index-number">3</div><h2>Wizard</h2><p>Klassisk trin-for-trin onboarding med tydelig venstre navigation.</p></div><div class="eh-index-tag">Mest struktureret</div></a>
+<a class="eh-card eh-index-card" href="./intake-flow-4-conversation.html"><div><div class="eh-index-number">4</div><h2>Rolig samtale</h2><p>Starter med en kort assistant-besked og føles mere dialogbaseret.</p></div><div class="eh-index-tag">Mest samtale</div></a>
+<a class="eh-card eh-index-card" href="./intake-flow-5-meter.html"><div><div class="eh-index-number">5</div><h2>Vurderingsbarometer</h2><p>Viser hvor meget information systemet har, uden at kalde det en afgørelse.</p></div><div class="eh-index-tag">Mest motiverende</div></a>
+</div>
+</div>
+</body>
+</html>
