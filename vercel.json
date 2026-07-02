@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/frontend-experience/intake-flow-index.html"
+    },
+    {
+      "source": "/landing",
+      "destination": "/frontend-experience/concept-c2a-human-advisor.html"
+    },
+    {
+      "source": "/flow",
+      "destination": "/frontend-experience/intake-flow-index.html"
+    },
+    {
+      "source": "/flow/:path*",
+      "destination": "/frontend-experience/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}
