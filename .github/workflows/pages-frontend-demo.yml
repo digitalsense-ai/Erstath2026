@@ -1,15 +1,9 @@
 name: Frontend Demo Pages
 
+# GitHub Pages deploy is intentionally manual now.
+# Vercel is the primary preview/deployment platform for this project.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "resources/views/frontend-experience/**"
-      - "public/frontend-experience/**"
-      - "frontend-experience/**"
-      - ".github/workflows/pages-frontend-demo.yml"
 
 permissions:
   contents: read
