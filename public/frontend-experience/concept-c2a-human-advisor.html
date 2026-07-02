@@ -42,8 +42,8 @@
                             <div id="c2ExampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
                         <div class="fe-input-bottom-row">
-                            <p id="c2-helper" class="fe-helper fe-secure-note">🔒 Sikker start. Dine oplysninger deles ikke med andre her.</p>
-                            <button class="fe-button fe-button-primary" type="button">Fortsæt</button>
+                            <p id="c2-helper" class="fe-helper fe-secure-note">Sikker start. Dine oplysninger deles ikke med andre her.</p>
+                            <button class="fe-button fe-button-primary" type="button" id="startDialogueButton">Start min vurdering</button>
                         </div>
                     </form>
 
@@ -91,15 +91,22 @@
     <script>
         (function () {
             const examples = [
-                '💬 Jeg blev opereret for ryggen sidste år...\n\n...men bagefter fik jeg stærke smerter i benet.\n\nJeg ved ikke, om det er normalt, eller om noget gik galt.',
-                '💬 Jeg søgte læge flere gange med de samme symptomer...\n\n...men diagnosen blev først stillet flere måneder senere.\n\nJeg er i tvivl om, om det burde være opdaget før.',
-                '💬 Jeg fik ny medicin efter min behandling...\n\n...og kort tid efter blev jeg meget dårlig.\n\nJeg vil gerne vide, om det bør undersøges nærmere.',
-                '💬 Jeg ved ikke, om det er en sag...\n\nmen efter behandlingen har jeg fået problemer, jeg ikke havde før.\n\nJeg vil gerne starte med at fortælle, hvad der skete.'
+                'Jeg blev opereret for ryggen sidste år...\n\n...men bagefter fik jeg stærke smerter i benet.\n\nJeg ved ikke, om det er normalt, eller om noget gik galt.',
+                'Jeg søgte læge flere gange med de samme symptomer...\n\n...men diagnosen blev først stillet flere måneder senere.\n\nJeg er i tvivl om, om det burde være opdaget før.',
+                'Jeg fik ny medicin efter min behandling...\n\n...og kort tid efter blev jeg meget dårlig.\n\nJeg vil gerne vide, om det bør undersøges nærmere.',
+                'Jeg ved ikke, om det er en sag...\n\nmen efter behandlingen har jeg fået problemer, jeg ikke havde før.\n\nJeg vil gerne starte med at fortælle, hvad der skete.'
             ];
             const target = document.getElementById('c2ExampleTyping');
             const textarea = document.getElementById('message-c2');
+            const startButton = document.getElementById('startDialogueButton');
             let stopped = false;
             textarea.addEventListener('input', function () { stopped = textarea.value.trim().length > 0; textarea.classList.toggle('has-user-text', stopped); if (stopped) target.textContent = ''; });
+            startButton.addEventListener('click', function () {
+                const written = textarea.value.trim();
+                const textToCarry = written || 'Jeg er i tvivl om, om noget gik galt under min behandling. Jeg vil gerne starte med at fortælle, hvad der bekymrer mig.';
+                try { localStorage.setItem('eh_initial_story', textToCarry); } catch (error) {}
+                window.location.href = './bold-dialogue-index.html';
+            });
             function sleep(ms) { return new Promise(function (resolve) { window.setTimeout(resolve, ms); }); }
             function delayForCharacter(char) { if (char === '\n') return 260; if (char === ',' || char === '-') return 220; if (char === '.') return 430; if (char === ' ') return 55; return 62 + Math.floor(Math.random() * 28); }
             async function typeExample(text) { target.textContent = ''; await sleep(850); for (const char of text) { if (stopped) return; target.textContent += char; await sleep(delayForCharacter(char)); } }
