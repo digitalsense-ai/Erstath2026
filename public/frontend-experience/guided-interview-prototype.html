@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guided AI Interview - Prototype</title>
+<link rel="stylesheet" href="./guided-interview.css">
+</head>
+<body>
+<div class="gi-shell">
+<header class="gi-top">
+<a class="gi-logo" href="./bold-dialogue-index.html"><span>EH</span>ErstatningsHjælp</a>
+<span class="gi-note">Prototype: chat + levende sagsopsummering</span>
+</header>
+<main class="gi-layout">
+<section class="gi-panel gi-chat">
+<div class="gi-head">
+<div><h1>Guided AI Interview</h1><p>En rolig dialog, hvor systemet viser hvad det forstår undervejs.</p></div>
+<span class="gi-live">Sagen bygges live</span>
+</div>
+<div class="gi-messages" id="messages">
+<div class="gi-message user"><div class="gi-avatar">Du</div><div class="gi-bubble">Jeg blev opereret, og bagefter fik jeg problemer, som jeg ikke havde før. Jeg er i tvivl om, om noget gik galt.</div></div>
+<div class="gi-message ai"><div class="gi-avatar">EH</div><div class="gi-bubble"><strong>Lad mig se, om jeg har forstået dig rigtigt.</strong>Du fortæller, at du havde et behandlingsforløb, og at der bagefter opstod problemer, som gør dig i tvivl om, om forløbet bør undersøges nærmere.<br><br>Er det korrekt forstået?</div></div>
+<div class="gi-message user"><div class="gi-avatar">Du</div><div class="gi-bubble">Ja, det er korrekt</div></div>
+<div class="gi-message ai"><div class="gi-avatar">EH</div><div class="gi-bubble"><strong>Tak. Nu ved jeg, hvad din bekymring handler om.</strong>Der er én ting, jeg gerne vil forstå bedre nu: cirka hvornår det skete. Det behøver ikke være en præcis dato.</div></div>
+</div>
+<div class="gi-controls">
+<p class="gi-reason">Jeg spørger om tidspunktet, fordi det kan have betydning for, hvordan sagen bør vurderes senere.</p>
+<div class="gi-choices">
+<button class="gi-choice primary">I år</button>
+<button class="gi-choice">For 1-3 år siden</button>
+<button class="gi-choice">For 3-10 år siden</button>
+<button class="gi-choice">Mere end 10 år siden</button>
+<button class="gi-choice">Jeg kan ikke huske</button>
+<button class="gi-choice">Skriv selv</button>
+</div>
+</div>
+</section>
+<aside class="gi-panel gi-case">
+<h2>Din sag indtil nu</h2>
+<p class="gi-case-intro">Her kan brugeren se, hvad systemet har fanget. Det er ikke en afgørelse, og alt kan rettes senere.</p>
+<div class="gi-progress"><span style="width:42%"></span></div>
+<div class="gi-section">
+<p class="gi-label">Det jeg har forstået</p>
+<div class="gi-fact"><span class="gi-check">✓</span><div>Du er bekymret for, om et behandlingsforløb bør undersøges nærmere.</div></div>
+<div class="gi-fact"><span class="gi-check">✓</span><div>Problemerne opstod efter behandlingen.</div></div>
+<div class="gi-fact"><span class="gi-check">✓</span><div>Du har bekræftet, at den første forståelse passer nogenlunde.</div></div>
+</div>
+<div class="gi-section">
+<p class="gi-label">Det jeg mangler</p>
+<div class="gi-fact"><span class="gi-check">○</span><div>Cirka hvornår det skete.</div></div>
+<div class="gi-fact"><span class="gi-check">○</span><div>Hvor forløbet foregik.</div></div>
+<div class="gi-fact"><span class="gi-check">○</span><div>Hvad følgerne blev bagefter.</div></div>
+</div>
+<div class="gi-section">
+<p class="gi-label">Næste spørgsmål</p>
+<p class="gi-empty">Cirka hvornår skete forløbet?</p>
+</div>
+<div class="gi-foot">Du kan altid rette oplysningerne senere. Formålet er først at forstå sagen i almindeligt dansk.</div>
+</aside>
+</main>
+</div>
+</body>
+</html>
