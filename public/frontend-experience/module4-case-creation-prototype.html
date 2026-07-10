@@ -28,7 +28,6 @@
 </div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Lad os få sagen i mål</button><a class="btn secondary" href="./guided-interview-prototype.html">Læs samtalen igen</a></div>
 </section>
-
 <section class="step" data-step="2">
 <div class="eyebrow">Trin 2 af 8</div>
 <h1>Har vi forstået dit forløb rigtigt?</h1>
@@ -39,124 +38,52 @@
 <div class="summary-row"><b>Hvad bekymrer dig?</b><span>Du oplever fortsatte gener og er i tvivl om, hvorvidt behandlingen blev udført korrekt.</span></div>
 <div class="summary-row"><b>Det vi stadig skal afklare</b><span>Den præcise sammenhæng og hvilke dokumenter der bedst belyser forløbet.</span></div>
 </div>
-<div class="choice-grid">
-<button class="choice selected"><b>Ja, det er rigtigt nok</b><small>Vi kan arbejde videre med denne opsummering.</small></button>
-<button class="choice"><b>Jeg vil rette noget</b><small>Tilføj eller ret en vigtig oplysning.</small></button>
-</div>
+<div class="choice-grid"><button class="choice selected"><b>Ja, det er rigtigt nok</b><small>Vi kan arbejde videre med denne opsummering.</small></button><button class="choice"><b>Jeg vil rette noget</b><small>Tilføj eller ret en vigtig oplysning.</small></button></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Fortsæt</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="3">
-<div class="eyebrow">Trin 3 af 8</div>
-<h1>Hvordan må vi kontakte dig?</h1>
-<p class="lead">Vi bruger kun oplysningerne til sagen og til at kontakte dig, hvis en sagsbehandler mangler noget.</p>
-<div class="field-grid">
-<div class="field full"><label>Fulde navn</label><input value="Jan Dalsager"></div>
-<div class="field"><label>E-mail</label><input type="email" placeholder="navn@email.dk"></div>
-<div class="field"><label>Telefonnummer</label><input type="tel" placeholder="12 34 56 78"></div>
-<div class="field full"><label>Foretrukken kontaktform</label><select><option>E-mail</option><option>Telefon</option><option>Begge dele</option></select></div>
-</div>
+<div class="eyebrow">Trin 3 af 8</div><h1>Hvordan må vi kontakte dig?</h1><p class="lead">Vi bruger kun oplysningerne til sagen og til at kontakte dig, hvis en sagsbehandler mangler noget.</p>
+<div class="field-grid"><div class="field full"><label>Fulde navn</label><input placeholder="Dit fulde navn"></div><div class="field"><label>E-mail</label><input type="email" placeholder="navn@email.dk"></div><div class="field"><label>Telefonnummer</label><input type="tel" placeholder="12 34 56 78"></div><div class="field full"><label>Foretrukken kontaktform</label><select><option>E-mail</option><option>Telefon</option><option>Begge dele</option></select></div></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Gem og fortsæt</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="4">
-<div class="eyebrow">Trin 4 af 8</div>
-<h1>Vi skal have din tilladelse til at arbejde videre.</h1>
-<p class="lead">Her giver du os lov til at gemme og gennemgå de oplysninger, du har delt. Du kan læse den fulde tekst, før du accepterer.</p>
-<div class="panel">
-<label class="check"><input type="checkbox" checked><span><b>Jeg giver samtykke</b><br>ErstatningsHjælp må behandle mine person- og helbredsoplysninger med det formål at vurdere og håndtere min sag.</span></label>
-<label class="check"><input type="checkbox" checked><span><b>Jeg accepterer vilkårene</b><br>Jeg beder ErstatningsHjælp om at gennemgå, om sagen kan tages videre. Et endeligt klientforhold opstår først efter bekræftelse.</span></label>
-</div>
+<div class="eyebrow">Trin 4 af 8</div><h1>Vi skal have din tilladelse til at arbejde videre.</h1><p class="lead">Her giver du os lov til at gemme og gennemgå de oplysninger, du har delt. Du kan læse den fulde tekst, før du accepterer.</p>
+<div class="panel"><label class="check"><input type="checkbox"><span><b>Jeg giver samtykke</b><br>ErstatningsHjælp må behandle mine person- og helbredsoplysninger med det formål at vurdere og håndtere min sag.</span></label><label class="check"><input type="checkbox"><span><b>Jeg accepterer vilkårene</b><br>Jeg beder ErstatningsHjælp om at gennemgå, om sagen kan tages videre. Et endeligt klientforhold opstår først efter bekræftelse.</span></label></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Accepter og fortsæt</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="5">
-<div class="eyebrow">Trin 5 af 8</div>
-<h1>Har du dokumenter klar?</h1>
-<p class="lead">Det er helt normalt ikke at have alt ved hånden. Du kan fortsætte nu og tilføje dokumenter senere.</p>
-<div class="choice-grid">
-<button class="choice selected"><b>Ja, jeg har noget klar</b><small>Upload det, du allerede har.</small></button>
-<button class="choice"><b>Jeg har kun enkelte dokumenter</b><small>Det er helt fint – resten kan komme senere.</small></button>
-<button class="choice"><b>Jeg har ikke noget klar</b><small>Du kan stadig få sagen oprettet.</small></button>
-<button class="choice"><b>Jeg ved ikke, hvad der er relevant</b><small>Vi hjælper dig med en personlig tjekliste.</small></button>
-</div>
+<div class="eyebrow">Trin 5 af 8</div><h1>Har du dokumenter klar?</h1><p class="lead">Det er helt normalt ikke at have alt ved hånden. Du kan fortsætte nu og tilføje dokumenter senere.</p>
+<div class="choice-grid"><button class="choice selected"><b>Ja, jeg har noget klar</b><small>Upload det, du allerede har.</small></button><button class="choice"><b>Jeg har kun enkelte dokumenter</b><small>Det er helt fint – resten kan komme senere.</small></button><button class="choice"><b>Jeg har ikke noget klar</b><small>Du kan stadig få sagen oprettet.</small></button><button class="choice"><b>Jeg ved ikke, hvad der er relevant</b><small>Vi hjælper dig med en personlig tjekliste.</small></button></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Fortsæt</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="6">
-<div class="eyebrow">Trin 6 af 8</div>
-<h1>Tilføj det, du har nu.</h1>
-<p class="lead">Du behøver ikke sortere alt perfekt. Vi hjælper med at genkende dokumenttypen og finde de vigtigste oplysninger.</p>
+<div class="eyebrow">Trin 6 af 8</div><h1>Tilføj det, du har nu.</h1><p class="lead">Du behøver ikke sortere alt perfekt. Vi hjælper med at genkende dokumenttypen og finde de vigtigste oplysninger.</p>
 <div class="upload"><strong>Træk filer hertil eller vælg fra din enhed</strong><span>PDF, JPG eller PNG</span></div>
 <div class="file"><div class="file-meta"><div class="file-icon">PDF</div><div><b>Udskrivningsbrev.pdf</b><br><small>Vi tror, dette er et udskrivningsbrev fra 14. marts 2025.</small></div></div><span class="badge ok">Klar</span></div>
 <div class="file"><div class="file-meta"><div class="file-icon">PDF</div><div><b>Journalnotat.pdf</b><br><small>Vi fandt en behandlingsdato og har tilføjet den til tidslinjen.</small></div></div><span class="badge ok">Klar</span></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Fortsæt</button><button class="btn secondary" onclick="nextStep()">Jeg uploader senere</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="7">
-<div class="eyebrow">Trin 7 af 8</div>
-<h1>Din sag er næsten klar.</h1>
-<p class="lead">Her kan du se, hvad der er på plads, og hvad der eventuelt kan tilføjes senere.</p>
-<div class="panel status-list">
-<div class="status-row"><span>Din historie og opsummering</span><span class="badge ok">Klar</span></div>
-<div class="status-row"><span>Kontaktoplysninger</span><span class="badge ok">Klar</span></div>
-<div class="status-row"><span>Samtykke og vilkår</span><span class="badge ok">Klar</span></div>
-<div class="status-row"><span>Udskrivningsbrev og journalnotat</span><span class="badge ok">Modtaget</span></div>
-<div class="status-row"><span>Eventuelle yderligere journaler</span><span class="badge later">Kan tilføjes senere</span></div>
-</div>
+<div class="eyebrow">Trin 7 af 8</div><h1>Din sag er næsten klar.</h1><p class="lead">Her kan du se, hvad der er på plads, og hvad der eventuelt kan tilføjes senere.</p>
+<div class="panel status-list"><div class="status-row"><span>Din historie og opsummering</span><span class="badge ok">Klar</span></div><div class="status-row"><span>Kontaktoplysninger</span><span class="badge ok">Klar</span></div><div class="status-row"><span>Samtykke og vilkår</span><span class="badge ok">Klar</span></div><div class="status-row"><span>Udskrivningsbrev og journalnotat</span><span class="badge ok">Modtaget</span></div><div class="status-row"><span>Eventuelle yderligere journaler</span><span class="badge later">Kan tilføjes senere</span></div></div>
 <div class="panel"><b>Når du opretter sagen</b><p>Bliver oplysningerne samlet og sendt til en menneskelig sagsbehandler. Du bliver kontaktet, hvis noget vigtigt mangler.</p></div>
 <div class="actions"><button class="btn primary" onclick="nextStep()">Opret min sag</button><button class="btn ghost" onclick="prevStep()">Tilbage</button></div>
 </section>
-
 <section class="step" data-step="8">
-<div class="eyebrow">Sagen er oprettet</div>
-<h1>Så er den i mål.</h1>
-<p class="lead">Din del er færdig for nu. En sagsbehandler kan nu gennemgå det, du har fortalt og uploadet.</p>
-<div class="success">
-<h2>Din sag er oprettet</h2>
-<p>Vi kontakter dig, hvis der mangler noget vigtigt. Du kan stadig tilføje dokumenter senere.</p>
-<div class="case-id">EH-2026-00481</div>
-</div>
-<div class="panel status-list">
-<div class="status-row"><span>Status</span><span class="badge ok">Klar til gennemgang</span></div>
-<div class="status-row"><span>Næste skridt</span><span>Sagsbehandler gennemgår sagen</span></div>
-<div class="status-row"><span>Dokumenter</span><span>2 modtaget</span></div>
-</div>
+<div class="eyebrow">Sagen er oprettet</div><h1>Så er den i mål.</h1><p class="lead">Din del er færdig for nu. En sagsbehandler kan nu gennemgå det, du har fortalt og uploadet.</p>
+<div class="success"><h2>Din sag er oprettet</h2><p>Vi kontakter dig, hvis der mangler noget vigtigt. Du kan stadig tilføje dokumenter senere.</p><div class="case-id">EH-2026-00481</div></div>
+<div class="panel status-list"><div class="status-row"><span>Status</span><span class="badge ok">Klar til gennemgang</span></div><div class="status-row"><span>Næste skridt</span><span>Sagsbehandler gennemgår sagen</span></div><div class="status-row"><span>Dokumenter</span><span>2 modtaget</span></div></div>
 <div class="actions"><a class="btn primary" href="#">Gå til min sag</a><a class="btn secondary" href="./module3-index.html">Tilbage til oversigten</a></div>
 </section>
 </main>
-
-<aside class="m4-side">
-<div class="eyebrow">Din fremdrift</div>
-<h3 id="sideTitle">Gør sagen klar</h3>
-<div class="side-progress"><span id="progressBar"></span></div>
-<div class="side-steps" id="sideSteps">
-<div class="side-step active"><div class="no">1</div><div>Vi går videre</div></div>
-<div class="side-step"><div class="no">2</div><div>Bekræft opsummeringen</div></div>
-<div class="side-step"><div class="no">3</div><div>Kontaktoplysninger</div></div>
-<div class="side-step"><div class="no">4</div><div>Samtykke og vilkår</div></div>
-<div class="side-step"><div class="no">5</div><div>Dokumenttjek</div></div>
-<div class="side-step"><div class="no">6</div><div>Upload nu eller senere</div></div>
-<div class="side-step"><div class="no">7</div><div>Gennemse og opret</div></div>
-<div class="side-step"><div class="no">8</div><div>Sagen er oprettet</div></div>
-</div>
-<div class="saved">✓ Dine oplysninger gemmes løbende i denne prototype.</div>
-</aside>
-</div>
-</div>
+<aside class="m4-side"><div class="eyebrow">Din fremdrift</div><h3>Gør sagen klar</h3><div class="side-progress"><span id="progressBar"></span></div><div class="side-steps"><div class="side-step active"><div class="no">1</div><div>Vi går videre</div></div><div class="side-step"><div class="no">2</div><div>Bekræft opsummeringen</div></div><div class="side-step"><div class="no">3</div><div>Kontaktoplysninger</div></div><div class="side-step"><div class="no">4</div><div>Samtykke og vilkår</div></div><div class="side-step"><div class="no">5</div><div>Dokumenttjek</div></div><div class="side-step"><div class="no">6</div><div>Upload nu eller senere</div></div><div class="side-step"><div class="no">7</div><div>Gennemse og opret</div></div><div class="side-step"><div class="no">8</div><div>Sagen er oprettet</div></div></div><div class="saved">✓ Dine oplysninger gemmes løbende i denne prototype.</div></aside>
+</div></div>
 <script>
-let current=1;
-const max=8;
-function render(){
- document.querySelectorAll('.step').forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===current));
- document.querySelectorAll('.side-step').forEach((s,i)=>{s.classList.toggle('active',i===current-1);s.classList.toggle('done',i<current-1)});
- document.getElementById('progressBar').style.width=((current/max)*100)+'%';
- window.scrollTo({top:0,behavior:'smooth'});
-}
+let current=1;const max=8;
+function render(){document.querySelectorAll('.step').forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===current));document.querySelectorAll('.side-step').forEach((s,i)=>{s.classList.toggle('active',i===current-1);s.classList.toggle('done',i<current-1)});document.getElementById('progressBar').style.width=((current/max)*100)+'%';window.scrollTo({top:0,behavior:'smooth'})}
 function nextStep(){if(current<max){current++;render()}}
 function prevStep(){if(current>1){current--;render()}}
-document.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{const grid=btn.closest('.choice-grid');grid.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected')}));
-render();
+document.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{const grid=btn.closest('.choice-grid');grid.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected')}));render();
 </script>
 </body>
 </html>
