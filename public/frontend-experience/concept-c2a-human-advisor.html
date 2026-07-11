@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="./reassurance.css">
     <link rel="stylesheet" href="./c2-human-first.css">
     <link rel="stylesheet" href="./c2a-human-advisor-image.css">
+    <style>
+        .fe-start-clarity{margin-top:16px;padding:16px 18px;border:1px solid #d9e7ed;border-radius:16px;background:#f5f9fb}
+        .fe-start-clarity strong{display:block;margin-bottom:10px;color:#102436}
+        .fe-start-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+        .fe-start-steps li{display:grid;grid-template-columns:28px 1fr;gap:9px;align-items:start;color:#425765;font-size:14px;line-height:1.45}
+        .fe-start-steps span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#e6f1f5;color:#0d5f7f;font-size:12px;font-weight:800}
+        .fe-trust-close{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:14px;color:#526672;font-size:13px}
+        .fe-trust-close b{color:#102436}
+        @media(max-width:760px){.fe-start-steps{grid-template-columns:1fr}.fe-start-clarity{padding:15px}}
+    </style>
 </head>
 <body>
     <a class="fe-skip-link" href="#message-c2">Spring direkte til tekstfeltet</a>
@@ -36,14 +46,28 @@
 
                     <form class="fe-input-card" novalidate>
                         <label for="message-c2">Beskriv kort, hvad der skete</label>
-                        <p class="fe-input-intro">Vi bruger dine oplysninger til at lave en indledende vurdering af, om din sag bør undersøges nærmere. Du behøver ikke kende reglerne eller have dokumenter klar.</p>
+                        <p class="fe-input-intro">Du behøver ikke kende reglerne eller have dokumenter klar. Start blot med det, du husker — så hjælper vi med resten ét skridt ad gangen.</p>
                         <div class="fe-textarea-wrap">
-                            <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper" placeholder=" "></textarea>
+                            <textarea id="message-c2" rows="8" autocomplete="off" aria-describedby="c2-helper c2-next" placeholder=" "></textarea>
                             <div id="c2ExampleTyping" class="fe-example-typing" aria-hidden="true"></div>
                         </div>
                         <div class="fe-input-bottom-row">
                             <p id="c2-helper" class="fe-helper fe-secure-note">Sikker start. Dine oplysninger deles ikke med andre her.</p>
                             <button class="fe-button fe-button-primary" type="button" id="startDialogueButton">Start min vurdering</button>
+                        </div>
+
+                        <div class="fe-start-clarity" id="c2-next">
+                            <strong>Det sker, når du starter</strong>
+                            <ol class="fe-start-steps">
+                                <li><span>1</span><div>Vi læser det, du har skrevet, og viser, hvordan vi har forstået det.</div></li>
+                                <li><span>2</span><div>Vi stiller ét relevant spørgsmål ad gangen — ikke en lang formular.</div></li>
+                                <li><span>3</span><div>Du får en foreløbig forklaring på, om forløbet bør undersøges nærmere.</div></li>
+                            </ol>
+                            <div class="fe-trust-close">
+                                <span><b>Du bestemmer tempoet</b></span>
+                                <span><b>Du kan rette oplysninger</b></span>
+                                <span><b>Vigtige beslutninger gennemgås af en medarbejder</b></span>
+                            </div>
                         </div>
                     </form>
 
@@ -80,7 +104,7 @@
             <section id="faq" class="fe-faq">
                 <p class="fe-eyebrow">FAQ</p>
                 <h2>Ofte stillede spørgsmål</h2>
-                <details><summary>Skal jeg vide, om jeg har en sag?</summary><p>Nej. Du kan starte med din bekymring. Det er netop meningen, at systemet skal hjælpe dig med at få overblik.</p></details>
+                <details><summary>Skal jeg vide, om jeg har en sag?</summary><p>Nej. Du kan starte med din bekymring. Vi hjælper dig med at få overblik.</p></details>
                 <details><summary>Skal jeg have dokumenter klar?</summary><p>Nej. Den første start kræver ikke dokumenter. De kan blive relevante senere.</p></details>
                 <details><summary>Koster det noget at starte?</summary><p>Denne prototype beskriver en gratis indledende start. Den endelige forretningsmodel skal fremgå tydeligt, før siden går live.</p></details>
                 <details><summary>Er det en endelig vurdering?</summary><p>Nej. Første trin er kun en indledende hjælp til at forstå, om sagen bør gennemgås nærmere.</p></details>
