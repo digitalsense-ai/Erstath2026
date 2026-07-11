@@ -9,7 +9,7 @@
 <body>
 <div class="gi-shell">
 <header class="gi-top">
-<a class="gi-logo" href="./bold-dialogue-index.html"><span>EH</span>ErstatningsHjælp</a>
+<a class="gi-logo" href="./concept-c2a-human-advisor.html"><span>EH</span>ErstatningsHjælp</a>
 <span class="gi-note">Samtalen bygger dit forløb trin for trin</span>
 </header>
 <main class="gi-layout">
@@ -19,7 +19,7 @@
 <span class="gi-live">Forløbet samles undervejs</span>
 </div>
 <div class="gi-messages" id="messages">
-<div class="gi-message user"><div class="gi-avatar">Du</div><div class="gi-bubble">Jeg blev opereret, og bagefter fik jeg problemer, som jeg ikke havde før. Jeg er i tvivl om, om noget gik galt.</div></div>
+<div class="gi-message user"><div class="gi-avatar">Du</div><div class="gi-bubble" id="initialStory">Jeg blev opereret, og bagefter fik jeg problemer, som jeg ikke havde før. Jeg er i tvivl om, om noget gik galt.</div></div>
 <div class="gi-message ai gi-thinking"><div class="gi-avatar">EH</div><div class="gi-bubble">Jeg læser lige det, du skrev...<div class="gi-thinking-line"><span class="gi-dots"><span></span><span></span><span></span></span><span>Jeg finder de vigtigste dele af dit forløb.</span></div></div></div>
 <div class="gi-message ai"><div class="gi-avatar">EH</div><div class="gi-bubble"><strong>Jeg har læst det, du skrev.</strong>Lad mig se, om jeg har forstået det rigtigt.<br><br>Du fortæller, at du havde et behandlingsforløb, og at der bagefter opstod problemer, som gør dig i tvivl om, om forløbet bør undersøges nærmere.<br><br>Er det rigtigt forstået?</div></div>
 <div class="gi-message user"><div class="gi-avatar">Du</div><div class="gi-bubble">Ja, det er korrekt</div></div>
@@ -35,6 +35,9 @@
 <button class="gi-choice">Mere end 10 år siden</button>
 <button class="gi-choice">Jeg kan ikke huske</button>
 <button class="gi-choice">Skriv selv</button>
+</div>
+<div style="margin-top:18px;padding-top:18px;border-top:1px solid #dbe6ec">
+<a class="gi-choice primary" href="./module3-e-vi-tager-over.html" style="display:inline-flex;text-decoration:none;justify-content:center">Se min foreløbige vurdering</a>
 </div>
 </div>
 </section>
@@ -62,5 +65,13 @@
 </aside>
 </main>
 </div>
+<script>
+(function(){
+  try {
+    const story = localStorage.getItem('eh_initial_story');
+    if (story) document.getElementById('initialStory').textContent = story;
+  } catch (error) {}
+})();
+</script>
 </body>
 </html>
