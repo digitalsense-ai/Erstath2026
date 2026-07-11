@@ -1,6 +1,6 @@
 # UX Log
 
-Version: 0.2  
+Version: 0.3  
 Status: Active  
 Purpose: Capture, prioritise and track UX observations across the complete ErstatningsHjælp journey.
 
@@ -112,6 +112,13 @@ Recommended focus:
 ---
 
 # Change log
+
+## Version 0.3
+
+- Added a clear three-step explanation directly beside the landing CTA
+- Added trust reassurance about control, correction and human review before the user starts
+- Replaced remaining generic system wording on the landing page with ErstatningsHjælp-led language
+- Confirmed that landing clarity and trust tasks are implemented in the active prototype
 
 ## Version 0.2
 
