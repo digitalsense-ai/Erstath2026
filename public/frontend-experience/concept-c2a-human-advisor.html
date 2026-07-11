@@ -105,7 +105,7 @@
                 const written = textarea.value.trim();
                 const textToCarry = written || 'Jeg er i tvivl om, om noget gik galt under min behandling. Jeg vil gerne starte med at fortælle, hvad der bekymrer mig.';
                 try { localStorage.setItem('eh_initial_story', textToCarry); } catch (error) {}
-                window.location.href = './bold-dialogue-index.html';
+                window.location.href = './guided-interview-prototype.html';
             });
             function sleep(ms) { return new Promise(function (resolve) { window.setTimeout(resolve, ms); }); }
             function delayForCharacter(char) { if (char === '\n') return 260; if (char === ',' || char === '-') return 220; if (char === '.') return 430; if (char === ' ') return 55; return 62 + Math.floor(Math.random() * 28); }
