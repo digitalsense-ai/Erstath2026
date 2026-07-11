@@ -3,25 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Modul 3</title>
+<title>Modul 3 – Screening</title>
 <link rel="stylesheet" href="./module3-screening.css">
+<style>
+.route-title{margin-top:42px}.route-note{max-width:760px;color:#647581;line-height:1.55}.m3-card.preferred{border-color:#0d5f7f;box-shadow:0 0 0 3px rgba(13,95,127,.08)}.m3-card small{display:block;margin-top:8px;color:#647581;line-height:1.45}
+</style>
 </head>
 <body>
 <div class="m3-shell">
 <header class="m3-top">
 <a class="m3-logo" href="./guided-interview-prototype.html"><span>EH</span>ErstatningsHjælp</a>
-<span class="m3-note">Modul 3: fem retninger</span>
+<span class="m3-note">Modul 3: screening og næste skridt</span>
 </header>
 <main class="m3-index">
-<p class="m3-kicker">Screening og næste trin</p>
-<h1>Fem versioner af resultat-siden</h1>
-<p>Her tester vi fem forskellige måder at gå fra AI-samtale til sagsoprettelse.</p>
+<p class="m3-kicker">Aktiv produktretning</p>
+<h1>Fire mulige screeningsresultater</h1>
+<p class="route-note">Brugeren skal ikke altid møde samme resultat. Systemet vælger rute ud fra de oplysninger, der er indsamlet, og sender usikre eller komplekse forløb til en medarbejder.</p>
+<div class="m3-grid">
+<a class="m3-card preferred" href="./module3-preferred.html"><b>1. Vi anbefaler at gå videre</b><span>Der er konkrete forhold, som bør undersøges nærmere.</span><small>Fører videre til sagsoprettelsen.</small></a>
+<a class="m3-card" href="./module3-needs-more-information.html"><b>2. Vi mangler lidt mere</b><span>En vigtig oplysning mangler, før vi kan anbefale næste skridt.</span><small>Brugeren fortsætter samtalen uden at starte forfra.</small></a>
+<a class="m3-card" href="./module3-manual-review.html"><b>3. En medarbejder skal kigge først</b><span>Forløbet er for usikkert eller komplekst til en automatisk anbefaling.</span><small>Opsummeringen sendes til manuel gennemgang.</small></a>
+<a class="m3-card" href="./module3-decline.html"><b>4. Vi kan ikke tilbyde at gå videre</b><span>Det nuværende grundlag ligger uden for det, vi kan hjælpe med.</span><small>Brugeren kan rette væsentlige oplysninger eller se andre muligheder.</small></a>
+</div>
+<h2 class="route-title">Tidligere designforsøg</h2>
+<p class="route-note">De fem oprindelige versioner bevares som designhistorik og inspiration, men er ikke længere hovedruter.</p>
 <div class="m3-grid">
 <a class="m3-card" href="./module3-a-professionel.html"><b>A. Professionel</b><span>Saglig vurdering og klare næste trin.</span></a>
 <a class="m3-card" href="./module3-b-menneskelig.html"><b>B. Menneskelig</b><span>Varm og anerkendende overgang.</span></a>
 <a class="m3-card" href="./module3-c-visuel.html"><b>C. Visuel</b><span>Progress og følelsen af næsten at være i mål.</span></a>
 <a class="m3-card" href="./module3-d-forklaring.html"><b>D. Forklaring</b><span>Forklarer hvorfor sagen kan være relevant.</span></a>
-<a class="m3-card" href="./module3-e-vi-tager-over.html"><b>E. Vi tager over</b><span>Overgang til sagsoprettelse og sagsbehandler.</span></a>
+<a class="m3-card" href="./module3-e-vi-tager-over.html"><b>E. Vi tager over</b><span>Overgang til sagsoprettelse.</span></a>
 </div>
 </main>
 </div>
