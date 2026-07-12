@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Besvar spørgsmål – ErstatningsHjælp</title>
+<style>
+:root{--ink:#102436;--muted:#657682;--line:#d8e5eb;--bg:#edf3f6;--blue:#0d5f7f;--blue-soft:#edf6f9;--green:#2f7d5a;--green-soft:#e8f4ee;--amber:#8a641d;--amber-soft:#fff4dc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px}.mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:13px}.pill{padding:8px 12px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:800}.shell{max-width:940px;margin:0 auto;padding:30px 18px 60px}.back{display:inline-flex;color:var(--blue);font-weight:800;text-decoration:none;margin-bottom:18px}.card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 14px 38px rgba(16,36,54,.05);padding:30px}.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:800;margin-bottom:10px}.card h1{font-size:36px;line-height:1.15;margin:0 0 14px}.lead{font-size:18px;line-height:1.6;color:#405460;margin:0}.translated{margin-top:24px;padding:20px;border-radius:16px;background:#f3f8fa;border:1px solid #d9e7ed}.translated h2{font-size:19px;margin:0 0 10px}.translated p{margin:0;color:#405460;line-height:1.6}.source{margin-top:14px;color:var(--muted);font-size:13px}.form{margin-top:26px;display:grid;gap:18px}.field{display:grid;gap:8px}.field label{font-weight:800}.field small{color:var(--muted);line-height:1.45}.field textarea{min-height:150px;border:1px solid #c9d8e0;border-radius:14px;padding:14px;font:inherit;resize:vertical;line-height:1.5}.help{padding:15px;border-left:3px solid var(--blue);background:#f7fafb;border-radius:0 12px 12px 0;color:#405460;line-height:1.5}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:12px;padding:14px 18px;font:inherit;font-weight:800;text-decoration:none;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#edf4f7;color:var(--ink)}.success{display:none;margin-top:24px;padding:20px;border-radius:16px;background:var(--green-soft);border:1px solid #cce6d9}.success h2{margin:0 0 8px;font-size:21px}.success p{margin:0;color:#315c48;line-height:1.5}.notice{margin-top:20px;padding:14px;border-left:3px solid var(--amber);background:#fffaf0;border-radius:0 12px 12px 0;color:#5f5237;line-height:1.5;font-size:14px}@media(max-width:650px){.top{padding:0 14px}.pill{display:none}.card{padding:24px}.card h1{font-size:30px}.actions{display:grid}.btn{text-align:center}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="mark">EH</div>ErstatningsHjælp</div><div class="pill">Frist 18. juli</div></header>
+<main class="shell"><a class="back" href="./customer-task-center.html">← Tilbage til mine opgaver</a><section class="card"><div class="eyebrow">Opgave fra din sag</div><h1>Beskriv kort, hvordan du havde det efter operationen</h1><p class="lead">Myndigheden har bedt om en uddybning. Du behøver ikke skrive juridisk eller gentage hele historien.</p>
+<div class="translated"><h2>Det betyder deres henvendelse i almindeligt dansk</h2><p>De vil gerne forstå, hvilke gener du oplevede i tiden efter operationen, og om de har ændret sig siden.</p><div class="source">Oprindelig henvendelse: “Supplerende redegørelse for det postoperative forløb.”</div></div>
+<div class="form">
+<div class="field"><label>Hvordan havde du det de første uger efter operationen?</label><small>Fortæl eksempelvis om smerter, bevægelighed eller andre gener.</small><textarea placeholder="Skriv med dine egne ord..."></textarea></div>
+<div class="field"><label>Hvilke gener har du stadig i dag?</label><small>Det er helt i orden at skrive kort. En medarbejder hjælper med at samle svaret.</small><textarea placeholder="Skriv med dine egne ord..."></textarea></div>
+<div class="help"><b>Du sender ikke direkte til myndigheden.</b><br>En medarbejder hos ErstatningsHjælp gennemgår dit svar først og kontakter dig, hvis noget skal præciseres.</div>
+</div>
+<div class="actions"><button class="btn primary" onclick="completeTask()">Send til gennemgang</button><a class="btn secondary" href="./customer-task-center.html">Gem og fortsæt senere</a></div>
+<div class="success" id="success"><h2>Tak — dit svar er modtaget</h2><p>Opgaven er nu sendt til den ansvarlige medarbejder. Vi kontrollerer svaret og sørger for den videre indsendelse.</p><div class="actions"><a class="btn primary" href="./customer-task-center.html">Tilbage til mine opgaver</a></div></div>
+<div class="notice">Vi følger sagen og hjælper med nye spørgsmål eller dokumentanmodninger, indtil behandlingen er afsluttet.</div>
+</section></main>
+<script>function completeTask(){document.getElementById('success').style.display='block';window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}</script>
+</body>
+</html>
