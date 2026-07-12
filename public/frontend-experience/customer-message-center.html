@@ -5,4 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Beskeder – ErstatningsHjælp</title>
 <style>
-:root{--ink:#102436;--muted:#657682;--line:#d8e5eb;--bg:#edf3f6;--blue:#0d5f7f;--blue-soft:#edf6f9;--green:#2f7d5a;--green-soft:#e8f4ee;--amber:#8a641d;--amber-soft:#fff4dc;--violet:#6750a4;--violet-soft:#f1edfb}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px}.mark{width:38px;height
+:root{--ink:#102436;--muted:#657682;--line:#d8e5eb;--bg:#edf3f6;--blue:#0d5f7f;--green:#2f7d5a;--green-soft:#e8f4ee}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px}.mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:13px}.pill{padding:8px 12px;border-radius:999px;background:var(--green-soft);color:var(--green);font-size:13px;font-weight:800}.shell{max-width:980px;margin:0 auto;padding:30px 18px 60px}.back{display:inline-flex;margin-bottom:18px;color:var(--blue);font-weight:800;text-decoration:none}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 38px rgba(16,36,54,.05)}.hero{padding:28px}.hero h1{margin:0 0 10px;font-size:34px}.hero p{margin:0;color:var(--muted);line-height:1.6}.panel{padding:22px;margin-top:20px}.thread{display:grid;gap:14px}.message{max-width:78%;padding:16px;border-radius:16px;line-height:1.55}.from-us{background:#f3f8fa;border:1px solid #d9e7ed}.from-you{background:var(--blue);color:#fff;margin-left:auto}.meta{font-size:12px;color:var(--muted);margin-top:7px}.from-you .meta{color:#d9edf5}.composer{display:grid;gap:10px;margin-top:22px}.composer label{font-weight:800}.composer textarea{min-height:130px;border:1px solid #c9d8e0;border-radius:14px;padding:14px;font:inherit;resize:vertical}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 16px;font:inherit;font-weight:800;text-decoration:none;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#edf4f7;color:var(--ink)}.success{display:none;margin-top:14px;padding:14px;border-radius:13px;background:var(--green-soft);color:#315c48;border:1px solid #cce6d9}.note{margin-top:18px;padding:14px;border-left:3px solid var(--blue);background:#f3f8fa;border-radius:0 12px 12px 0;color:#405460;line-height:1.5}@media(max-width:650px){.top{padding:0 14px}.pill{display:none}.message{max-width:100%}.hero h1{font-size:30px}.actions{display:grid}.btn{text-align:center}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="mark">EH</div>ErstatningsHjælp</div><div class="pill">1 ny besked</div></header>
+<main class="shell">
+<a class="back" href="./customer-case-portal.html">← Tilbage til Min sag</a>
+<section class="hero"><h1>Beskeder om din sag</h1><p>Her kan du se samtalen med os ét sted. Du skal ikke kontakte myndigheden direkte – vi hjælper med at samle og sende det rigtige svar.</p></section>
+<section class="panel">
+<div class="thread">
+<div class="message from-us"><b>Vi har modtaget en ny henvendelse i din sag.</b><br><br>Myndigheden ønsker en kort forklaring og et journalnotat. Vi har gjort det til to konkrete opgaver, som du finder under Mine opgaver.<div class="meta">Fra ErstatningsHjælp · i dag kl. 10.14</div></div>
+<div class="message from-you">Tak. Jeg kan svare på spørgsmålet i dag, men jeg er usikker på, hvordan jeg finder journalnotatet.<div class="meta">Fra dig · i dag kl. 10.31</div></div>
+<div class="message from-us"><b>Det hjælper vi med.</b><br><br>Start gerne med dit svar. Hvis du ikke har journalnotatet, skriver du bare til os her, så finder vi næste skridt sammen.<div class="meta">Fra ErstatningsHjælp · i dag kl. 10.46</div></div>
+</div>
+<div class="composer"><label for="reply">Skriv en besked til os</label><textarea id="reply" placeholder="Skriv med dine egne ord..."></textarea><div class="actions"><button class="btn primary" onclick="sendMessage()">Send besked</button><a class="btn secondary" href="./customer-task-center.html">Se mine opgaver</a></div></div>
+<div class="success" id="success"><b>Din besked er sendt.</b><br>Den ansvarlige medarbejder får besked og svarer normalt inden for én hverdag.</div>
+<div class="note"><b>Haster det?</b><br>Ring til os, hvis en frist udløber snart, eller hvis noget i sagen har ændret sig væsentligt.</div>
+</section>
+</main>
+<script>function sendMessage(){document.getElementById('success').style.display='block';document.getElementById('reply').value='';window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}</script>
+</body>
+</html>
