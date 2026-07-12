@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint 1 – Brugeraccepttest | ErstatningsHjælp</title>
+<style>
+:root{--ink:#102436;--muted:#657682;--line:#d8e5eb;--bg:#edf3f6;--panel:#fff;--blue:#0d5f7f;--blue-soft:#edf6f9;--green:#2f7d5a;--green-soft:#e8f4ee;--amber:#8a641d;--amber-soft:#fff4dc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px}.brand{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800}.mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:13px}.pill{padding:8px 12px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:800}.wrap{max-width:1240px;margin:0 auto;padding:36px 20px 70px}.hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 14px 38px rgba(16,36,54,.05)}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800}.hero h1{font-size:40px;line-height:1.1;margin:10px 0 14px}.lead{font-size:18px;line-height:1.6;color:#405460;max-width:850px}.rules{margin-top:22px;padding:18px;border-radius:16px;background:var(--blue-soft);line-height:1.55}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}.flow{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 14px 38px rgba(16,36,54,.04)}.flow h2{font-size:26px;margin:0 0 8px}.flow>p{color:var(--muted);line-height:1.55}.steps{display:grid;gap:10px;margin-top:18px}.step{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:14px;background:#fbfdfe}.no{width:34px;height:34px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:900}.step b{display:block;font-size:14px}.step small{display:block;color:var(--muted);margin-top:3px}.open{padding:9px 12px;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap}.check{margin-top:22px;padding:18px;border-radius:16px;background:var(--green-soft);border:1px solid #cce6d9}.check h3{margin:0 0 10px;font-size:16px}.check ul{margin:0;padding-left:20px;line-height:1.7;color:#365646}.footer{margin-top:24px;padding:20px;border-radius:18px;background:#fff;border:1px solid var(--line);color:#405460;line-height:1.6}@media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:650px){.top{padding:0 14px}.pill{display:none}.wrap{padding:22px 12px 50px}.hero{padding:24px}.hero h1{font-size:32px}.flow{padding:18px}.step{grid-template-columns:34px 1fr}.open{grid-column:2;justify-self:start}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="mark">EH</div>ErstatningsHjælp</div><div class="pill">Sprint 1 · brugeraccepttest</div></header>
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">Ingen nye funktioner</div>
+<h1>Kan kunden og sagsbehandleren komme hele vejen fra start til slut?</h1>
+<p class="lead">Denne side er vores faste testindgang. Vi gennemfører begge rejser i rækkefølge og bygger kun noget nyt, hvis testen afslører et konkret hul.</p>
+<div class="rules"><b>Testregel:</b> På hvert trin skal det være tydeligt, hvad der er sket, hvad det betyder, om personen skal gøre noget, hvad der sker nu, og hvem der har bolden.</div>
+</section>
+<div class="grid">
+<section class="flow">
+<h2>Kunderejsen</h2>
+<p>Fra den første bekymring til en forståelig afslutning af sagen.</p>
+<div class="steps">
+<div class="step"><div class="no">1</div><div><b>Første besøg</b><small>Forstå hjælpen og fortæl kort, hvad der er sket.</small></div><a class="open" href="./concept-c2a-human-advisor.html">Åbn</a></div>
+<div class="step"><div class="no">2</div><div><b>Guidet samtale</b><small>Ét spørgsmål ad gangen uden at starte forfra.</small></div><a class="open" href="./guided-interview-prototype.html">Åbn</a></div>
+<div class="step"><div class="no">3</div><div><b>Foreløbig screening</b><small>Forstå hvorfor sagen kan være relevant at undersøge.</small></div><a class="open" href="./module3-preferred.html">Åbn</a></div>
+<div class="step"><div class="no">4</div><div><b>Opret sagen</b><small>Saml kontaktoplysninger og nødvendigt materiale.</small></div><a class="open" href="./module4-case-creation-prototype.html">Åbn</a></div>
+<div class="step"><div class="no">5</div><div><b>Samarbejdet begynder</b><small>Tilladelser, repræsentation og identitetsbekræftelse.</small></div><a class="open" href="./module5-customer-collaboration.html">Åbn</a></div>
+<div class="step"><div class="no">6</div><div><b>Min sag</b><small>Se status, opgaver, dokumenter og beskeder.</small></div><a class="open" href="./customer-case-portal.html">Åbn</a></div>
+<div class="step"><div class="no">7</div><div><b>Sagen er sendt</b><small>Forstå at ErstatningsHjælp følger sagen videre.</small></div><a class="open" href="./customer-case-submitted.html">Åbn</a></div>
+<div class="step"><div class="no">8</div><div><b>Afventer behandling</b><small>Myndigheden har bolden, og kunden ved hvorfor der er stille.</small></div><a class="open" href="./customer-case-waiting-authority.html">Åbn</a></div>
+<div class="step"><div class="no">9</div><div><b>Afgørelsen forklaret</b><small>Resultat og næste skridt i almindeligt dansk.</small></div><a class="open" href="./customer-case-decision.html">Åbn</a></div>
+<div class="step"><div class="no">10</div><div><b>Sagen afsluttet</b><small>Tydelig og rolig afslutning uden løse ender.</small></div><a class="open" href="./customer-case-closed.html">Åbn</a></div>
+</div>
+<div class="check"><h3>Kunderejsen er først godkendt, når:</h3><ul><li>Ingen side ender blindt.</li><li>Kunden ved, hvem der har bolden.</li><li>Der kun vises én tydelig næste handling.</li><li>Myndighedssprog er forklaret i almindeligt dansk.</li><li>Kunden ikke skal fortælle sin historie igen.</li></ul></div>
+</section>
+<section class="flow">
+<h2>Sagsbehandlerrejsen</h2>
+<p>Fra en ny screening til indsendelse, opfølgning og afslutning.</p>
+<div class="steps">
+<div class="step"><div class="no">1</div><div><b>Arbejdskø</b><small>Find nye sager og se, hvad der kræver handling.</small></div><a class="open" href="./employee-case-inbox.html">Åbn</a></div>
+<div class="step"><div class="no">2</div><div><b>Sagsdetalje</b><small>Forstå sagen, manglerne og den anbefalede handling.</small></div><a class="open" href="./employee-case-detail.html">Åbn</a></div>
+<div class="step"><div class="no">3</div><div><b>Sagsmotor</b><small>Kontrollér automatisk fundne fakta og deres kilder.</small></div><a class="open" href="./employee-case-engine.html">Åbn</a></div>
+<div class="step"><div class="no">4</div><div><b>Intelligent tidslinje</b><small>Se hændelser, dokumentkilder og uafklarede konflikter.</small></div><a class="open" href="./employee-case-timeline.html">Åbn</a></div>
+<div class="step"><div class="no">5</div><div><b>Næste handling</b><small>Overtag, bed om materiale eller send til vurdering.</small></div><a class="open" href="./employee-case-action.html">Åbn</a></div>
+<div class="step"><div class="no">6</div><div><b>Afventer kunden</b><small>Se hvad der mangler, og hvad kunden er blevet bedt om.</small></div><a class="open" href="./employee-case-waiting.html">Åbn</a></div>
+<div class="step"><div class="no">7</div><div><b>Klar til indsendelse</b><small>Endelig menneskelig kontrol før sagen sendes.</small></div><a class="open" href="./employee-case-submission.html">Åbn</a></div>
+<div class="step"><div class="no">8</div><div><b>Følg den indsendte sag</b><small>Kontrollér kundens visning af indsendelse og ventestatus.</small></div><a class="open" href="./customer-case-submitted.html">Åbn</a></div>
+<div class="step"><div class="no">9</div><div><b>Gennemgå afgørelsen</b><small>Sørg for at resultatet er korrekt forklaret.</small></div><a class="open" href="./customer-case-decision.html">Åbn</a></div>
+<div class="step"><div class="no">10</div><div><b>Afslut sagen</b><small>Kontrollér at sagen ikke efterlader åbne opgaver.</small></div><a class="open" href="./customer-case-closed.html">Åbn</a></div>
+</div>
+<div class="check"><h3>Sagsbehandlerrejsen er først godkendt, når:</h3><ul><li>Sagsbehandleren kan forstå sagen uden at læse alt fra begyndelsen.</li><li>Alle AI-fund kan spores til kilde, side og tekstudsnit.</li><li>Det er tydeligt, hvad der mangler, og hvem der skal handle.</li><li>AI foreslår, men mennesket godkender.</li><li>Sagen kan sendes og afsluttes uden at skifte til et ukendt systemtrin.</li></ul></div>
+</section>
+</div>
+<div class="footer"><b>Resultatet af testen bliver vores eneste arbejdsliste.</b> Konkrete fejl og manglende overgange rettes med det samme. Forbedringsidéer, som ikke er nødvendige for at gennemføre flowet, bliver lagt i backloggen.</div>
+</main>
+</body>
+</html>
